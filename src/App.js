@@ -1,8 +1,22 @@
 import { Fragment } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { privateRoutes, publicRoutes } from './routes';
 import { DefaultLayout } from './Layout';
+
+// Hãy giả sử có một biến state cho biết trạng thái đăng nhập của người dùng
+const isAuthenticated = true; // true nếu người dùng đã đăng nhập, false nếu chưa
+
+// Component cho việc kiểm tra điều kiện đăng nhập của người dùng
+function AuthWrapper({ children }) {
+    // Kiểm tra trạng thái đăng nhập
+    if (isAuthenticated) {
+        return <Fragment>{children}</Fragment>;
+    } else {
+        // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+        return <Navigate to="/login" />;
+    }
+}
 
 function App() {
     return (
@@ -19,7 +33,6 @@ function App() {
                         } else if (route.layout === null) {
                             Layout = Fragment;
                         }
-
                         return (
                             <Route
                                 key={index}
@@ -48,9 +61,11 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
+                                    <AuthWrapper>
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    </AuthWrapper>
                                 }
                             />
                         );
