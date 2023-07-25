@@ -1,5 +1,5 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Nunito:wght@200;300;400;500;600;700&display=swap');
 
 :root {
     --primary: #1d6fdf;
@@ -12,6 +12,7 @@
     --red-color: #fe4672;
     --tag-color: #ff6600;
     --black-color: #000;
+    --font-family: 'Nunito', 'Montserrat';
 }
 img {
     max-width: 100%;
@@ -27,8 +28,26 @@ html {
     font-size: 62.5%;
 }
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Nunito', 'IBM Plex Sans', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+}
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+button,
+input,
+[tabindex] {
+    border: none;
+    outline: none;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
 }
