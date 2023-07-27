@@ -1,0 +1,41 @@
+.wrapper {
+    background-color: var(--grey-background);
+    padding-bottom: 20px;
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        padding: 12px 0;
+        color: #1e4780;
+    }
+}
+.header,
+.footer,
+.cart-detail {
+    padding: 30px 0;
+    border-radius: 6px;
+    background-color: var(--white-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 48px;
+    flex: 1;
+    .header__products input,
+    .footer__products input {
+        margin-left: 64px;
+        margin-right: 27px;
+    }
+    .footer__products a {
+        margin-left: 46px;
+        &:hover {
+            color: var(--primary) !important;
+            cursor: pointer;
+        }
+    }
+}
+
+.footer__info {
+    .total-payment {
+        color: #d01212;
+    }
+    .btn-order {
+        color: var(--white-text-color);
+    }
+}

@@ -16,7 +16,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from '../Search';
 import Menu from '../../Popper/Menu';
-
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -130,9 +130,12 @@ function Header() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={cx('cart', 'd-flex align-items-center justify-content-center')}>
+                                <Link
+                                    to={'/cart'}
+                                    className={cx('cart', 'd-flex align-items-center justify-content-center')}
+                                >
                                     <CartIcon />
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

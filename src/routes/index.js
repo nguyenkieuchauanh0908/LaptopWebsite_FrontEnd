@@ -8,13 +8,11 @@ import Login from '../pages/Login';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/cart', component: Cart, layout: HeaderOnly },
+    { path: '/cart', component: Cart },
     { path: '/login', component: Login, layout: null },
+    { path: '/cart/checkout', component: CheckOut, layout: HeaderOnly },
 ];
 // Private Routes
-const privateRoutes = [
-    { path: '/account', component: Account },
-    { path: '/checkout', component: CheckOut, layout: null },
-];
+const privateRoutes = [{ path: '/account', component: Account }];
 
 export { publicRoutes, privateRoutes };

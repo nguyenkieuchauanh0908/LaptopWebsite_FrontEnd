@@ -1,10 +1,11 @@
 .footer {
     position: relative;
     padding-top: 90px;
+    padding-bottom: 45px;
 }
 .footer__contact {
     .footer__contact-address {
-        font-size: 2.4rem;
+        font-size: 2rem;
         line-height: 36px;
         margin-bottom: 40px;
     }
@@ -56,6 +57,7 @@
         margin-bottom: 12px;
     }
     .icon-social {
+        cursor: pointer;
         margin-right: 12px;
     }
 }
@@ -71,8 +73,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #1e4780;
+    }
     .icon {
         font-size: 2.4rem;
         color: var(--white-text-color);
     }
+}
+
+.footer-license {
+    font-size: 1.2rem;
+    color: var(--sub-text-color);
+    padding-top: 50px;
+    margin-left: 60px;
 }

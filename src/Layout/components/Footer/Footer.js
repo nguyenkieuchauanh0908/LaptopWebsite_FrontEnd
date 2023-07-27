@@ -42,41 +42,46 @@ function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className={cx('col-lg-6 col-md-6 row')}>
-                        <div className={cx('col-lg-3', 'footer-policy')}>
-                            <h3>Chính sách</h3>
-                            <ul>
-                                <li>
-                                    <a>Chính sách đổi trả</a>
-                                </li>
-                                <li>
-                                    <a>Hệ thống bảo hành</a>
-                                </li>
-                                <li>
-                                    <a>Chính sách thanh toán</a>
-                                </li>
-                                <li>
-                                    <a>Giao hàng lắp đặt tại nhà</a>
-                                </li>
-                            </ul>
+                    <div className={cx('col-lg-6 col-md-6')}>
+                        <div className={cx('row')}>
+                            <div className={cx('col-lg-3', 'footer-policy')}>
+                                <h3>Chính sách</h3>
+                                <ul>
+                                    <li>
+                                        <a>Chính sách đổi trả</a>
+                                    </li>
+                                    <li>
+                                        <a>Hệ thống bảo hành</a>
+                                    </li>
+                                    <li>
+                                        <a>Chính sách thanh toán</a>
+                                    </li>
+                                    <li>
+                                        <a>Giao hàng lắp đặt tại nhà</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={cx('col-lg-3', 'footer-pay')}>
+                                <h3>Thanh toán</h3>
+                                <ul>
+                                    <li>
+                                        <a>Ship Cod</a>
+                                    </li>
+                                    <li>
+                                        <a>Vnpay</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={cx('col-lg-6', 'footer-social')}>
+                                <h3>Theo dõi chúng tôi trên</h3>
+                                <FacebookIcon className={cx('icon-social')} />
+                                <YoutubeIcon className={cx('icon-social')} />
+                                <TiktokIcon className={cx('icon-social')} />
+                                <InstagramIcon className={cx('icon-social')} />
+                            </div>
                         </div>
-                        <div className={cx('col-lg-3', 'footer-pay')}>
-                            <h3>Thanh toán</h3>
-                            <ul>
-                                <li>
-                                    <a>Ship Cod</a>
-                                </li>
-                                <li>
-                                    <a>Vnpay</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className={cx('col-lg-6', 'footer-social')}>
-                            <h3>Theo dõi chúng tôi trên</h3>
-                            <FacebookIcon className={cx('icon-social')} />
-                            <YoutubeIcon className={cx('icon-social')} />
-                            <TiktokIcon className={cx('icon-social')} />
-                            <InstagramIcon className={cx('icon-social')} />
+                        <div className={cx('row')}>
+                            <div className={cx('footer-license')}>© 2023 Team 2. All rights reserved.</div>
                         </div>
                     </div>
                 </div>
