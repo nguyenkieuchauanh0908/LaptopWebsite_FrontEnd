@@ -49,13 +49,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFun
         setHistory((prev) => prev.slice(0, 1));
     };
     return (
-        <HeadlessTippy
-            delay={[0, 700]}
-            interactive
-            render={renderResult}
-            onHide={handleResetMenu}
-            hideOnClick={hideOnClick}
-        >
+        <HeadlessTippy delay={[0, 700]} interactive render={renderResult} onHide={handleResetMenu} hideOnClick>
             {children}
         </HeadlessTippy>
     );

@@ -13,26 +13,45 @@ import {
 } from '../../../components/Icons';
 import Image from '../../../components/Images';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
-import { wrapper as PopperWapper } from '../../../Layout/Popper';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from '../Search';
-import Tippy from '@tippyjs/react';
+import Menu from '../../Popper/Menu';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const renderPreview = (attrs) => (
-        <div className={cx('menu-list')} tabIndex="-1" {...attrs} style={{ background: '#fff' }}>
-            <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-                <PopperWapper className={cx('menu-wrapper')}>
-                    <h2>Danh mục 1</h2>
-                    <h2>Danh mục 2</h2>
-                    <h2>Danh mục 3</h2>
-                </PopperWapper>
-            </div>
-        </div>
-    );
+    const handleMenuOnchange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                // handle langue
+                break;
+            default:
+        }
+    };
+
+    const userMenut = [
+        {
+            title: 'MacBook',
+            to: '/macbook',
+        },
+        {
+            title: 'Dell',
+            to: '/dell',
+        },
+        {
+            title: 'Lenovo',
+            to: '/lenovo',
+        },
+        {
+            title: 'Asus',
+            to: '/asus',
+        },
+        {
+            title: 'Xem tất cả',
+            to: '/danhmuc',
+            separate: true,
+        },
+    ];
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -77,12 +96,12 @@ function Header() {
                                         alt="logo"
                                     />
                                 </div>
-                                <Tippy interactive render={renderPreview} placement="bottom-start" hideOnClick>
+                                <Menu items={userMenut} onChange={handleMenuOnchange}>
                                     <div className={cx('menu', 'd-flex align-items-center')}>
                                         <MenuIcon />
                                         <div className={cx('menu-text')}>Danh Mục</div>
                                     </div>
-                                </Tippy>
+                                </Menu>
                             </div>
                             <div className={cx(' d-flex align-items-center justify-content-between', 'search')}>
                                 <Search />
