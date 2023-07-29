@@ -14,22 +14,24 @@ function Cart() {
             {!cartNull ? (
                 <div className={cx('container')}>
                     <div className={cx('row align-items-center', 'header')}>
-                        <div className={cx('col-lg-6 col-md-6', 'header__products', 'd-flex')}>
-                            <input type="checkbox" name="products" />
-                            <p>Sản phẩm</p>
-                        </div>
-                        <div className={cx('col-lg-6 col-md-6 row', 'header__info')}>
-                            <div className={cx('col-lg-3 col-md-3')}>
-                                <p>Đơn giá</p>
+                        <div className={cx('row')}>
+                            <div className={cx('col-lg-6 col-md-6', 'header__products', 'd-flex')}>
+                                <input type="checkbox" name="products" />
+                                <p>Sản phẩm</p>
                             </div>
-                            <div className={cx('col-lg-3 col-md-3')}>
-                                <p>Số lượng</p>
-                            </div>
-                            <div className={cx('col-lg-3 col-md-3')}>
-                                <p>Số tiền</p>
-                            </div>
-                            <div className={cx('col-lg-3 col-md-3')}>
-                                <p>Thao tác</p>
+                            <div className={cx('col-lg-6 col-md-6 d-flex', 'header__info')}>
+                                <div className={cx('col-lg-3 col-md-3')}>
+                                    <p>Đơn giá</p>
+                                </div>
+                                <div className={cx('col-lg-3 col-md-3')}>
+                                    <p>Số lượng</p>
+                                </div>
+                                <div className={cx('col-lg-3 col-md-3')}>
+                                    <p>Số tiền</p>
+                                </div>
+                                <div className={cx('col-lg-3 col-md-3')}>
+                                    <p>Thao tác</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +48,7 @@ function Cart() {
                             <p>Chọn tất cả</p>
                             <a>Xóa</a>
                         </div>
-                        <div className={cx('row col-lg-6 col-md-6 align-items-center', 'footer__info')}>
+                        <div className={cx('col-lg-6 col-md-6 d-flex align-items-center', 'footer__info')}>
                             <div className={cx('col-lg-3 col-md-3')}>
                                 <p>Tổng thanh toán</p>
                             </div>

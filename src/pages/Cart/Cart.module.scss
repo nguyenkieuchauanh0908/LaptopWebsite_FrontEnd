@@ -16,7 +16,6 @@
     background-color: var(--white-background);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     margin-bottom: 48px;
-    flex: 1;
     .header__products input,
     .footer__products input {
         margin-left: 64px;
@@ -29,6 +28,10 @@
             cursor: pointer;
         }
     }
+}
+
+.header__info {
+    text-align: center;
 }
 
 .footer__info {

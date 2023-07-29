@@ -313,7 +313,7 @@ export const InstagramIcon = ({ width = '3rem', height = '3rem', className }) =>
         viewBox="0 0 32 32"
         fill="none"
     >
-        <g clip-path="url(#clip0_333_3066)">
+        <g clipPath="url(#clip0_333_3066)">
             <path
                 d="M15.9961 31.8961C24.8327 31.8961 31.9961 24.7326 31.9961 15.8961C31.9961 7.0595 24.8327 -0.103943 15.9961 -0.103943C7.15954 -0.103943 -0.00390625 7.0595 -0.00390625 15.8961C-0.00390625 24.7326 7.15954 31.8961 15.9961 31.8961Z"
                 fill="url(#paint0_linear_333_3066)"
@@ -340,17 +340,70 @@ export const InstagramIcon = ({ width = '3rem', height = '3rem', className }) =>
                 y2="5.34111"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop stop-color="#FEE411" />
-                <stop offset="0.0518459" stop-color="#FEDB16" />
-                <stop offset="0.1381" stop-color="#FEC125" />
-                <stop offset="0.2481" stop-color="#FE983D" />
-                <stop offset="0.3762" stop-color="#FE5F5E" />
-                <stop offset="0.5" stop-color="#FE2181" />
-                <stop offset="1" stop-color="#9000DC" />
+                <stop stopColor="#FEE411" />
+                <stop offset="0.0518459" stopColor="#FEDB16" />
+                <stop offset="0.1381" stopColor="#FEC125" />
+                <stop offset="0.2481" stopColor="#FE983D" />
+                <stop offset="0.3762" stopColor="#FE5F5E" />
+                <stop offset="0.5" stopColor="#FE2181" />
+                <stop offset="1" stopColor="#9000DC" />
             </linearGradient>
             <clipPath id="clip0_333_3066">
                 <rect width="32" height="32" fill="white" />
             </clipPath>
         </defs>
+    </svg>
+);
+export const CodIcon = ({ width = '2.4rem', height = '2.4rem', className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <rect width="24" height="24" rx="2" fill="#16B364" />
+        <path
+            d="M20.1968 6.75H4.87542C4.54996 6.75 4.28613 7.01383 4.28613 7.33929V15.5893C4.28613 15.9147 4.54996 16.1786 4.87542 16.1786H20.1968C20.5223 16.1786 20.7861 15.9147 20.7861 15.5893V7.33929C20.7861 7.01383 20.5223 6.75 20.1968 6.75Z"
+            stroke="white"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M18.9107 8.03601H3.58929C3.26383 8.03601 3 8.29984 3 8.6253V16.8753C3 17.2008 3.26383 17.4646 3.58929 17.4646H18.9107C19.2362 17.4646 19.5 17.2008 19.5 16.8753V8.6253C19.5 8.29984 19.2362 8.03601 18.9107 8.03601Z"
+            fill="#16B364"
+            stroke="white"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M11.2497 15.1068C12.5515 15.1068 13.6069 14.0515 13.6069 12.7497C13.6069 11.4478 12.5515 10.3925 11.2497 10.3925C9.94791 10.3925 8.89258 11.4478 8.89258 12.7497C8.89258 14.0515 9.94791 15.1068 11.2497 15.1068Z"
+            stroke="white"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path d="M14.7861 8.03601L19.5004 12.161" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14.7861 17.464L19.5004 13.339" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7.71429 8.03601L3 12.161" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7.71429 17.464L3 13.339" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+export const PayIcon = ({ width = '2.4rem', height = '2.4rem', className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M22 10H2M11 14H6M2 8.2L2 15.8C2 16.9201 2 17.4802 2.21799 17.908C2.40973 18.2843 2.71569 18.5903 3.09202 18.782C3.51984 19 4.07989 19 5.2 19L18.8 19C19.9201 19 20.4802 19 20.908 18.782C21.2843 18.5903 21.5903 18.2843 21.782 17.908C22 17.4802 22 16.9201 22 15.8V8.2C22 7.0799 22 6.51984 21.782 6.09202C21.5903 5.7157 21.2843 5.40974 20.908 5.21799C20.4802 5 19.9201 5 18.8 5L5.2 5C4.0799 5 3.51984 5 3.09202 5.21799C2.7157 5.40973 2.40973 5.71569 2.21799 6.09202C2 6.51984 2 7.07989 2 8.2Z"
+            stroke="#1849A9"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
     </svg>
 );
