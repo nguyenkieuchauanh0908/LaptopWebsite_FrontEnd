@@ -1,15 +1,16 @@
 import Image from '../Images';
 import classNames from 'classnames/bind';
-import styles from './CartItem.module.scss';
+import styles from './CartItemCheckOut.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faGift } from '@fortawesome/free-solid-svg-icons';
+import ListGift from '../../pages/CheckOut/ListGift';
+import GiftItem from './GiftItem';
 const cx = classNames.bind(styles);
-function CartItem() {
+function CartItemCheckOut() {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', 'd-flex flex-column')}>
             <div className={cx('row')}>
                 <div className={cx('col-lg-6 col-md-6 d-flex')}>
-                    <input type="checkbox" name="product" />
                     <div className={cx('product', 'd-flex')}>
                         <div className={cx('product-img')}>
                             <Image
@@ -34,14 +35,8 @@ function CartItem() {
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
                         <p>1.490.000₫</p>
                     </div>
-                    <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center', 'cart__item-quantity')}>
-                        <a className={cx('btn-reduce')}>
-                            <FontAwesomeIcon icon={faMinus} />
-                        </a>
+                    <div className={cx('col-lg-3 col-md-3', 'cart__item-quantity')}>
                         <div className={cx('quantity')}>5</div>
-                        <a className={cx('btn-raise')}>
-                            <FontAwesomeIcon icon={faPlus} />
-                        </a>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
                         <p>12.490.000₫</p>
@@ -51,8 +46,21 @@ function CartItem() {
                     </div>
                 </div>
             </div>
+            <div className={cx('cart__gift')}>
+                <div className={cx('cart__gift-title', 'd-flex')}>
+                    <FontAwesomeIcon icon={faGift} />
+                    <h3>Quà tặng</h3>
+                </div>
+                <div className={cx('cart__gift-item')}>
+                    <ListGift>
+                        <GiftItem />
+                        <GiftItem />
+                        <GiftItem />
+                    </ListGift>
+                </div>
+            </div>
         </div>
     );
 }
 
-export default CartItem;
+export default CartItemCheckOut;

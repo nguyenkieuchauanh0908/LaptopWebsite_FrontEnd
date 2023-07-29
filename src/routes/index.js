@@ -10,7 +10,7 @@ const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart },
     { path: '/login', component: Login, layout: null },
-    { path: '/cart/checkout', component: CheckOut, layout: HeaderOnly },
+    { path: '/cart/checkout', component: CheckOut },
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];

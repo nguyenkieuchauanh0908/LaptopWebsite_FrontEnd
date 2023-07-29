@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-function ListCart({ children }) {
+function ListGift({ children }) {
     return <>{children}</>;
 }
-ListCart.propTypes = {
+ListGift.propTypes = {
     children: PropTypes.node.isRequired,
 };
-export default ListCart;
+export default ListGift;
