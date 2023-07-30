@@ -1,6 +1,7 @@
 .pCard {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border: black;
+    border: rgba(0, 0, 0, 0.176);
+    overflow: hidden;
 }
 
 .pImg-wrapper {
@@ -8,16 +9,37 @@
 }
 
 .pImg {
-    position: relative;
+    position: absolute;
     width: 155px;
     height: 166px;
     top: -24px;
+    right: -50%;
+    transform: translateX(-50%);
+}
+
+.sale-tag {
+    color: #fff;
+    text-align: center;
+    /* PC/L/Label 2 */
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+
+    position: absolute;
+    top: 12px;
+    right: 12px !important;
+    background-color: #f60;
+    border-radius: 4px;
+    z-index: 1;
+    text-align: center;
+    width: 73px;
+    height: 19px;
 }
 
 .card-content {
-    position: relative;
-    top: -24px;
-    margin-left: 0px;
+    margin: 132px auto 18px;
 }
 
 .pCate {

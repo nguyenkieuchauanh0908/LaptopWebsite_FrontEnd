@@ -10,7 +10,8 @@ function Products() {
     return (
         <Col md={10} className={cx('col-products')}>
             <div className={cx('row-products')}>
-                <p>Sản phẩm bán chạy nhất</p>
+                {/* Bán chạy nhất */}
+                <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
                 <Row sm={3} xs={2} md lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
@@ -79,8 +80,82 @@ function Products() {
                     </div>
                 </Row>
             </div>
+
+            {/* Sản phẩm đang sale */}
             <div className={cx('row-products')}>
-                <p>Sản phẩm bán chạy nhất</p>
+                <p className={cx('row-products-label')}>Sản phẩm đang sale</p>
+                <Row sm={3} xs={2} md lg={3} xl={5}>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                            15IAU7 - ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                            15IAU7 - ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                            15IAU7 - ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                            15IAU7 - ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                </Row>
+            </div>
+
+            {/*Most searched  */}
+            <div className={cx('row-products')}>
+                <p className={cx('row-products-label')}>Sản phẩm được tìm kiếm nhiều nhất</p>
                 <Row sm={3} xs={2} md lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard

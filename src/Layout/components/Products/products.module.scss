@@ -1,15 +1,13 @@
 .row-products {
     position: relative;
-    right: 30px;
-    background-color: #f8f8fc;
     margin-bottom: 28px;
 }
 
 .card-wrapper {
-    padding: 3px;
+    padding: 3px !important;
 }
 
-p {
+.row-products-label {
     position: relative;
     left: 12px;
     color: #1c1f23;
