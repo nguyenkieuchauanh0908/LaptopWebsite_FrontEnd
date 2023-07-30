@@ -17,9 +17,12 @@
 .card-content {
     position: relative;
     top: -24px;
+    margin-left: 0px;
 }
 
 .pCate {
+    position: relative;
+    left: -1px;
     color: #434657;
     font-family: Roboto;
     font-size: 11px;
@@ -52,8 +55,6 @@
 }
 
 .pPrice {
-    position: relative;
-    top: -2px;
     display: flex;
     justify-content: space-between;
 }
@@ -87,17 +88,27 @@
 }
 
 .rating-stars {
+    position: relative;
+    top: -2px;
     display: flex;
     align-items: center;
 }
 
 .stars {
+    position: relative;
+    top: -1px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.stars-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 -3px;
 }
 
 .star-styles {
-    margin-right: 4px;
+    margin: 0 2px;
 }
 
 .ratingNumber {
@@ -109,6 +120,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 170%; /* 20.4px */
+    margin-left: 8px;
 }
 
 .origin {
@@ -133,6 +145,7 @@
     border: 1px solid var(--primary-600, #1570ef);
     background: var(--primary-600, #1570ef);
     height: 21px;
+    line-height: 0px;
     /* Shadow/xs */
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }

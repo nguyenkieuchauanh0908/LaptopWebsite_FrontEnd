@@ -87,7 +87,7 @@ function Products() {
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
                             pCate='DATA'
                             pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
+                        15IAU7 - ...'
                             oldPrice='16.000.000đ'
                             newPrice='12.999.999đ'
                             stars={3}
@@ -100,7 +100,7 @@ function Products() {
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
                             pCate='DATA'
                             pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
+                            15IAU7 - ...'
                             oldPrice='16.000.000đ'
                             newPrice='12.999.999đ'
                             stars={3}
@@ -113,7 +113,7 @@ function Products() {
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
                             pCate='DATA'
                             pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
+                            15IAU7 - ...'
                             oldPrice='16.000.000đ'
                             newPrice='12.999.999đ'
                             stars={3}
@@ -126,7 +126,7 @@ function Products() {
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
                             pCate='DATA'
                             pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
+                            15IAU7 - ...'
                             oldPrice='16.000.000đ'
                             newPrice='12.999.999đ'
                             stars={3}
@@ -139,7 +139,7 @@ function Products() {
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
                             pCate='DATA'
                             pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
+                            15IAU7 - ...'
                             oldPrice='16.000.000đ'
                             newPrice='12.999.999đ'
                             stars={3}
