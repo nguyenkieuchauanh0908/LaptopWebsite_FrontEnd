@@ -4,6 +4,7 @@ import styles from './products.module.scss'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ColProductCard from '../Product/product';
+import ViewAll from '../../../components/view-all/view-all';
 
 const cx = classNames.bind(styles)
 function Products() {
@@ -151,6 +152,9 @@ function Products() {
                         />
                     </div>
                 </Row>
+                <div className={cx('view-all-products')}>
+                    <ViewAll />
+                </div>
             </div>
 
             {/*Most searched  */}
