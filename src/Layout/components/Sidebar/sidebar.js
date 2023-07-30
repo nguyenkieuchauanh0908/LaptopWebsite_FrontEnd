@@ -7,7 +7,6 @@ import ViewAll from '../../../components/view-all/view-all.js'
 const cx = classNames.bind(styles)
 function Sidebar() {
     return (
-
         <Col sm xs={12} md={2}>
             <div className={cx('side-bar-wrapper')}>
                 <nav class="category">
