@@ -6,6 +6,8 @@ import classNames from 'classnames/bind'
 import ProductImgs from '../../Layout/components/ProductImgs/ProductImgs'
 import ProductInfo from '../../Layout/components/ProductInfo/ProductInfo'
 import Comment from '../../Layout/components/Comment/Comment'
+import ColProductCard from '../../Layout/components/Product/product'
+import ViewAll from '../../components/view-all/view-all';
 
 const cx = classNames.bind(styles)
 function ProductDetail() {
@@ -57,7 +59,87 @@ function ProductDetail() {
             </Container>
             <Container className={cx('wrapper')}>
                 <span className={cx('row-heading')}>Sản phẩm liên quan</span>
-                <p>Sản phẩm </p>
+                <Row sm={3} xs={3} md lg={3} xl={6}>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                    <div className={cx('card-wrapper')}>
+                        <ColProductCard
+                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
+                            pCate='DATA'
+                            pName='Laptop Lenovo IdeaPad 3 
+                        15IAU7 - 82RK001NVN ...'
+                            oldPrice='16.000.000đ'
+                            newPrice='12.999.999đ'
+                            stars={3}
+                            ratingNumber={67}
+                            origin="Mỹ"
+                        />
+                    </div>
+                </Row>
+                <ViewAll />
             </Container>
 
 
