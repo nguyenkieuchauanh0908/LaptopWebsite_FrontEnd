@@ -13,7 +13,7 @@ function Products() {
             <div className={cx('row-products')}>
                 {/* Bán chạy nhất */}
                 <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
-                <Row sm={3} xs={2} md lg={3} xl={5}>
+                <Row sm={3} xs={3} md lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
