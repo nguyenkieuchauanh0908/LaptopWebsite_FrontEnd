@@ -90,12 +90,12 @@ function Header() {
                                     'header__bot-nav-left',
                                 )}
                             >
-                                <div className={cx('logo')}>
+                                <Link to={'/'} className={cx('logo')}>
                                     <Image
                                         src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo-full.svg"
                                         alt="logo"
                                     />
-                                </div>
+                                </Link>
                                 <Menu items={userMenut} onChange={handleMenuOnchange}>
                                     <div className={cx('menu', 'd-flex align-items-center')}>
                                         <MenuIcon />
