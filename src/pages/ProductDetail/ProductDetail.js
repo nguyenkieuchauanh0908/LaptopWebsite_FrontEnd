@@ -6,6 +6,7 @@ import classNames from 'classnames/bind'
 import ProductImgs from '../../Layout/components/ProductImgs/ProductImgs'
 import ProductInfo from '../../Layout/components/ProductInfo/ProductInfo'
 import Comment from '../../Layout/components/Comment/Comment'
+
 const cx = classNames.bind(styles)
 function ProductDetail() {
     return (
@@ -33,9 +34,10 @@ function ProductDetail() {
                 <span className={cx('row-heading')}>Thông số kỹ thuật</span>
                 <Row>
                     <Col>
-                        <p>
-                            Thông số
-                        </p>
+                        <p>- Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</p>
+                        <p>- Tần số quét: 75Hz</p>
+                        <p>- Công nghệ đồng bộ: FreeSync</p>
+                        <p>- Cổng hình ảnh: , 1 x HDMI 1.4, 1 x VGA/D-sub </p>
                     </Col>
                 </Row>
 
