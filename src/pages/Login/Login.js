@@ -12,8 +12,8 @@ function Login() {
                 <p className={cx('form-title')}>Đăng nhập</p>
                 <div className={cx('input-wrapper')}>
                     <div className={cx('input-wrapper-item')}>
-                        <label className={cx('form-label')} for="phone"> Số điện thoại </label>
-                        <input className={cx('form-input')} type="text" id="phone" name="phone" placeholder='Nhâp số điện thoại'></input>
+                        <label className={cx('form-label')} for="email"> Email </label>
+                        <input className={cx('form-input')} type="text" id="email" name="email" placeholder='Nhâp email'></input>
                     </div>
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="pw">Mật khẩu</label>
