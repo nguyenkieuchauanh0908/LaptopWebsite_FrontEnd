@@ -6,12 +6,14 @@ import Account from '../pages/Account';
 import Login from '../pages/Login';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Search from '../pages/Search/Search';
+import Signup from '../pages/Signup/Signup'
 
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart, layout: HeaderOnly },
-    { path: '/login', component: Login, layout: null },
+    { path: '/login', component: Login },
+    { path: '/signip', component: Signup },
     { path: '/product-detail', component: ProductDetail },
     { path: '/search', component: Search }
 ];

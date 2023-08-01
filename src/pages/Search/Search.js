@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../../Layout/components/Sidebar/sidebar';
-import styles from './Search.module.scss';
+import styles from './Search.page.scss';
 import SearchResult from '../../Layout/components/SearchResult/searchResult'
 import classNames from 'classnames/bind';
 import Row from 'react-bootstrap/Row';
