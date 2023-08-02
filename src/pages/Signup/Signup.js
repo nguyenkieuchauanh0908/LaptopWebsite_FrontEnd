@@ -1,19 +1,30 @@
 import React from 'react';
-import styles from './Login.module.scss'
+import styles from './Signup.module.scss'
 import classNames from 'classnames/bind';
-import { GoogleIcon, Facebook } from '../../components/Icons';
+import { GoogleIcon, FacebookIcon } from '../../components/Icons';
 
 const cx = classNames.bind(styles)
 
-function Login() {
+function Signup() {
     return (
         <div className={cx('form-wrapper')}>
             <form className={cx('loginForm')}>
-                <p className={cx('form-title')}>Đăng nhập</p>
+                <p className={cx('form-title')}>Đăng ký</p>
                 <div className={cx('input-wrapper')}>
+                    <div>
+                        <div className={cx('input-wrapper-item')}>
+                            <label className={cx('form-label')} for="fName"> Họ </label>
+                            <input className={cx('form-input')} type="text" id="fName" name="fName" placeholder='Nhập họ'></input>
+                        </div>
+                        <div className={cx('input-wrapper-item')}>
+                            <label className={cx('form-label')} for="lName"> Tên </label>
+                            <input className={cx('form-input')} type="text" id="lName" name="lName" placeholder='Nhập tên'></input>
+                        </div>
+                    </div>
+
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="email"> Email </label>
-                        <input className={cx('form-input')} type="text" id="email" name="email" placeholder='Nhâp email'></input>
+                        <input className={cx('form-input')} type="text" id="email" name="email" placeholder='Nhập email'></input>
                     </div>
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="pw">Mật khẩu</label>
@@ -21,30 +32,28 @@ function Login() {
                     </div>
                 </div>
                 <div className={cx('redirect-options', 'option-SignUp')}>
-                    <p>Chưa có tài khoản? <a href=''>Đăng ký ngay</a></p>
+                    <p>Đã có tài khoản? <a href=''>Đăng nhập ngay</a></p>
                 </div>
                 <div className={cx('btns-group-control')}>
-                    <div className={cx('btn', 'btn-SignIn')} type="button">Đăng nhập</div>
+                    <div className={cx('btn', 'btn-SignIn')} type="button">Đăng ký</div>
                     <p className={cx('options-title')}>-Or-</p>
                     <div className={cx('option-signIn')}>
                         <div className={cx('btn', 'btn-SignIn-google')} type="button">
                             <GoogleIcon />
-                            Đăng nhập bằng Gmail
+                            Đăng ký bằng Gmail
                         </div>
                         <div className={cx('btn', 'btn-SignIn-facebook')} type="button">
-                            <Facebook />
-                            Đăng nhập bằng Facebook
+                            <FacebookIcon />
+                            Đăng ký bằng Facebook
                         </div>
                     </div>
 
                 </div>
-                <div className={cx('redirect-options', 'option-forgetPw')}>
-                    <p>Quên mật khẩu? <a href=''>Đặt lại mật khẩu ngay</a></p>
-                </div>
+
             </form>
         </div>
 
     )
 }
 
-export default Login;
+export default Signup;
