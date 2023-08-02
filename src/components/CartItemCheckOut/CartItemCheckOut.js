@@ -6,7 +6,7 @@ import { faGift } from '@fortawesome/free-solid-svg-icons';
 import ListGift from '../../pages/CheckOut/ListGift';
 import GiftItem from './GiftItem';
 const cx = classNames.bind(styles);
-function CartItemCheckOut() {
+function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
     return (
         <div className={cx('wrapper', 'd-flex flex-column')}>
             <div className={cx('row')}>
@@ -19,7 +19,7 @@ function CartItemCheckOut() {
                             />
                         </div>
                         <div className={cx('product__info')}>
-                            <h3 className={cx('product__info-name')}>Apple Macbook Air M2 2022 8GB 256GB</h3>
+                            <h3 className={cx('product__info-name')}>{itemName}</h3>
                             <div className={cx('product__info-memory', 'd-flex')}>
                                 <p>
                                     Bộ nhớ: <span>256GB</span>
@@ -33,16 +33,18 @@ function CartItemCheckOut() {
                 </div>
                 <div className={cx('col-lg-6 col-md-6 row align-items-center text-center', 'cart__item-info')}>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
-                        <p>1.490.000₫</p>
+                        <p>{itemPrice.toLocaleString('vi-VN')}₫</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-quantity')}>
-                        <div className={cx('quantity')}>5</div>
+                        <div className={cx('quantity')}>{itemQuantity}</div>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
-                        <p>12.490.000₫</p>
+                        <p>{(itemQuantity * itemPrice).toLocaleString('vi-VN')}₫</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-delete')}>
-                        <a className={cx('delete')}>Xóa</a>
+                        <a onClick={deleteItem} className={cx('delete')}>
+                            Xóa
+                        </a>
                     </div>
                 </div>
             </div>
