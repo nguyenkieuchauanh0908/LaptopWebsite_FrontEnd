@@ -1,0 +1,78 @@
+.wrapper {
+    margin: 12px auto 32px;
+}
+
+.row-heading {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%; /* 44.8px */
+}
+
+.productInfo {
+    display: flex;
+    justify-content: start;
+}
+
+.card-wrapper {
+    margin-top: 12px;
+}
+
+.viewAll-wrapper {
+    margin-top: 8px;
+}
+
+.overview-wrapper {
+    display: flex;
+}
+
+.overview-wrapper .title {
+    margin-right: 8px;
+}
+
+.rating-display {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    top: -6px;
+}
+
+.rating-stars {
+    position: relative;
+    top: -2px;
+    display: flex;
+    align-items: center;
+}
+
+.stars {
+    position: relative;
+    top: -1px;
+    display: flex;
+    justify-content: center;
+}
+
+.stars-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 -3px;
+}
+
+.star-styles {
+    margin: 0 2px;
+}
+
+.ratingNumber {
+    position: relative;
+    top: 1px;
+    color: var(--gray-500, #667085);
+    /* PC/Bd/Body 3 */
+    font-family: Nunito;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 170%; /* 20.4px */
+    margin-left: 8px;
+}
