@@ -11,16 +11,14 @@ import Signup from '../pages/Signup/Signup'
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/cart', component: Cart, layout: HeaderOnly },
+    { path: '/cart', component: Cart },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
     { path: '/product-detail', component: ProductDetail },
+    { path: '/cart/checkout', component: CheckOut },
     { path: '/search', component: Search }
 ];
 // Private Routes
-const privateRoutes = [
-    { path: '/account', component: Account },
-    { path: '/checkout', component: CheckOut, layout: null },
-];
+const privateRoutes = [{ path: '/account', component: Account }];
 
 export { publicRoutes, privateRoutes };
