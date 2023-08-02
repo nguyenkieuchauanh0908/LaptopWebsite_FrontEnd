@@ -8,11 +8,11 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles)
 function SearchResult() {
     return (
-        <Col md={10} className={cx('col-products')}>
+        <Col xs sm={7} md={9} className={cx('col-products')}>
             <div className={cx('row-products')}>
                 {/* Bán chạy nhất */}
                 <p className={cx('row-products-label')}>Tìm thấy 5 sản phẩm</p>
-                <Row sm={3} xs={2} md lg={3} xl={5}>
+                <Row sm xs={2} md={3} lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'

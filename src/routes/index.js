@@ -20,6 +20,5 @@ const publicRoutes = [
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];
-const privateRoutes = [{ path: '/account', component: Account }];
 
 export { publicRoutes, privateRoutes };

@@ -26,7 +26,7 @@ function ProductInfo(props) {
                         <MinusIcon />
                     </div>
                     <div className={cx('quantity-wrapper')}>
-                        <span className={cx('quantity')}>1</span>
+                        <input className={cx('quantity')} type="text" value={1} role="spinbutton"></input>
                     </div>
                     <div className={cx('add-wrapper')}>
                         <AddIcon />

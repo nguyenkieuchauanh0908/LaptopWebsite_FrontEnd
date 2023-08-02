@@ -13,10 +13,10 @@ import { RatingStar } from '../../components/Icons'
 const cx = classNames.bind(styles)
 function ProductDetail() {
     return (
-        <div>
-            <Container className={cx('wrapper')}>
+        <div className={cx('wrapper')}>
+            <Container className={cx('container')}>
                 <span className={cx('row-heading')}>Thông tin sản phẩm</span>
-                <Row className={cx('productInfo')}>
+                <Row className={cx('bg-white', 'padding-12', 'productInfo')}>
                     <Col className={cx('col-wrapper')} md={{ span: 4 }}>
                         <ProductImgs />
                     </Col>
@@ -35,7 +35,7 @@ function ProductDetail() {
 
             <Container className={cx('wrapper')}>
                 <span className={cx('row-heading')}>Thông số kỹ thuật</span>
-                <Row>
+                <Row className={cx('bg-white', 'padding-12')}>
                     <Col>
                         <p>- Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</p>
                         <p>- Tần số quét: 75Hz</p>
@@ -48,63 +48,65 @@ function ProductDetail() {
 
             <Container className={cx('wrapper')}>
                 <span className={cx('row-heading')}>Đánh giá</span>
-                <div className={cx('overview-wrapper')}>
-                    <p className={cx('title')}>Điểm đánh giá trung bình: </p>
-                    <div className={cx('rating-stars')}>
-                        <div className={cx('stars')}>
-                            <div className={cx('stars-wrapper')}>
-                                <div className={cx('star-styles')}>
-                                    <RatingStar />
-                                </div>
-                                <div className={cx('star-styles')}>
-                                    <RatingStar />
-                                </div>
-                                <div className={cx('star-styles')}>
-                                    <RatingStar />
-                                </div>
-                                <div className={cx('star-styles')}>
-                                    <RatingStar />
-                                </div>
-                                <div className={cx('star-styles')}>
-                                    <RatingStar />
+                <Row className={cx('bg-white', 'padding-12')}>
+                    <div className={cx('overview-wrapper')}>
+                        <p className={cx('title')}>Điểm đánh giá trung bình: </p>
+                        <div className={cx('rating-stars')}>
+                            <div className={cx('stars')}>
+                                <div className={cx('stars-wrapper')}>
+                                    <div className={cx('star-styles')}>
+                                        <RatingStar />
+                                    </div>
+                                    <div className={cx('star-styles')}>
+                                        <RatingStar />
+                                    </div>
+                                    <div className={cx('star-styles')}>
+                                        <RatingStar />
+                                    </div>
+                                    <div className={cx('star-styles')}>
+                                        <RatingStar />
+                                    </div>
+                                    <div className={cx('star-styles')}>
+                                        <RatingStar />
+                                    </div>
                                 </div>
                             </div>
+                            <span className={cx('ratingNumber')}>(63)</span>
                         </div>
-                        <span className={cx('ratingNumber')}>(63)</span>
-                    </div>
 
-                </div>
-                <Row>
-                    <Comment
-                        uName='Nguyễn Kiều Châu Anh'
-                        content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
-                        star={5}
-                        images={[]}
-                    />
-                </Row>
-                <Row>
-                    <Comment
-                        uName='Trần Thị Trà My'
-                        content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
-                        star={5}
-                        images={[]}
-                    />
-                </Row>
-                <Row>
-                    <Comment
-                        uName='Nguyễn Huỳnh Khoa'
-                        content='Lenovo IdeaPad 3 15IAU7 - 82RK001QVN mang đến trải nghiệm tuyệt vời cho người dùng nhờ việc sở hữu hiệu năng mạnh mẽ với CPU Intel Core i5 xử lý tốt các dữ liệu cùng ngoại hình thanh lịch, nổi bật. Lenovo IdeaPad phù hợp với những người dùng có nhu cầu
+                    </div>
+                    <Row>
+                        <Comment
+                            uName='Nguyễn Kiều Châu Anh'
+                            content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
+                            star={5}
+                            images={[]}
+                        />
+                    </Row>
+                    <Row>
+                        <Comment
+                            uName='Trần Thị Trà My'
+                            content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
+                            star={5}
+                            images={[]}
+                        />
+                    </Row>
+                    <Row>
+                        <Comment
+                            uName='Nguyễn Huỳnh Khoa'
+                            content='Lenovo IdeaPad 3 15IAU7 - 82RK001QVN mang đến trải nghiệm tuyệt vời cho người dùng nhờ việc sở hữu hiệu năng mạnh mẽ với CPU Intel Core i5 xử lý tốt các dữ liệu cùng ngoại hình thanh lịch, nổi bật. Lenovo IdeaPad phù hợp với những người dùng có nhu cầu
                         làm việc văn phòng, học tập hoặc giải trí. Laptop IdeaPad 3 15IAU7sở hữu vẻ ngoài lịch lãm, tinh tế với màu xanh chủ đạo đem lại cảm giác cuốn hút khi nhìn vào. Ngoài việc sở hữu vẻ ngoài ấn tượng, kích thước của máy 35.92 x 23.65 x 1.99cm cùng khối lượng 1.63kg giúp máy trở nên nhỏ gọn để bạn dễ dàng bỏ vào trong balo đem theo bên mình.'
-                        star={5}
-                        images={[]} />
+                            star={5}
+                            images={[]} />
+                    </Row>
+                    <div className={cx('viewAll-wrapper')}>
+                        <ViewAll />
+                    </div>
                 </Row>
-                <div className={cx('viewAll-wrapper')}>
-                    <ViewAll />
-                </div>
             </Container>
             <Container className={cx('wrapper')}>
                 <span className={cx('row-heading')}>Sản phẩm liên quan</span>
-                <Row sm={3} xs={3} md lg={3} xl={6}>
+                <Row sm={2} xs={2} md={3} lg={3} xl={6}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
@@ -182,11 +184,12 @@ function ProductDetail() {
                             ratingNumber={67}
                             origin="Mỹ"
                         />
+                    </div>
+                    <div className={cx('viewAll-wrapper')}>
+                        <ViewAll />
                     </div>
                 </Row>
-                <div className={cx('viewAll-wrapper')}>
-                    <ViewAll />
-                </div>
+
             </Container>
 
 
