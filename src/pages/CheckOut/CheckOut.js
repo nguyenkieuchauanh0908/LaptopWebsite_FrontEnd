@@ -11,11 +11,30 @@ import { useState } from 'react';
 const cx = classNames.bind(styles);
 function CheckOut() {
     const [changeAddress, setChangeAddress] = useState(false);
-    const [orderSuccess, setOrderSuccess] = useState(true);
+    const [orderSuccess, setOrderSuccess] = useState('');
+    const [cartItems, setCartItems] = useState([
+        { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1 },
+        { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2 },
+        { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1 },
+        // ...Thêm các sản phẩm khác vào đây
+    ]);
 
+    // xóa sản phẩm ra khỏi giỏ hàng
+    const deleteItem = (itemId) => {
+        setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== itemId));
+    };
+    // Tính tổng giá trị giỏ hàng
+    const calculateSubTotal = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+    // Tính tổng số lượng sản phẩm
+    const calculateTotalQuantity = () => {
+        return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0);
+    };
+    console.log('trạng thái đơn hàng' + orderSuccess);
     return (
         <div className={cx('wrapper')}>
-            {!orderSuccess && (
+            {!orderSuccess ? (
                 <>
                     <h2 className={cx('d-flex justify-content-center', 'title')}>Thanh Toán</h2>
 
@@ -58,8 +77,17 @@ function CheckOut() {
                                 </div>
                                 <div className={cx('row align-items-center', 'checkout__cart-detail')}>
                                     <ListCart>
-                                        <CartItemCheckOut />
-                                        <CartItemCheckOut />
+                                        {cartItems.map((item) => (
+                                            <CartItemCheckOut
+                                                key={item.id}
+                                                itemName={item.name}
+                                                itemPrice={item.price}
+                                                itemQuantity={item.quantity}
+                                                deleteItem={() => {
+                                                    deleteItem(item.id);
+                                                }}
+                                            />
+                                        ))}
                                     </ListCart>
                                 </div>
                                 <div className={cx('row', 'payment-form')}>
@@ -68,21 +96,21 @@ function CheckOut() {
                                     </div>
                                     <div className={cx('payment-list', 'd-flex flex-column')}>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="creditCard" />
+                                            <input type="radio" name="paymentMethod" value="creditCard" required />
                                             <div className={cx('payment-logo')}>
                                                 <CodIcon />
                                             </div>
                                             Thanh toán tiền mặt khi nhận hàng (COD)
                                         </label>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="paypal" />
+                                            <input type="radio" name="paymentMethod" value="paypal" required />
                                             <div className={cx('payment-logo')}>
                                                 <PayIcon />
                                             </div>
                                             Chuyển khoản
                                         </label>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="bankTransfer" />
+                                            <input type="radio" name="paymentMethod" value="bankTransfer" required />
                                             <div className={cx('payment-logo')}>
                                                 <Image
                                                     className={cx('payment')}
@@ -95,13 +123,13 @@ function CheckOut() {
                                     </div>
                                 </div>
                                 <div className={cx('row', 'order-note')}>
-                                    <div class={cx('order-note-text')}>
-                                        <label for="exampleFormControlTextarea1" class="form-label">
+                                    <div className={cx('order-note-text')}>
+                                        <label htmlFor="exampleFormControlTextarea1" className="form-label">
                                             Ghi chú
                                         </label>
                                         <textarea
                                             placeholder="Nhập lời nhắn cho cửa hàng hoặc đơn vị vận chuyển"
-                                            class={cx('form-control', 'font-size-16')}
+                                            className={cx('form-control', 'font-size-16')}
                                             id="exampleFormControlTextarea1"
                                             rows="5"
                                         ></textarea>
@@ -136,7 +164,7 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Tạm tính</h4>
-                                                    <p>1.897.600₫</p>
+                                                    <p>{calculateSubTotal().toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                                 <div
                                                     className={cx(
@@ -185,7 +213,9 @@ function CheckOut() {
                                         </div>
                                     </div>
                                     <div className={cx('btn-order')}>
-                                        <Button primary>Đặt hàng</Button>
+                                        <Button onClick={() => setOrderSuccess(true)} primary>
+                                            Đặt hàng
+                                        </Button>
                                     </div>
                                     <div className={cx('text-center')}>
                                         Nhấn đặt hàng đồng nghĩa với việc bạn đồng ý tuân theo{' '}
@@ -199,111 +229,7 @@ function CheckOut() {
                         </div>
                     </div>
                 </>
-            )}
-            {changeAddress && (
-                <div className={cx('change__address')}>
-                    <div className={cx('container d-flex align-items-center ', 'change__address-wrapper')}>
-                        <div className={cx('row justify-content-center')}>
-                            <div className={cx('col-lg-6 ', 'change__address-form')}>
-                                <div>
-                                    <h1 className={cx('change__address-title')}>ĐỊA CHỈ MỚI</h1>
-                                    <form class="row g-3">
-                                        <h2>Thông tin khách hàng</h2>
-                                        <h3>Người đặt hàng</h3>
-                                        <div class="col-12">
-                                            <label for="inputAddress" class="form-label">
-                                                Họ và Tên *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputName"
-                                                placeholder="Nhập họ và tên"
-                                            />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPhone" class="form-label">
-                                                Số điện thoại *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputPhone"
-                                                placeholder="Nhập số điện thoại"
-                                            />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputEmail" class="form-label">
-                                                Email *
-                                            </label>
-                                            <input
-                                                type="email"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputEmail"
-                                                placeholder="Nhập email"
-                                            />
-                                        </div>
-                                        <h3>Địa chỉ nhận hàng</h3>
-
-                                        <div class="col-12">
-                                            <label for="inputAddress" class="form-label"></label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputAddress"
-                                                placeholder="Số nhà, tên đường *"
-                                            />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="inputCity" class="form-label"></label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputCity"
-                                                placeholder="Tỉnh/Thành phố *"
-                                            />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="inputDistrict" class="form-label"></label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputDistrict"
-                                                placeholder="Quận/Huyện *"
-                                            />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="inputCommune" class="form-label"></label>
-                                            <input
-                                                type="text"
-                                                class={cx('form-control', 'font-size-16')}
-                                                id="inputCommune"
-                                                placeholder="Phường/Xã *"
-                                            />
-                                        </div>
-                                        <div class={cx('col-12 text-end', 'button')}>
-                                            <button
-                                                onClick={() => setChangeAddress(false)}
-                                                class={cx('btn btn-light', 'btn-back')}
-                                            >
-                                                Trở lại
-                                            </button>
-                                            <button
-                                                onClick={() => setChangeAddress(false)}
-                                                type="submit"
-                                                class={cx('btn btn-primary', 'btn-submit')}
-                                            >
-                                                Hoàn Thành
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-            {orderSuccess && (
+            ) : (
                 <div className={cx('inner')}>
                     <div className={cx('container')}>
                         <div className={cx('row justify-content-center', 'order__success')}>
@@ -458,6 +384,109 @@ function CheckOut() {
                                     <Button to={'/'} primary>
                                         Tiếp tục mua sắm
                                     </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {changeAddress && (
+                <div className={cx('change__address')}>
+                    <div className={cx('container d-flex align-items-center ', 'change__address-wrapper')}>
+                        <div className={cx('row justify-content-center')}>
+                            <div className={cx('col-lg-6 ', 'change__address-form')}>
+                                <div>
+                                    <h1 className={cx('change__address-title')}>ĐỊA CHỈ MỚI</h1>
+                                    <form className="row g-3">
+                                        <h2>Thông tin khách hàng</h2>
+                                        <h3>Người đặt hàng</h3>
+                                        <div className="col-12">
+                                            <label htmlFor="inputAddress" className="form-label">
+                                                Họ và Tên *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputName"
+                                                placeholder="Nhập họ và tên"
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputPhone" className="form-label">
+                                                Số điện thoại *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputPhone"
+                                                placeholder="Nhập số điện thoại"
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputEmail" className="form-label">
+                                                Email *
+                                            </label>
+                                            <input
+                                                type="email"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputEmail"
+                                                placeholder="Nhập email"
+                                            />
+                                        </div>
+                                        <h3>Địa chỉ nhận hàng</h3>
+
+                                        <div className="col-12">
+                                            <label htmlFor="inputAddress" className="form-label"></label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputAddress"
+                                                placeholder="Số nhà, tên đường *"
+                                            />
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="inputCity" className="form-label"></label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputCity"
+                                                placeholder="Tỉnh/Thành phố *"
+                                            />
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="inputDistrict" className="form-label"></label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputDistrict"
+                                                placeholder="Quận/Huyện *"
+                                            />
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="inputCommune" className="form-label"></label>
+                                            <input
+                                                type="text"
+                                                className={cx('form-control', 'font-size-16')}
+                                                id="inputCommune"
+                                                placeholder="Phường/Xã *"
+                                            />
+                                        </div>
+                                        <div className={cx('col-12 text-end', 'button')}>
+                                            <button
+                                                onClick={() => setChangeAddress(false)}
+                                                className={cx('btn btn-light', 'btn-back')}
+                                            >
+                                                Trở lại
+                                            </button>
+                                            <button
+                                                onClick={() => setChangeAddress(false)}
+                                                type="submit"
+                                                className={cx('btn btn-primary', 'btn-submit')}
+                                            >
+                                                Hoàn Thành
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -3,13 +3,25 @@ import classNames from 'classnames/bind';
 import styles from './CartItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
-function CartItem() {
+function CartItem({
+    itemName,
+    checked,
+    itemPrice,
+    itemQuantity,
+    increaseQuantity,
+    decreaseQuantity,
+    handleCheckboxChange,
+    deleteItem,
+}) {
+    // const formattedPrice = price1.toLocaleString('vi-VN'); // '100.000'
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')}>
                 <div className={cx('col-lg-6 col-md-6 d-flex')}>
-                    <input type="checkbox" name="product" />
+                    <input type="checkbox" checked={checked} onChange={() => handleCheckboxChange()} name="product" />
                     <div className={cx('product', 'd-flex')}>
                         <div className={cx('product-img')}>
                             <Image
@@ -18,7 +30,7 @@ function CartItem() {
                             />
                         </div>
                         <div className={cx('product__info')}>
-                            <h3 className={cx('product__info-name')}>Apple Macbook Air M2 2022 8GB 256GB</h3>
+                            <h3 className={cx('product__info-name')}>{itemName}</h3>
                             <div className={cx('product__info-memory', 'd-flex')}>
                                 <p>
                                     Bộ nhớ: <span>256GB</span>
@@ -32,22 +44,24 @@ function CartItem() {
                 </div>
                 <div className={cx('col-lg-6 col-md-6 row align-items-center text-center', 'cart__item-info')}>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
-                        <p>1.490.000₫</p>
+                        <p>{itemPrice.toLocaleString('vi-VN')}</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center', 'cart__item-quantity')}>
-                        <a className={cx('btn-reduce')}>
+                        <a onClick={decreaseQuantity} className={cx('btn-reduce')}>
                             <FontAwesomeIcon icon={faMinus} />
                         </a>
-                        <div className={cx('quantity')}>5</div>
-                        <a className={cx('btn-raise')}>
+                        <div className={cx('quantity')}>{itemQuantity}</div>
+                        <a onClick={increaseQuantity} className={cx('btn-raise')}>
                             <FontAwesomeIcon icon={faPlus} />
                         </a>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
-                        <p>12.490.000₫</p>
+                        <p>{(itemPrice * itemQuantity).toLocaleString('vi-VN')}₫</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-delete')}>
-                        <a className={cx('delete')}>Xóa</a>
+                        <a onClick={deleteItem} className={cx('delete')}>
+                            Xóa
+                        </a>
                     </div>
                 </div>
             </div>
