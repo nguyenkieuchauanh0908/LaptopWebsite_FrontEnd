@@ -9,24 +9,29 @@ function Comment(props) {
                 <div className='uImge-wrapper'>
                     <img className={cx('uImage')} src='https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo' alt='user'></img>
                 </div>
-                <p className={cx('uName')}>{props.uName}</p>
-                <div className={cx('stars')}>
-                    <div className={cx('stars-wrapper')}>
-                        <div className={cx('star-styles')}>
-                            <RatingStar />
+                <div className={cx('name-wrapper')}>
+                    <p className={cx('uName')}>{props.uName}</p>
+                    <div className={cx('stars-display')}>
+                        <div className={cx('stars')}>
+                            <div className={cx('stars-wrapper')}>
+                                <div className={cx('star-styles')}>
+                                    <RatingStar />
+                                </div>
+                                <div className={cx('star-styles')}>
+                                    <RatingStar />
+                                </div>
+                                <div className={cx('star-styles')}>
+                                    <RatingStar />
+                                </div>
+                                <div className={cx('star-styles')}>
+                                    <RatingStar />
+                                </div>
+                                <div className={cx('star-styles')}>
+                                    <RatingStar />
+                                </div>
+                            </div>
                         </div>
-                        <div className={cx('star-styles')}>
-                            <RatingStar />
-                        </div>
-                        <div className={cx('star-styles')}>
-                            <RatingStar />
-                        </div>
-                        <div className={cx('star-styles')}>
-                            <RatingStar />
-                        </div>
-                        <div className={cx('star-styles')}>
-                            <RatingStar />
-                        </div>
+                        <p className={cx('rating-points')}>({props.star})</p>
                     </div>
                 </div>
             </div>

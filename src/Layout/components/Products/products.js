@@ -9,11 +9,11 @@ import ViewAll from '../../../components/view-all/view-all';
 const cx = classNames.bind(styles)
 function Products() {
     return (
-        <Col md={10} className={cx('col-products')}>
+        <Col xs sm={7} md={9} className={cx('col-products')}>
             <div className={cx('row-products')}>
                 {/* Bán chạy nhất */}
                 <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
-                <Row sm={3} xs={3} md lg={3} xl={5}>
+                <Row sm xs={2} md={3} lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
@@ -85,7 +85,7 @@ function Products() {
             {/* Sản phẩm đang sale */}
             <div className={cx('row-products')}>
                 <p className={cx('row-products-label')}>Sản phẩm đang sale</p>
-                <Row sm={3} xs={2} md lg={3} xl={5}>
+                <Row sm xs={2} md={3} lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
@@ -160,7 +160,7 @@ function Products() {
             {/*Most searched  */}
             <div className={cx('row-products')}>
                 <p className={cx('row-products-label')}>Sản phẩm được tìm kiếm nhiều nhất</p>
-                <Row sm={3} xs={2} md lg={3} xl={5}>
+                <Row sm xs={2} md={3} lg={3} xl={5}>
                     <div className={cx('card-wrapper')}>
                         <ColProductCard
                             url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'

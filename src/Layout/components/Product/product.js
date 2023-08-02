@@ -2,7 +2,6 @@
 import classNames from 'classnames/bind';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import './product.module.scss'; // Replace 'custom.scss' with your customized SCSS file path
 import styles from './product.module.scss';
 import { RatingStar } from '../../../components/Icons/Icons';
 
