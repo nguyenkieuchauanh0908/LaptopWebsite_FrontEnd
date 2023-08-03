@@ -6,14 +6,19 @@ import Button from '../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faFaceMeh } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 function Cart() {
+    const navigate = useNavigate();
+
     const [cartItems, setCartItems] = useState([
         { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1, checked: false },
         { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2, checked: false },
         { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1, checked: false },
         // ...Thêm các sản phẩm khác vào đây
     ]);
+    const [isProductsSelected, setIsProductsSelected] = useState(false);
+
     // tăng số lượng
     const increaseQuantity = (itemId) => {
         setCartItems((prevCartItems) =>
@@ -66,13 +71,23 @@ function Cart() {
         setCartItems((prevCartItems) =>
             prevCartItems.map((item) => (item.id === productId ? { ...item, checked: !item.checked } : item)),
         );
+        setIsProductsSelected(true); // Đã chọn ít nhất một sản phẩm
     };
     // chọn tất cả sản phẩm
     const handleSelectAll = () => {
         const allChecked = cartItems.every((item) => item.checked);
         setCartItems((prevCartItems) => prevCartItems.map((item) => ({ ...item, checked: !allChecked })));
+        setIsProductsSelected(!allChecked); // Đã chọn ít nhất một sản phẩm nếu có ít nhất một sản phẩm đã chọn hoặc bỏ chọn hết nếu tất cả đều đã chọn
     };
-
+    // Kiểm Tra Trạng Thái Trước Khi Đặt Hàng:
+    const placeOrder = () => {
+        if (!isProductsSelected) {
+            alert('Vui lòng chọn ít nhất một sản phẩm trước khi đặt hàng.');
+            return;
+        }
+        navigate('./checkout');
+        // Tiến hành đặt hàng và xử lý các thao tác khác
+    };
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('d-flex justify-content-center', 'title')}>Giỏ Hàng</h2>
@@ -154,7 +169,11 @@ function Cart() {
                                 <p>{calculateTotal().toLocaleString('vi-VN')}đ</p>
                             </div>
                             <div className={cx('col-lg-3 col-md-3', 'btn-order')}>
-                                <Button to={'./checkout'} primary rightIcon={<FontAwesomeIcon icon={faCaretRight} />}>
+                                <Button
+                                    onClick={placeOrder}
+                                    primary
+                                    rightIcon={<FontAwesomeIcon icon={faCaretRight} />}
+                                >
                                     Đặt hàng
                                 </Button>
                             </div>

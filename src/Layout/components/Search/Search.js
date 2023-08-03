@@ -50,7 +50,7 @@ function Search() {
                 placement="bottom-start"
                 visible={showResult && searchResult.length > 0}
                 render={(attrs) => (
-                    <div className={cx('search-result')} tabIndex="-1" {...attrs} style={{ width: '528px' }}>
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs} style={{ width: '100%' }}>
                         <PopperWapper>
                             <h4 className={cx('search-title')}>Gợi ý tìm kiếm</h4>
                             {searchResult.map((result) => (
