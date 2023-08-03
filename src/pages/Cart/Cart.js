@@ -93,30 +93,28 @@ function Cart() {
             <h2 className={cx('d-flex justify-content-center', 'title')}>Giỏ Hàng</h2>
             {cartItems.length !== 0 ? (
                 <div className={cx('container')}>
-                    <div className={cx('row align-items-center', 'header')}>
-                        <div className={cx('row')}>
-                            <div className={cx('col-lg-6 col-md-6', 'header__products', 'd-flex')}>
-                                <input
-                                    type="checkbox"
-                                    checked={cartItems.every((item) => item.checked)}
-                                    onChange={handleSelectAll}
-                                    name="products"
-                                />
-                                <p>Sản phẩm</p>
+                    <div className={cx('row ', 'header')}>
+                        <div className={cx('col-lg-6 col-md-6 col-12 d-flex', 'header__products')}>
+                            <input
+                                type="checkbox"
+                                checked={cartItems.every((item) => item.checked)}
+                                onChange={handleSelectAll}
+                                name="products"
+                            />
+                            <p>Sản phẩm</p>
+                        </div>
+                        <div className={cx('col-lg-6 col-md-6 d-flex', 'header__info')}>
+                            <div className={cx('col-lg-3 col-md-3 d-md-none d-lg-block')}>
+                                <p>Đơn giá</p>
                             </div>
-                            <div className={cx('col-lg-6 col-md-6 d-flex', 'header__info')}>
-                                <div className={cx('col-lg-3 col-md-3')}>
-                                    <p>Đơn giá</p>
-                                </div>
-                                <div className={cx('col-lg-3 col-md-3')}>
-                                    <p>Số lượng</p>
-                                </div>
-                                <div className={cx('col-lg-3 col-md-3')}>
-                                    <p>Số tiền</p>
-                                </div>
-                                <div className={cx('col-lg-3 col-md-3')}>
-                                    <p>Thao tác</p>
-                                </div>
+                            <div className={cx('col-lg-3 col-md-4')}>
+                                <p>Số lượng</p>
+                            </div>
+                            <div className={cx('col-lg-3 col-md-4')}>
+                                <p>Số tiền</p>
+                            </div>
+                            <div className={cx('col-lg-3 col-md-4')}>
+                                <p>Thao tác</p>
                             </div>
                         </div>
                     </div>
@@ -145,22 +143,28 @@ function Cart() {
                             ))}
                         </ListCart>
                     </div>
-                    <div className={cx('row align-items-center', 'footer')}>
-                        <div className={cx('col-lg-6 col-md-6', 'footer__products', 'd-flex')}>
+                    <div className={cx('row align-items-center ', 'footer')}>
+                        <div className={cx('col-lg-6 col-md-3 col-12', 'footer__products', 'd-flex')}>
                             <input
                                 type="checkbox"
                                 checked={cartItems.every((item) => item.checked)}
                                 onChange={handleSelectAll}
                                 name="products"
                             />
-                            <p>Chọn tất cả</p>
+                            <p>Tất cả</p>
                             <a onClick={deleteAllItem}>Xóa</a>
                         </div>
-                        <div className={cx('col-lg-6 col-md-6 d-flex align-items-center', 'footer__info')}>
+                        <div
+                            className={cx(
+                                'col-lg-6 col-md-9 col-12',
+                                ' d-flex align-items-center justify-content-between',
+                                'footer__info',
+                            )}
+                        >
                             <div className={cx('col-lg-3 col-md-3')}>
                                 <p>Tổng thanh toán</p>
                             </div>
-                            <div className={cx('col-lg-3 col-md-3')}>
+                            <div className={cx('col-lg-3 col-md-3', 'd-none d-lg-block d-md-block')}>
                                 <p>
                                     <span className={cx('total-quantity')}>{calculateTotalQuantity()}</span> Sản phẩm
                                 </p>
@@ -172,6 +176,7 @@ function Cart() {
                                 <Button
                                     onClick={placeOrder}
                                     primary
+                                    small
                                     rightIcon={<FontAwesomeIcon icon={faCaretRight} />}
                                 >
                                     Đặt hàng
