@@ -192,63 +192,7 @@ export const CartIcon = ({ width = '2rem', height = '2rem', className }) => (
         </defs>
     </svg>
 );
-export const UserIcon = ({ width = '3.2rem', height = '3.2rem', className }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={width}
-        height={height}
-        className={className}
-        viewBox="0 0 33 32"
-        fill="none"
-    >
-        <g clipPath="url(#clip0_39_14450)">
-            <path
-                d="M16.5996 28C23.227 28 28.5996 22.6274 28.5996 16C28.5996 9.37258 23.227 4 16.5996 4C9.97219 4 4.59961 9.37258 4.59961 16C4.59961 22.6274 9.97219 28 16.5996 28Z"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M16.5996 20C19.361 20 21.5996 17.7614 21.5996 15C21.5996 12.2386 19.361 10 16.5996 10C13.8382 10 11.5996 12.2386 11.5996 15C11.5996 17.7614 13.8382 20 16.5996 20Z"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M8.57422 24.9218C9.32748 23.4408 10.4759 22.1971 11.8923 21.3284C13.3086 20.4598 14.9378 20 16.5993 20C18.2609 20 19.89 20.4598 21.3064 21.3284C22.7228 22.1971 23.8712 23.4407 24.6244 24.9217"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </g>
-        <defs>
-            <clipPath id="clip0_39_14450">
-                <rect width="32" height="32" fill="white" transform="translate(0.599609)" />
-            </clipPath>
-        </defs>
-    </svg>
-);
-export const NotificationIcon = ({ width = '3rem', height = '3rem', className }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={width}
-        height={height}
-        className={className}
-        viewBox="0 0 20 22"
-        fill="none"
-    >
-        <path
-            d="M7.35395 20C8.05908 20.6224 8.98533 21 9.99977 21C11.0142 21 11.9405 20.6224 12.6456 20M15.9998 7C15.9998 5.4087 15.3676 3.88258 14.2424 2.75736C13.1172 1.63214 11.5911 1 9.99977 1C8.40848 1 6.88235 1.63214 5.75713 2.75736C4.63192 3.88258 3.99977 5.4087 3.99977 7C3.99977 10.0902 3.22024 12.206 2.34944 13.6054C1.6149 14.7859 1.24763 15.3761 1.2611 15.5408C1.27601 15.7231 1.31463 15.7926 1.46155 15.9016C1.59423 16 2.19237 16 3.38863 16H16.6109C17.8072 16 18.4053 16 18.538 15.9016C18.6849 15.7926 18.7235 15.7231 18.7384 15.5408C18.7519 15.3761 18.3846 14.7859 17.6501 13.6054C16.7793 12.206 15.9998 10.0902 15.9998 7Z"
-            stroke="white"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        />
-    </svg>
-);
+
 export const FacebookIcon = ({ width = '3rem', height = '3rem', className }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -10,7 +10,7 @@ function Footer() {
         <footer>
             <div className={cx('container', 'footer')}>
                 <div className={cx('row', 'footer__content')}>
-                    <div className={cx('row col-lg-6 col-md-6')}>
+                    <div className={cx(' col-lg-6 col-md-6')}>
                         <div className={cx('col-md-4 col-lg-4')}>
                             <div className={cx('logo')}>
                                 <Image
@@ -24,13 +24,16 @@ function Footer() {
                                 <div className={cx('footer__contact-address')}>
                                     01 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh
                                 </div>
-                                <div className={cx('footer__contact-phone')}>
-                                    <FontAwesomeIcon icon={faPhone} />
-                                    <a href="tel:0123.456.789">0123.456.789</a>
-                                </div>
-                                <div className={cx('footer__contact-mail')}>
-                                    <FontAwesomeIcon icon={faEnvelope} />
-                                    <a href="mailto:contact@gmail.com">contact@gmail.com</a>
+                                <div className={cx('contact')}>
+                                    <h3>Liên hệ</h3>
+                                    <div className={cx('footer__contact-phone')}>
+                                        <FontAwesomeIcon icon={faPhone} />
+                                        <a href="tel:0123.456.789">0123.456.789</a>
+                                    </div>
+                                    <div className={cx('footer__contact-mail')}>
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                        <a href="mailto:contact@gmail.com">contact@gmail.com</a>
+                                    </div>
                                 </div>
                                 <div className={cx('footer__contact-certification')}>
                                     <p>Chứng nhận bởi</p>
@@ -78,6 +81,13 @@ function Footer() {
                                 <YoutubeIcon className={cx('icon-social')} />
                                 <TiktokIcon className={cx('icon-social')} />
                                 <InstagramIcon className={cx('icon-social')} />
+                            </div>
+                            <div className={cx('footer-certification')}>
+                                <p>Chứng nhận bởi</p>
+                                <Image
+                                    src="https://shopfront-cdn.tekoapis.com/common/da-dang-ky.png"
+                                    alt="certification"
+                                />
                             </div>
                         </div>
                         <div className={cx('row')}>
