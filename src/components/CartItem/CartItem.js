@@ -19,10 +19,10 @@ function CartItem({
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')}>
-                <div className={cx('col-lg-6 col-md-6 d-flex')}>
+                <div className={cx('col-lg-6 col-md-6 col-12 d-flex')}>
                     <input type="checkbox" checked={checked} onChange={() => handleCheckboxChange()} name="product" />
                     <div className={cx('product', 'd-flex')}>
-                        <div className={cx('product-img')}>
+                        <div className={cx('product-img', 'text-center')}>
                             <Image
                                 src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
                                 alt="img"
@@ -41,11 +41,17 @@ function CartItem({
                         </div>
                     </div>
                 </div>
-                <div className={cx('col-lg-6 col-md-6 row align-items-center text-center', 'cart__item-info')}>
-                    <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
-                        <p>{itemPrice.toLocaleString('vi-VN')}</p>
+                <div
+                    className={cx(
+                        'col-lg-6 col-md-6 col-12',
+                        ' d-flex align-items-center  text-center',
+                        'cart__item-info',
+                    )}
+                >
+                    <div className={cx('col-lg-3', 'cart__item-price')}>
+                        <p>{itemPrice.toLocaleString('vi-VN')}đ</p>
                     </div>
-                    <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center', 'cart__item-quantity')}>
+                    <div className={cx('col-lg-3 col-md-4 d-flex justify-content-center', 'cart__item-quantity')}>
                         <a onClick={decreaseQuantity} className={cx('btn-reduce')}>
                             <FontAwesomeIcon icon={faMinus} />
                         </a>
@@ -54,10 +60,10 @@ function CartItem({
                             <FontAwesomeIcon icon={faPlus} />
                         </a>
                     </div>
-                    <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
+                    <div className={cx('col-lg-3 col-md-4', 'cart__item-money')}>
                         <p>{(itemPrice * itemQuantity).toLocaleString('vi-VN')}₫</p>
                     </div>
-                    <div className={cx('col-lg-3 col-md-3', 'cart__item-delete')}>
+                    <div className={cx('col-lg-3 col-md-4', 'cart__item-delete')}>
                         <a onClick={deleteItem} className={cx('delete')}>
                             Xóa
                         </a>
