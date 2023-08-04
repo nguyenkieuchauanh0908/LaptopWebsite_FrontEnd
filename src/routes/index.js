@@ -8,7 +8,7 @@ import Login from '../pages/Login';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/cart', component: Cart },
+    { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
     { path: '/cart/checkout', component: CheckOut },
 ];

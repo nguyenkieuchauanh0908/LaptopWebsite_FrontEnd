@@ -1,5 +1,6 @@
 .wrapper {
     // height: 80px;
+    position: relative;
     border-bottom: 1px solid #eaecf0;
     input {
         margin-left: 64px;
@@ -38,9 +39,6 @@
 .cart__item-info {
     font-size: 1.4rem;
 }
-.quantity {
-    padding: 10px 16px;
-}
 
 .cart__item-delete:hover {
     color: var(--primary);
@@ -64,5 +62,41 @@
     }
     .cart__gift-item {
         margin: 12px 20px;
+    }
+}
+// responsive
+/* Styles cho điện thoại */
+@media screen and (max-width: 576px) {
+    .cart__item-info {
+        text-align: end !important;
+    }
+    .product {
+        margin-top: 12px;
+    }
+    .cart__item-price {
+        color: var(--primary);
+    }
+    .quantity {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            width: calc(100% - 92px);
+            height: 1px;
+            background-color: #344054;
+            bottom: 0;
+            right: 0;
+        }
+    }
+    .cart__gift {
+        margin: 4px 0px 16px 0px;
+    }
+    .cart__item-delete {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+    }
+    .icon-delete {
+        font-size: 1.8rem;
     }
 }

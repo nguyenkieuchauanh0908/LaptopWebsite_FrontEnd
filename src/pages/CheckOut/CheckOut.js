@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './CheckOut.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPencil } from '@fortawesome/free-solid-svg-icons';
 import ListCart from '../Cart/ListCart';
 import CartItemCheckOut from '../../components/CartItemCheckOut';
 import { CodIcon, PayIcon } from '../../components/Icons';
@@ -50,12 +50,15 @@ function CheckOut() {
                                     Tây, Thành Phố Thủ Đức, TP. Hồ Chí Minh
                                 </div>
                                 <div>
-                                    <a onClick={() => setChangeAddress(true)}>Thay đổi</a>
+                                    <a onClick={() => setChangeAddress(true)}>
+                                        <FontAwesomeIcon className={cx('icon-repair')} icon={faPencil} />
+                                        <p className={cx('d-none d-md-inline-block d-lg-inline-block')}>Thay đổi</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div className={cx('row')}>
-                            <div className={cx('col-lg-8 d-flex flex-column', 'order-left')}>
+                            <div className={cx('col-lg-8 col-md-12', 'd-flex flex-column', 'order-left')}>
                                 <div className={cx('row align-items-center', 'header')}>
                                     <div className={cx('col-lg-6 col-md-6', 'header__products', 'd-flex')}>
                                         <p>Chi tiết sản phẩm</p>
@@ -140,7 +143,7 @@ function CheckOut() {
                                     </label>
                                 </div>
                             </div>
-                            <div className={cx('col-lg-4')}>
+                            <div className={cx('col-lg-4 col-md-12')}>
                                 <div className={cx('row', 'order__info-form')}>
                                     <div className={cx('order__info-title')}>
                                         <h3>Thông tin đơn hàng</h3>
@@ -248,15 +251,15 @@ function CheckOut() {
                                         <h3>Thông tin khách hàng</h3>
                                     </div>
                                     <div className={cx('info-client-content')}>
-                                        <div className={cx('info-client-name', 'd-flex')}>
+                                        <div className={cx('info-client-name', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Họ và tên</div>
                                             <div className={cx('col-lg-8', 'text-2')}>Nguyễn Huỳnh Khoa</div>
                                         </div>
-                                        <div className={cx('info-client-phone', 'd-flex')}>
+                                        <div className={cx('info-client-phone', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Số điện thoại</div>
                                             <div className={cx('col-lg-8', 'text-2')}>0123456789</div>
                                         </div>
-                                        <div className={cx('info-client-email', 'd-flex')}>
+                                        <div className={cx('info-client-email', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Email</div>
                                             <div className={cx('col-lg-8', 'text-2')}>huynhkhoa@gmail.com</div>
                                         </div>
@@ -266,25 +269,40 @@ function CheckOut() {
                                     <div className={cx('info-order-title')}>
                                         <h3>Thông tin đặt hàng</h3>
                                     </div>
-                                    <div className={cx('info-order-content')}>
-                                        <div className={cx('info-order-code', 'd-flex')}>
+                                    <div className={cx('info-order-content', 'd-flex flex-column')}>
+                                        <div className={cx('info-order-code', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Mã đơn hàng</div>
                                             <div className={cx('col-lg-8', 'text-2')}>KHOA123</div>
                                         </div>
-                                        <div className={cx('info-order-address', 'd-flex')}>
+                                        <div
+                                            className={cx(
+                                                'info-order-address',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
                                             <div className={cx('col-lg-4', 'text-1')}>Địa chỉ nhận hàng</div>
                                             <div className={cx('col-lg-8', 'text-2')}>
                                                 Chung cư Văn Hoàng, 890 Nguyễn Thị Minh Khai, Phường Nguyễn Cư Trinh,
                                                 Quận 1, TP Hồ Chí Minh
                                             </div>
                                         </div>
-                                        <div className={cx('info-order-pay', 'd-flex')}>
+                                        <div
+                                            className={cx(
+                                                'info-order-pay',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
                                             <div className={cx('col-lg-4', 'text-1')}>Phương thức thanh toán</div>
                                             <div className={cx('col-lg-8', 'text-2')}>
                                                 Thanh toán tiền mặt khi nhận hàng (COD)
                                             </div>
                                         </div>
-                                        <div className={cx('info-order-note', 'd-flex')}>
+                                        <div
+                                            className={cx(
+                                                'info-order-note',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
                                             <div className={cx('col-lg-4', 'text-1')}>Ghi chú</div>
                                             <div className={cx('col-lg-8', 'text-2')}>Giao cẩn thận, hàng dễ vỡ</div>
                                         </div>
@@ -319,7 +337,7 @@ function CheckOut() {
                                         <div className={cx('product-right')}>
                                             <p className={cx('product-price', 'text-end')}>105.000₫</p>
                                             <p className={cx('product-quantity', 'text-end')}>
-                                                Số lượng: <span>02</span>
+                                                x<span>02</span>
                                             </p>
                                         </div>
                                     </div>
