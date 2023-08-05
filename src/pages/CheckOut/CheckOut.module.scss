@@ -44,6 +44,10 @@
         color: var(--primary) !important;
         cursor: pointer;
     }
+    .icon-repair {
+        color: var(--primary);
+        margin-right: 8px;
+    }
 }
 
 .header,
@@ -409,4 +413,56 @@
 
 .btn-continuel a {
     width: 310px;
+}
+
+// responsive
+/* Styles cho điện thoại */
+@media screen and (max-width: 576px) {
+    footer {
+        display: block;
+    }
+    .header {
+        display: none !important;
+    }
+    .address {
+        margin-bottom: 10px;
+    }
+    .order__info-form {
+        margin-top: 8px !important;
+        margin-left: calc(-0.5 * var(--bs-gutter-x)) !important;
+    }
+    .address {
+        padding: 16px 11px;
+    }
+
+    // Đặt hàng thành công
+    .order__success {
+        padding: 0;
+        .order__success-full {
+            gap: 16px;
+            .text-center {
+                h1 {
+                    text-align: center;
+                    margin-bottom: 8px;
+                }
+                p {
+                    text-align: justify;
+                }
+            }
+        }
+        .info-order-content {
+            gap: 14px;
+        }
+    }
+}
+/* Styles cho điện thoại nằm ngang */
+@media screen and (min-width: 576px) and (max-width: 768px) {
+}
+
+/* Styles cho máy tính bảng */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .order__info-form {
+        margin-top: 8px !important;
+        margin-left: calc(-0.5 * var(--bs-gutter-x)) !important;
+    }
 }
