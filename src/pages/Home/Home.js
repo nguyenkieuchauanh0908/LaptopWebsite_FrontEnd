@@ -1,5 +1,20 @@
+import Products from '../../Layout/components/Products/products.js';
+import Sidebar from '../../Layout/components/Sidebar/sidebar.js';
+import Row from 'react-bootstrap/Row';
+import classNames from 'classnames/bind';
+import styles from './home.page.scss'
+const cx = classNames.bind(styles)
 function Home() {
-    return <h2>Home Page</h2>;
+    return (
+        <div className={cx('wrapper')}>
+            <Row className={cx('main-section')}>
+                <Sidebar />
+                <Products />
+            </Row >
+        </div>
+
+
+    );
 }
 
 export default Home;

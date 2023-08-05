@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './CartItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 function CartItem({
     itemName,

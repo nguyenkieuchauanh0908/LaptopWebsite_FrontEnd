@@ -4,13 +4,19 @@ import Cart from '../pages/Cart';
 import CheckOut from '../pages/CheckOut';
 import Account from '../pages/Account';
 import Login from '../pages/Login';
+import ProductDetail from '../pages/ProductDetail/ProductDetail';
+import Search from '../pages/Search/Search';
+import Signup from '../pages/Signup/Signup'
 
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
+    { path: '/signup', component: Signup },
+    { path: '/product-detail', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },
+    { path: '/search', component: Search }
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];
