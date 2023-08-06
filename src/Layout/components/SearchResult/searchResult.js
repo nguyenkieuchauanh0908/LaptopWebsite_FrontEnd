@@ -3,86 +3,71 @@ import styles from './searchResult.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ViewAll from '../../../components/view-all/view-all';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretRight, faFaceMeh } from '@fortawesome/free-solid-svg-icons';
+import Button from '../../../components/Button';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles)
-function SearchResult() {
+function SearchResult(props) {
     return (
-        <Col xs sm={7} md={9} className={cx('col-products')}>
-            <div className={cx('row-products')}>
-                {/* Bán chạy nhất */}
-                <p className={cx('row-products-label')}>Tìm thấy 5 sản phẩm</p>
-                <Row sm xs={2} md={3} lg={3} xl={5}>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                    15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                    15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                    15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                    15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                    15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                </Row>
-            </div>
+        <>
+            {
+                props.foundProducts.length > 0 ? (
+                    <>
+                        <Col xs sm={7} md={9} className={cx('col-products')}>
+                            <div className={cx('row-products')}>
 
-        </Col >
+
+                                <p className={cx('row-products-label')}>Tìm thấy {props.foundProducts.length} sản phẩm</p>
+                                <Row sm xs={2} md={3} lg={3} xl={5}>
+                                    {
+                                        props.foundProducts.map((product) => (
+                                            <div className={cx('card-wrapper')}>
+                                                <ColProductCard
+                                                    url={product.images[0]}
+                                                    pCate={product.category}
+                                                    pName={product.name}
+                                                    oldPrice={product.price}
+                                                    newPrice={product.price - product.price * (10 / 100)}
+                                                    stars={product.rating}
+                                                    ratingNumber={product.ratingNumber}
+                                                />
+                                            </div>
+                                        ))
+                                    }
+
+
+                                </Row>
+                            </div>
+                        </Col >
+                    </>
+
+                ) : (
+                    <Col className={cx('col-products')}>
+                        <Row >
+                            <div className={cx('cart__null')}>
+                                <div className={cx('cart__null-icon')}>
+                                    <FontAwesomeIcon icon={faFaceMeh} />
+                                </div>
+                                <div className={cx('cart__null-text')}>
+                                    Không tìm thấy sản phẩm
+                                </div>
+                                <Button primary to={'/'}>
+                                    Quay lại trang chủ
+                                </Button>
+                            </div>
+                        </Row>
+
+                    </Col>
+
+
+                )
+            }
+        </>
+
     )
 }
+
 
 export default SearchResult

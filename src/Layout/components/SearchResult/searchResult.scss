@@ -1,6 +1,5 @@
 .col-products {
     margin-left: 12px;
-    margin-right: 24px;
 }
 
 .row-products {
@@ -32,4 +31,28 @@
     line-height: 130%; /* 20.8px */
     letter-spacing: 0.3px;
     margin: 0 0 8px 0 !important;
+}
+
+// cart null
+.cart__null {
+    text-align: center;
+    height: calc(100vh - 127px);
+    align-items: center;
+    padding-top: 92px;
+    .cart__null-icon {
+        font-size: 6rem;
+        color: #1e4780;
+    }
+    .cart__null-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    button {
+        color: #fff;
+        &:hover {
+            border: 1px solid #fe2c55;
+        }
+    }
 }

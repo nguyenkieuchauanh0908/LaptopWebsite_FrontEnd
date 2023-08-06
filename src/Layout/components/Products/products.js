@@ -293,8 +293,6 @@ function Products() {
             </div>
 
         </Col >
-
-
     );
 }
 
