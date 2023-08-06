@@ -2,7 +2,7 @@ import Image from '../Images';
 import classNames from 'classnames/bind';
 import styles from './CartItemCheckOut.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGift } from '@fortawesome/free-solid-svg-icons';
+import { faGift, faXmark } from '@fortawesome/free-solid-svg-icons';
 import ListGift from '../../pages/CheckOut/ListGift';
 import GiftItem from './GiftItem';
 const cx = classNames.bind(styles);
@@ -31,7 +31,12 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                         </div>
                     </div>
                 </div>
-                <div className={cx('col-lg-6 col-md-6 row align-items-center text-center', 'cart__item-info')}>
+                <div
+                    className={cx(
+                        'col-lg-6 col-md-6 row align-items-center text-end text-md-center text-lg-md',
+                        'cart__item-info',
+                    )}
+                >
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
                         <p>{itemPrice.toLocaleString('vi-VN')}₫</p>
                     </div>
@@ -39,11 +44,20 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                         <div className={cx('quantity')}>{itemQuantity}</div>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
-                        <p>{(itemQuantity * itemPrice).toLocaleString('vi-VN')}₫</p>
+                        <p>
+                            <p
+                                className={cx('d-inline-block d-md-none d-lg-none')}
+                                style={{ color: '#000', marginRight: '4px' }}
+                            >
+                                Thành tiền:<span> </span>{' '}
+                            </p>
+                            {(itemQuantity * itemPrice).toLocaleString('vi-VN')}₫
+                        </p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-delete')}>
                         <a onClick={deleteItem} className={cx('delete')}>
-                            Xóa
+                            <FontAwesomeIcon className={cx('d-md-none d-lg-none', 'icon-delete')} icon={faXmark} />
+                            <span className={cx('d-none d-md-block d-lg-block')}>Xóa</span>
                         </a>
                     </div>
                 </div>
@@ -55,8 +69,6 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                 </div>
                 <div className={cx('cart__gift-item')}>
                     <ListGift>
-                        <GiftItem />
-                        <GiftItem />
                         <GiftItem />
                     </ListGift>
                 </div>

@@ -19,7 +19,7 @@ function Footer() {
                                 />
                             </div>
                         </div>
-                        <div className={cx('col-md-8 col-lg-8')}>
+                        <div className={cx('col-md-8 col-lg-8', 'd-none d-md-block d-lg-block')}>
                             <div className={cx('footer__contact')}>
                                 <div className={cx('footer__contact-address')}>
                                     01 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh
@@ -91,7 +91,9 @@ function Footer() {
                             </div>
                         </div>
                         <div className={cx('row')}>
-                            <div className={cx('footer-license')}>© 2023 Team 2. All rights reserved.</div>
+                            <div className={cx('footer-license')}>
+                                Copyright © 2023. Địa chỉ: 01 Võ Văn Ngân, Linh Chiểu, Thủ Đức, Thành phố Hồ Chí Minh.
+                            </div>
                         </div>
                     </div>
                 </div>
