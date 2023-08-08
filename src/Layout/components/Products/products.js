@@ -78,7 +78,7 @@ function Products() {
         category: 'DATA',
         rating: 4,
         ratingNumber: 67
-    },
+    }
     ]
     let onSellProducts = [{
         id: 1,
@@ -223,7 +223,7 @@ function Products() {
     },
     ]
     return (
-        <Col xs={12} sm={8} className={cx('col-products')}>
+        <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
             <div className={cx('tag-wrapper')}>
                 <p>Top sale</p>
                 <p>Đang sale</p>
