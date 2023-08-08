@@ -11,22 +11,390 @@ import ViewAll from '../../components/view-all/view-all';
 import { RatingStar } from '../../components/Icons'
 
 const cx = classNames.bind(styles)
-function ProductDetail() {
+function ProductDetail({ productId, brandId }) {
+    let productDetail = {}
+    let avarageRating = 0
+    let comments = []
+    let relatedProducts = []
+
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 0; i < rating; i++) {
+            stars.push(
+                <div className={cx('star-styles')}>
+                    <RatingStar key={i} />
+                </div>
+            );
+        }
+
+        return stars;
+    };
+
+
+    const getProductDetails = (productId) => {
+        productDetail = {
+            name: 'Laptop Lenovo IdeaPad 3 15IAU7 - 82RK001QVN (i5-1235U/RAM 8GB/512GB SSD/ Windows 11)',
+            brand: 'Lenovo',
+            images: [{
+                id: 1,
+                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+            },
+            {
+                id: 2,
+                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+            },
+            {
+                id: 3,
+                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+            },
+            {
+                id: 4,
+                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+            },
+
+            ],
+            salePercents: 10,
+            price: 16000000,
+            status: 'Selling'
+        }
+    }
+
+    const getAverageRating = (productId) => {
+        avarageRating = 5
+    }
+
+    const getComments = (productId) => {
+        comments = [
+            {
+                uName: 'Nguyễn Kiều Châu Anh',
+                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
+                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
+                stars: 5,
+                images: [
+                    {
+                        id: 1,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 2,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 3,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 4,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+
+                ]
+            },
+            {
+                uName: 'Nguyễn Kiều Châu Anh',
+                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
+                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
+                stars: 5,
+                images: [
+                    {
+                        id: 1,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 2,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 3,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 4,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+
+                ]
+            },
+            {
+                uName: 'Nguyễn Kiều Châu Anh',
+                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
+                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
+                stars: 5,
+                images: [
+                    {
+                        id: 1,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 2,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 3,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 4,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+
+                ]
+            },
+            {
+                uName: 'Nguyễn Kiều Châu Anh',
+                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
+                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
+                stars: 5,
+                images: [
+                    {
+                        id: 1,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 2,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 3,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 4,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+
+                ]
+            },
+            {
+                uName: 'Nguyễn Kiều Châu Anh',
+                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
+                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
+                stars: 5,
+                images: [
+                    {
+                        id: 1,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 2,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 3,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+                    {
+                        id: 4,
+                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                    },
+
+                ]
+            },
+        ]
+    }
+
+    const getRelatedProducts = (brandId) => {
+        relatedProducts = [{
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+
+        ]
+    }
+
+
+    getProductDetails(productId)
+    getAverageRating(productId)
+    getRelatedProducts(brandId)
+    getComments(productId)
+
     return (
         <div className={cx('wrapper')}>
             <Container className={cx('container')}>
                 <span className={cx('row-heading')}>Thông tin sản phẩm</span>
                 <Row className={cx('bg-white', 'padding-12', 'productInfo')}>
                     <Col className={cx('col-wrapper')} md={{ span: 4 }}>
-                        <ProductImgs />
+                        <ProductImgs
+                            images={productDetail.images}
+                        />
                     </Col>
                     <Col className={cx('col-wrapper')} md={{ span: 6, offset: 1 }}>
                         <ProductInfo
-                            name='Laptop Lenovo IdeaPad 3 15IAU7 - 82RK001QVN (i5-1235U/RAM 8GB/512GB SSD/ Windows 11)'
-                            brand='Lenovo'
-                            newPrice='12.999.999đ'
-                            oldPrice='16.000.000đ'
-                            status='Selling'
+                            name={productDetail.name}
+                            brand={productDetail.brand}
+                            oldPrice={productDetail.price}
+                            salePercents={productDetail.salePercents}
+                            status={productDetail.status}
 
                         />
                     </Col>
@@ -54,51 +422,25 @@ function ProductDetail() {
                         <div className={cx('rating-stars')}>
                             <div className={cx('stars')}>
                                 <div className={cx('stars-wrapper')}>
-                                    <div className={cx('star-styles')}>
-                                        <RatingStar />
-                                    </div>
-                                    <div className={cx('star-styles')}>
-                                        <RatingStar />
-                                    </div>
-                                    <div className={cx('star-styles')}>
-                                        <RatingStar />
-                                    </div>
-                                    <div className={cx('star-styles')}>
-                                        <RatingStar />
-                                    </div>
-                                    <div className={cx('star-styles')}>
-                                        <RatingStar />
-                                    </div>
+                                    {renderStars(avarageRating)}
                                 </div>
                             </div>
                             <span className={cx('ratingNumber')}>(63)</span>
                         </div>
 
                     </div>
-                    <Row>
-                        <Comment
-                            uName='Nguyễn Kiều Châu Anh'
-                            content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
-                            star={5}
-                            images={[]}
-                        />
-                    </Row>
-                    <Row>
-                        <Comment
-                            uName='Trần Thị Trà My'
-                            content='Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... '
-                            star={5}
-                            images={[]}
-                        />
-                    </Row>
-                    <Row>
-                        <Comment
-                            uName='Nguyễn Huỳnh Khoa'
-                            content='Lenovo IdeaPad 3 15IAU7 - 82RK001QVN mang đến trải nghiệm tuyệt vời cho người dùng nhờ việc sở hữu hiệu năng mạnh mẽ với CPU Intel Core i5 xử lý tốt các dữ liệu cùng ngoại hình thanh lịch, nổi bật. Lenovo IdeaPad phù hợp với những người dùng có nhu cầu
-                        làm việc văn phòng, học tập hoặc giải trí. Laptop IdeaPad 3 15IAU7sở hữu vẻ ngoài lịch lãm, tinh tế với màu xanh chủ đạo đem lại cảm giác cuốn hút khi nhìn vào. Ngoài việc sở hữu vẻ ngoài ấn tượng, kích thước của máy 35.92 x 23.65 x 1.99cm cùng khối lượng 1.63kg giúp máy trở nên nhỏ gọn để bạn dễ dàng bỏ vào trong balo đem theo bên mình.'
-                            star={5}
-                            images={[]} />
-                    </Row>
+                    {comments.map((comment) => {
+                        return (
+                            <Row>
+                                <Comment
+                                    uName={comment.uName}
+                                    content={comment.content}
+                                    stars={comment.stars}
+                                    images={comment.images}
+                                />
+                            </Row>
+                        )
+                    })}
                     <div className={cx('viewAll-wrapper')}>
                         <ViewAll />
                     </div>
@@ -107,84 +449,24 @@ function ProductDetail() {
             <Container className={cx('wrapper')}>
                 <span className={cx('row-heading')}>Sản phẩm liên quan</span>
                 <Row sm={2} xs={2} md={3} lg={3} xl={6}>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
-                    <div className={cx('card-wrapper')}>
-                        <ColProductCard
-                            url='https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'
-                            pCate='DATA'
-                            pName='Laptop Lenovo IdeaPad 3 
-                        15IAU7 - 82RK001NVN ...'
-                            oldPrice='16.000.000đ'
-                            newPrice='12.999.999đ'
-                            stars={3}
-                            ratingNumber={67}
-                            origin="Mỹ"
-                        />
-                    </div>
+                    {
+                        relatedProducts.map((product) => {
+                            return (
+                                <div className={cx('card-wrapper')}>
+                                    <ColProductCard
+                                        url={product.images[1].url}
+                                        pCate={product.brand}
+                                        pName={product.name}
+                                        oldPrice={product.price}
+                                        salePercents={productDetail.salePercents}
+                                        stars={product.rating}
+                                        ratingNumber={product.ratingNumber}
+                                    />
+                                </div>
+                            )
+                        })
+
+                    }
                     <div className={cx('viewAll-wrapper')}>
                         <ViewAll />
                     </div>

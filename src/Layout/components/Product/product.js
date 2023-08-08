@@ -9,9 +9,12 @@ import { RatingStar } from '../../../components/Icons/Icons';
 const cx = classNames.bind(styles);
 const btnText = 'Thêm vào giỏ'
 function ProductCard(props) {
-    const renderStars = () => {
+
+
+
+    const renderStars = (rating) => {
         const stars = [];
-        for (let i = 0; i < props.stars; i++) {
+        for (let i = 0; i < rating; i++) {
             stars.push(
                 <div className={cx('star-styles')}>
                     <RatingStar key={i} />
@@ -21,10 +24,11 @@ function ProductCard(props) {
 
         return stars;
     };
+
     return (
         <Card className={cx('pCard')}>
             <div className={cx('pImg-wrapper')}>
-                <p className={cx('sale-tag')}>Giảm {props.sale}%</p>
+                <p className={cx('sale-tag')}>Giảm {props.salePercents}%</p>
                 <Card.Img className={cx('pImg')} variant="top" src={props.url} />
             </div>
             <Card.Body className={cx('card-content')}>
@@ -32,13 +36,13 @@ function ProductCard(props) {
                 <Card.Title className={cx('pName')}>{props.pName}</Card.Title>
                 <div className={cx('pPrice')}>
                     <span className={cx('oldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</span>
-                    <span className={cx('newPrice')}>{props.newPrice.toLocaleString('vi-VN')}đ</span>
+                    <span className={cx('newPrice')}>{(props.oldPrice - props.oldPrice * (props.salePercents / 100)).toLocaleString('vi-VN')}đ</span>
                 </div>
                 <div className={cx('rating-display')}>
                     <div className={cx('rating-stars')}>
                         <div className={cx('stars')}>
                             <div className={cx('stars-wrapper')}>
-                                {renderStars()}
+                                {renderStars(props.stars)}
                             </div>
                         </div>
                         <span className={cx('ratingNumber')}>({props.ratingNumber})</span>

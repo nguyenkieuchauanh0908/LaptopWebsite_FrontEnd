@@ -14,10 +14,12 @@ function ProductInfo(props) {
                 <p className={cx('pName')}>{props.name}</p>
                 <p className={cx('pBrand-wrapper')}>Thương hiệu: <span className={cx('pBrandName')}>{props.brand}</span></p>
                 <div className={cx('price-group')}>
-                    <p className={cx('pNewPrice')}>{props.newPrice}</p>
-                    <p className={cx('pOldPrice')}>{props.oldPrice}</p>
+                    <p className={cx('pNewPrice')}>{(props.oldPrice - props.oldPrice * (props.salePercents / 100)).toLocaleString('vi-VN')}đ</p>
+                    <p className={cx('pOldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</p>
                 </div>
-                <p className={cx('pStatus-wrapper')}>Tình trạng: <span className={cx('pStatus')}>Còn hàng</span></p>
+                <p className={cx('pStatus-wrapper')}>Tình trạng: <span className={cx('pStatus')}>{
+                    props.status === 'Selling' ? 'Còn hàng' : 'Hết hàng'
+                }</span></p>
             </div>
             <div className={cx('flex-item', 'pChooseQuantity')}>
                 <p className={cx('choose-quantity-title')}>Chọn số lượng: </p>
@@ -31,7 +33,6 @@ function ProductInfo(props) {
                     <div className={cx('add-wrapper')}>
                         <AddIcon />
                     </div>
-
 
                 </div>
 
