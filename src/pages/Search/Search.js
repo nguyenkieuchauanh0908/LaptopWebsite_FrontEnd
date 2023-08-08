@@ -10,7 +10,7 @@ function Search() {
         id: 1,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
-        salePercent: 10,
+        salePercents: 10,
         quantity: 1000,
         images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
             'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
@@ -24,7 +24,7 @@ function Search() {
         id: 2,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
-        salePercent: 10,
+        salePercents: 10,
         quantity: 1000,
         images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
             'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
@@ -38,7 +38,7 @@ function Search() {
         id: 3,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
-        salePercent: 10,
+        salePercents: 10,
         quantity: 1000,
         images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
             'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
@@ -52,7 +52,7 @@ function Search() {
         id: 4,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
-        salePercent: 10,
+        salePercents: 10,
         quantity: 1000,
         images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
             'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
@@ -66,7 +66,7 @@ function Search() {
         id: 5,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
-        salePercent: 10,
+        salePercents: 10,
         quantity: 1000,
         images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
             'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
@@ -75,7 +75,7 @@ function Search() {
         category: 'DATA',
         rating: 4,
         ratingNumber: 67
-    },
+    }
     ]
     //let searchResults = []
     return (

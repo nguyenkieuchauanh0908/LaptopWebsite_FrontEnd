@@ -13,7 +13,7 @@ function ProductImgs({ images }) {
                     images.map((image, index) => {
                         if (index === 0)
                             return <img className={cx('sub-pImage', 'current-pImg')} src={image.url} alt='Ảnh sản phẩm'></img>
-                        return <img className={cx('sub-pImage')} src={image.url} alt='Ảnh sản phẩm'></img>
+                        return <img key={index} className={cx('sub-pImage')} src={image.url} alt='Ảnh sản phẩm'></img>
                     })
                 }
             </div>

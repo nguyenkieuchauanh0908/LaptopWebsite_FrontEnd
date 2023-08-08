@@ -41,9 +41,9 @@ function Comment(props) {
                 </div>
                 <div className={cx('imgs-wrapper')}>
                     {
-                        props.images.map(img => {
+                        props.images.map((img, index) => {
                             return <div className={cx('img-wrapper')}>
-                                <img className={cx('cmtImg')} src={img.url} alt='Hình ảnh sản phẩm'></img>
+                                <img key={index} className={cx('cmtImg')} src={img.url} alt='Hình ảnh sản phẩm'></img>
                             </div>
                         })
                     }

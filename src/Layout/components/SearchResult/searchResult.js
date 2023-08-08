@@ -9,32 +9,35 @@ import Button from '../../../components/Button';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles)
-function SearchResult(props) {
+function SearchResult({ foundProducts }) {
     return (
         <>
             {
-                props.foundProducts.length > 0 ? (
+                foundProducts.length > 0 ? (
                     <>
                         <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
                             <div className={cx('row-products')}>
 
 
-                                <p className={cx('row-products-label')}>Tìm thấy {props.foundProducts.length} sản phẩm</p>
+                                <p className={cx('row-products-label')}>Tìm thấy {foundProducts.length} sản phẩm</p>
                                 <Row sm xs={2} md={3} lg={3} xl={5}>
                                     {
-                                        props.foundProducts.map((product) => (
-                                            <div className={cx('card-wrapper')}>
-                                                <ColProductCard
-                                                    url={product.images[0]}
-                                                    pCate={product.category}
-                                                    pName={product.name}
-                                                    oldPrice={product.price}
-                                                    newPrice={product.price - product.price * (10 / 100)}
-                                                    stars={product.rating}
-                                                    ratingNumber={product.ratingNumber}
-                                                />
-                                            </div>
-                                        ))
+                                        foundProducts.map((product, index) =>
+                                        (<div className={cx('card-wrapper')}>
+                                            <ColProductCard
+                                                key={index}
+                                                url={product.images[0]}
+                                                pCate={product.category}
+                                                pName={product.name}
+                                                oldPrice={product.price}
+                                                stars={product.rating}
+                                                ratingNumber={product.ratingNumber}
+                                                salePercents={product.salePercents}
+                                            />
+
+
+                                        </div>)
+                                        )
                                     }
 
 

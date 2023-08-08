@@ -429,10 +429,11 @@ function ProductDetail({ productId, brandId }) {
                         </div>
 
                     </div>
-                    {comments.map((comment) => {
+                    {comments.map((comment, index) => {
                         return (
                             <Row>
                                 <Comment
+                                    key={index}
                                     uName={comment.uName}
                                     content={comment.content}
                                     stars={comment.stars}
@@ -450,15 +451,16 @@ function ProductDetail({ productId, brandId }) {
                 <span className={cx('row-heading')}>Sản phẩm liên quan</span>
                 <Row sm={2} xs={2} md={3} lg={3} xl={6}>
                     {
-                        relatedProducts.map((product) => {
+                        relatedProducts.map((product, index) => {
                             return (
                                 <div className={cx('card-wrapper')}>
                                     <ColProductCard
+                                        key={index}
                                         url={product.images[1].url}
                                         pCate={product.brand}
                                         pName={product.name}
                                         oldPrice={product.price}
-                                        salePercents={productDetail.salePercents}
+                                        salePercents={product.salePercent}
                                         stars={product.rating}
                                         ratingNumber={product.ratingNumber}
                                     />

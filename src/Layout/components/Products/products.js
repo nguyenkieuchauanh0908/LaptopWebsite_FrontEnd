@@ -9,218 +9,449 @@ import ViewAll from '../../../components/view-all/view-all';
 
 const cx = classNames.bind(styles)
 function Products() {
-    let bestSellingProducts = [{
-        id: 1,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4.1,
-        ratingNumber: 67
-    },
-    {
-        id: 2,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 3,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 4,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4, ratingNumber: 67
+    let bestSellingProducts = [
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
 
-    },
-    {
-        id: 5,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    }
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 2,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 3,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 4,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 5,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        }
+
     ]
-    let onSellProducts = [{
-        id: 1,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4.1,
-        ratingNumber: 67
-    },
-    {
-        id: 2,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 3,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 4,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4, ratingNumber: 67
+    let onSellProducts = [
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
 
-    },
-    {
-        id: 5,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 2,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 3,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 4,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 5,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        }
+
     ]
-    let mostSearchedProducts = [{
-        id: 1,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4.1,
-        ratingNumber: 67
-    },
-    {
-        id: 2,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 3,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
-    {
-        id: 4,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4, ratingNumber: 67
+    let mostSearchedProducts = [
+        {
+            id: 1,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
 
-    },
-    {
-        id: 5,
-        name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
-        price: 12000000,
-        salePercents: 10,
-        quantity: 1000,
-        images: ['https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw',
-            'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w500-rw'],
-        category: 'DATA',
-        rating: 4,
-        ratingNumber: 67
-    },
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 2,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 3,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 4,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        },
+        {
+            id: 5,
+            name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
+            price: 12000000,
+            salePercent: 10,
+            quantity: 1000,
+            images: [
+                {
+                    id: 1,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 2,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 3,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+                {
+                    id: 4,
+                    url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                },
+
+            ],
+            brand: 'DATA',
+            rating: 4.1,
+            ratingNumber: 67
+        }
+
     ]
     return (
         <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
@@ -235,18 +466,20 @@ function Products() {
                 <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
                 <Row xs={2} sm={2} md={3} lg={3} xl={5}>
                     {
-                        bestSellingProducts.map((product) =>
+                        bestSellingProducts.map((product, index) =>
                         (<div className={cx('card-wrapper')}>
                             <ColProductCard
-                                url={product.images[0]}
-                                pCate={product.category}
+                                key={index}
+                                url={product.images[1].url}
+                                pCate={product.brand}
                                 pName={product.name}
                                 oldPrice={product.price}
-                                newPrice={product.price - product.price * (10 / 100)}
+                                salePercents={product.salePercent}
                                 stars={product.rating}
                                 ratingNumber={product.ratingNumber}
-                                salePercents={product.salePercents}
                             />
+
+
                         </div>)
                         )
                     }
@@ -258,17 +491,17 @@ function Products() {
                 <p className={cx('row-products-label')}>Sản phẩm đang sale</p>
                 <Row sm xs={2} md={3} lg={3} xl={5}>
                     {
-                        onSellProducts.map((product) => (
+                        onSellProducts.map((product, index) => (
                             <div className={cx('card-wrapper')}>
                                 <ColProductCard
-                                    url={product.images[0]}
-                                    pCate={product.category}
+                                    key={index}
+                                    url={product.images[1].url}
+                                    pCate={product.brand}
                                     pName={product.name}
                                     oldPrice={product.price}
-                                    newPrice={product.price - product.price * (10 / 100)}
+                                    salePercents={product.salePercent}
                                     stars={product.rating}
                                     ratingNumber={product.ratingNumber}
-                                    salePercents={product.salePercents}
                                 />
                             </div>))
                     }
@@ -283,17 +516,17 @@ function Products() {
                 <p className={cx('row-products-label')}>Sản phẩm được tìm kiếm nhiều nhất</p>
                 <Row sm xs={2} md={3} lg={3} xl={5}>
                     {
-                        mostSearchedProducts.map((product) => (
+                        mostSearchedProducts.map((product, index) => (
                             (<div className={cx('card-wrapper')}>
                                 <ColProductCard
-                                    url={product.images[0]}
-                                    pCate={product.category}
+                                    key={index}
+                                    url={product.images[1].url}
+                                    pCate={product.brand}
                                     pName={product.name}
                                     oldPrice={product.price}
-                                    newPrice={product.price - product.price * (10 / 100)}
+                                    salePercents={product.salePercent}
                                     stars={product.rating}
                                     ratingNumber={product.ratingNumber}
-                                    salePercents={product.salePercents}
                                 />
                             </div>)
                         ))
