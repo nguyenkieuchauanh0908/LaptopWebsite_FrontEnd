@@ -223,11 +223,17 @@ function Products() {
     },
     ]
     return (
-        <Col xs sm={7} md={9} className={cx('col-products')}>
+        <Col xs={12} sm={8} className={cx('col-products')}>
+            <div className={cx('tag-wrapper')}>
+                <p>Top sale</p>
+                <p>Đang sale</p>
+                <p>Tìm kiếm nhiều nhất</p>
+
+            </div>
             <div className={cx('row-products')}>
                 {/* Bán chạy nhất */}
                 <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
-                <Row sm xs={2} md={3} lg={3} xl={5}>
+                <Row xs={2} sm={2} md={3} lg={3} xl={5}>
                     {
                         bestSellingProducts.map((product) =>
                         (<div className={cx('card-wrapper')}>
@@ -239,6 +245,7 @@ function Products() {
                                 newPrice={product.price - product.price * (10 / 100)}
                                 stars={product.rating}
                                 ratingNumber={product.ratingNumber}
+                                sale={product.salePercent}
                             />
                         </div>)
                         )
@@ -261,6 +268,7 @@ function Products() {
                                     newPrice={product.price - product.price * (10 / 100)}
                                     stars={product.rating}
                                     ratingNumber={product.ratingNumber}
+                                    sale={product.salePercent}
                                 />
                             </div>))
                     }
@@ -285,6 +293,7 @@ function Products() {
                                     newPrice={product.price - product.price * (10 / 100)}
                                     stars={product.rating}
                                     ratingNumber={product.ratingNumber}
+                                    sale={product.salePercent}
                                 />
                             </div>)
                         ))

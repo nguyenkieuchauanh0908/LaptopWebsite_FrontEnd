@@ -76,3 +76,10 @@
     border: 4px solid;
     border-color: transparent transparent transparent var(--primary-color);
 }
+
+//Sidebar mobile
+@media screen and (max-width: 576px) {
+    .sidebar-container {
+        display: none;
+    }
+}

@@ -7,7 +7,7 @@ import ViewAll from '../../../components/view-all/view-all.js'
 const cx = classNames.bind(styles)
 function Sidebar() {
     return (
-        <Col sm xs={12} md lg xl={2}>
+        <Col sm={3} md={3} lg={2} className={cx('sidebar-container')}>
             <div className={cx('side-bar-wrapper')}>
                 <nav class="category">
                     <h3 className={cx('category__heading')}><i className={cx('heading__icon fa-solid fa-list')}></i>Lọc theo giá</h3>

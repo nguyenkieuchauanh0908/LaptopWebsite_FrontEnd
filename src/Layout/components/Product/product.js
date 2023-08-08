@@ -24,7 +24,7 @@ function ProductCard(props) {
     return (
         <Card className={cx('pCard')}>
             <div className={cx('pImg-wrapper')}>
-                <p className={cx('sale-tag')}>Giảm 20%</p>
+                <p className={cx('sale-tag')}>Giảm {props.sale}%</p>
                 <Card.Img className={cx('pImg')} variant="top" src={props.url} />
             </div>
             <Card.Body className={cx('card-content')}>
