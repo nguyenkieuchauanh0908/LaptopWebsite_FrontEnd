@@ -15,7 +15,7 @@ function SearchResult(props) {
             {
                 props.foundProducts.length > 0 ? (
                     <>
-                        <Col xs sm={7} md={9} className={cx('col-products')}>
+                        <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
                             <div className={cx('row-products')}>
 
 

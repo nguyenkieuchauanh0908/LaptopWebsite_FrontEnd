@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import Row from 'react-bootstrap/Row';
 const cx = classNames.bind(styles)
 function Search() {
-    let searchResults1 = [{
+    let searchResults = [{
         id: 1,
         name: 'Laptop Lenovo IdeaPad 315IAU7 - 82RK001NVN',
         price: 12000000,
@@ -77,7 +77,7 @@ function Search() {
         ratingNumber: 67
     },
     ]
-    let searchResults = []
+    //let searchResults = []
     return (
         <div className={cx('wrapper')}>
             <Row className={cx('main-section')}>
