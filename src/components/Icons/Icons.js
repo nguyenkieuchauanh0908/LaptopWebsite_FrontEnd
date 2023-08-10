@@ -407,7 +407,7 @@ export const AddIcon = ({ width = '20', height = '20', className, color = '#6670
         fill="none">
         <path d="M10.0001 4.16667V15.8333M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
-);
+
 
 
 export const MinusIcon = ({ width = '20', height = '20', className, color = '#667085' }) =>
@@ -418,7 +418,7 @@ export const MinusIcon = ({ width = '20', height = '20', className, color = '#66
         fill="none">
         <path d="M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
-);
+
 
 
 export const GoogleIcon = ({ width = '24', height = '24', className }) =>
@@ -451,7 +451,7 @@ export const GoogleIcon = ({ width = '24', height = '24', className }) =>
             </clipPath>
         </defs>
     </svg>
-);
+
 
 export const Facebook = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
