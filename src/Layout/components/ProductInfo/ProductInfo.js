@@ -66,13 +66,13 @@ function ProductInfo(props) {
             <div className={cx('flex-item', 'pChooseQuantity')}>
                 <p className={cx('choose-quantity-title')}>Chọn số lượng: </p>
                 <div className={cx('choose-quantity-wrapper')}>
-                    <div className={cx('minus-wrapper')} onClick={handleMinusQuantity}>
+                    <div className={cx('minus-wrapper')} onClick={() => handleMinusQuantity}>
                         <MinusIcon />
                     </div>
                     <div className={cx('quantity-wrapper')}>
                         <input className={cx('quantity')} type="text" value={quantity} role="spinbutton"></input>
                     </div>
-                    <div className={cx('add-wrapper')} onClick={handleAddQuantity}>
+                    <div className={cx('add-wrapper')} onClick={() => handleAddQuantity}>
                         <AddIcon />
                     </div>
 
@@ -80,8 +80,8 @@ function ProductInfo(props) {
 
             </div>
             <div className={cx('flex-item', 'buttons-group')}>
-                <button type="button" className={cx('btn', 'buy-btn')} onClick={handleCheckOut}>Mua ngay</button>
-                <button type="button" className={cx('btn', 'add-to-cart-btn')} onClick={handleAddToCart}>Thêm vào giỏ</button>
+                <button type="button" className={cx('btn', 'buy-btn')} onClick={() => handleCheckOut}>Mua ngay</button>
+                <button type="button" className={cx('btn', 'add-to-cart-btn')} onClick={() => handleAddToCart}>Thêm vào giỏ</button>
             </div>
         </div >
     )

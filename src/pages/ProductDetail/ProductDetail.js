@@ -37,19 +37,19 @@ function ProductDetail({ productId, brandId }) {
             brand: 'Lenovo',
             images: [{
                 id: 1,
-                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                url: 'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw'
             },
             {
                 id: 2,
-                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                url: 'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw'
             },
             {
                 id: 3,
-                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                url: 'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw'
             },
             {
                 id: 4,
-                url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
+                url: 'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
             },
 
             ],
