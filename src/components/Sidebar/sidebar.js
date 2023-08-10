@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './sidebar.module.scss'
 import classNames from 'classnames/bind'
 import Col from 'react-bootstrap/esm/Col'
-import ViewAll from '../../../components/view-all/view-all.js'
+import ViewAll from '../view-all/view-all.js'
 
 const cx = classNames.bind(styles)
 function Sidebar() {
