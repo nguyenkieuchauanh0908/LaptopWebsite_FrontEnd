@@ -1,0 +1,17 @@
+.wrapper {
+    padding: 24px 8px;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.wrapper:last-child {
+    border-bottom: none;
+}
+
+.item-delete {
+    color: red;
+}
+
+.item-delete:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
