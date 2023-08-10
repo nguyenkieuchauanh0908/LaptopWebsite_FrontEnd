@@ -357,23 +357,68 @@ export const RatingStar = () =>
         <path d="M4.6582 0.438498C4.79802 0.155205 5.20198 0.155206 5.3418 0.438498L6.5916 2.97088C6.64712 3.08338 6.75444 3.16135 6.87859 3.17939L9.67324 3.58547C9.98587 3.6309 10.1107 4.0151 9.88448 4.23561L7.86225 6.20679C7.77242 6.29436 7.73143 6.42052 7.75263 6.54417L8.23002 9.32752C8.28342 9.63889 7.9566 9.87634 7.67698 9.72933L5.17737 8.41521C5.06633 8.35683 4.93367 8.35683 4.82263 8.41521L2.32302 9.72933C2.0434 9.87634 1.71658 9.63889 1.76998 9.32752L2.24737 6.54417C2.26857 6.42052 2.22758 6.29436 2.13775 6.20679L0.115521 4.23561C-0.110701 4.0151 0.0141305 3.6309 0.326763 3.58547L3.12141 3.17939C3.24556 3.16135 3.35288 3.08338 3.4084 2.97088L4.6582 0.438498Z" fill="#FAC515" />
     </svg>
 
-export const RightArrow = () =>
-    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20" fill="none">
+export const RightArrow = ({ width = '2rem', height = '2rem', className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 15 20"
+        fill="none">
         <path d="M7.5 15L12.5 9.99997L7.5 4.99997" stroke="#1570EF" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
+)
 
-export const AddIcon = () =>
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10.0001 4.16667V15.8333M4.16675 10H15.8334" stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+
+
+
+export const LeftArrowWithTail = ({ width = '2rem', height = '2rem', className, color = '#344054' }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        viewBox="0 0 21 20"
+        className={className}
+        fill="none">
+        <path d="M16.3334 10H4.66669M4.66669 10L10.5 15.8333M4.66669 10L10.5 4.16667" stroke={color} stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+)
+
+export const RightArrowWithTail = ({ width = '2rem', height = '2rem', className, color = '#344054' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 21 20" fill="none">
+        <path d="M4.66667 10H16.3333M16.3333 10L10.5 4.16667M16.3333 10L10.5 15.8333" stroke={color} stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+)
+
+export const AddIcon = ({ width = '20', height = '20', className, color = '#667085' }) =>
+    <svg xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 20 20"
+        fill="none">
+        <path d="M10.0001 4.16667V15.8333M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
-export const MinusIcon = () =>
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M4.16675 10H15.8334" stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+export const MinusIcon = ({ width = '20', height = '20', className, color = '#667085' }) =>
+    <svg xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        fill="none">
+        <path d="M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
-export const GoogleIcon = () =>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+export const GoogleIcon = ({ width = '24', height = '24', className }) =>
+    <svg xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24" fill="none">
         <g clip-path="url(#clip0_559_4645)">
             <path d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z" fill="#4285F4" />
             <path d="M12.24 24.0008C15.4764 24.0008 18.2058 22.9382 20.1944 21.1039L16.3274 18.1055C15.2516 18.8375 13.8626 19.252 12.2444 19.252C9.11376 19.252 6.45934 17.1399 5.50693 14.3003H1.51648V17.3912C3.55359 21.4434 7.70278 24.0008 12.24 24.0008Z" fill="#34A853" />
@@ -382,19 +427,6 @@ export const GoogleIcon = () =>
         </g>
         <defs>
             <clipPath id="clip0_559_4645">
-                <rect width="24" height="24" fill="white" />
-            </clipPath>
-        </defs>
-    </svg>
-
-export const Facebook = () =>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <g clip-path="url(#clip0_559_3898)">
-            <path d="M24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 17.9895 4.3882 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9701 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.34 7.875 13.875 8.80008 13.875 9.75V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6118 22.954 24 17.9895 24 12Z" fill="#1877F2" />
-            <path d="M16.6711 15.4688L17.2031 12H13.875V9.75C13.875 8.80102 14.34 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9705 4.6875 14.6576 4.6875C11.9166 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C11.3674 24.0486 12.6326 24.0486 13.875 23.8542V15.4688H16.6711Z" fill="white" />
-        </g>
-        <defs>
-            <clipPath id="clip0_559_3898">
                 <rect width="24" height="24" fill="white" />
             </clipPath>
         </defs>
