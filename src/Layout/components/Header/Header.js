@@ -175,7 +175,7 @@ function Header() {
                         </div>
                         <div className={cx('col-3 d-flex justify-content-end')} style={{ gap: '20px' }}>
                             <div className={cx('cart')}>
-                                <Link to={'./cart'}>
+                                <Link to={'/cart'}>
                                     <FontAwesomeIcon className={cx('header-icon')} icon={faCartShopping} />
                                 </Link>
                                 <div className={cx('cart-quantity')}>3</div>

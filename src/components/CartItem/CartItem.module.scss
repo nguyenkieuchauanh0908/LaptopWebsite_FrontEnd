@@ -58,3 +58,70 @@
 .cart__item-money {
     color: var(--primary);
 }
+
+// responsive
+/* Styles cho điện thoại */
+@media screen and (max-width: 576px) {
+    .wrapper {
+        height: 130px;
+        border-bottom: 1px solid #434657;
+        input {
+            margin-left: 0 !important;
+            margin-right: 8px !important;
+        }
+    }
+    .cart__item-info {
+        padding-left: 24px !important;
+        gap: 12px;
+    }
+    .cart__item-price {
+        display: none;
+    }
+    .cart__item-quantity {
+        gap: 6px;
+    }
+    .quantity {
+        padding: 2px 6px;
+        border: 1px solid #000;
+    }
+    .btn-reduce,
+    .btn-raise {
+        padding: 2px 6px;
+        color: var(--white-text-color);
+        background-color: #000;
+        cursor: pointer;
+    }
+    .btn-reduce {
+        border-radius: 0;
+    }
+    .btn-raise {
+        border-radius: 0;
+    }
+    .product {
+        .product-img {
+            width: 100px;
+            height: 80px;
+            margin-right: 12px;
+        }
+    }
+}
+/* Styles cho điện thoại nằm ngang */
+@media screen and (min-width: 576px) and (max-width: 768px) {
+}
+
+/* Styles cho máy tính bảng */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .wrapper {
+        height: 94px;
+        input {
+            margin-left: 0 !important;
+            margin-right: 20px !important;
+        }
+    }
+    .cart__item-price {
+        display: none;
+    }
+    .cart__item-info {
+        justify-content: end;
+    }
+}

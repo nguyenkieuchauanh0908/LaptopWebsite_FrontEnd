@@ -14,7 +14,7 @@ import Statistical from '../pages/Admin/Statistical';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/cart', component: Cart },
+    { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
     { path: '/product-detail', component: ProductDetail },

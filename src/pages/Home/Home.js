@@ -1,5 +1,5 @@
-import Products from '../../Layout/components/Products/products.js';
-import Sidebar from '../../Layout/components/Sidebar/sidebar.js';
+import Products from './Products/products.js';
+import Sidebar from '../../components/Sidebar/sidebar.js';
 import Row from 'react-bootstrap/Row';
 import classNames from 'classnames/bind';
 import styles from './home.page.scss'
