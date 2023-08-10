@@ -3,9 +3,9 @@ import classNames from 'classnames/bind';
 import styles from './products.module.scss'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ColProductCard from '../Product/product';
+import ColProductCard from '../../../components/Product/product';
 import ViewAll from '../../../components/view-all/view-all';
-import ImageSlider from '../Slider/slider';
+import ImageSlider from '../../../Layout/components/Slider/slider';
 
 const cx = classNames.bind(styles)
 function Products() {
@@ -461,7 +461,7 @@ function Products() {
     ]
     return (
         <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
-            <div className={cx('row-products')}>
+            <div className={cx('row-slider')}>
                 <Row>
                     <ImageSlider
                         sliderImages={sliderImages}

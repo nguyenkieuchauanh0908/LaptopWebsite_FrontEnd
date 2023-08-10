@@ -1,10 +1,9 @@
-import ColProductCard from '../Product/product';
+import ColProductCard from '../../../components/Product/product';
 import styles from './searchResult.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ViewAll from '../../../components/view-all/view-all';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight, faFaceMeh } from '@fortawesome/free-solid-svg-icons';
+import { faFaceMeh } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../../components/Button';
 import classNames from 'classnames/bind';
 

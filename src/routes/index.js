@@ -12,7 +12,7 @@ import Signup from '../pages/Signup/Signup'
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart, layout: HeaderOnly },
-    { path: '/login', component: Login, layout: null },
+    { path: '/login', component: Login },
     { path: '/signup', component: Signup },
     { path: '/product-detail', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },
