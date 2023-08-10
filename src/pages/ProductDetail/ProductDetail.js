@@ -55,7 +55,8 @@ function ProductDetail({ productId, brandId }) {
             ],
             salePercents: 10,
             price: 16000000,
-            status: 'Selling'
+            status: 'Selling',
+            quantity: 10,
         }
     }
 
@@ -395,6 +396,7 @@ function ProductDetail({ productId, brandId }) {
                             oldPrice={productDetail.price}
                             salePercents={productDetail.salePercents}
                             status={productDetail.status}
+                            quantity={productDetail.quantity}
 
                         />
                     </Col>
