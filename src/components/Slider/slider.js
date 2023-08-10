@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './slider.module.scss';
 import classNames from 'classnames/bind';
-import { RightArrowWithTail, LeftArrowWithTail } from '../../../components/Icons/Icons';
+import { RightArrowWithTail, LeftArrowWithTail } from '../Icons/Icons';
 
 const cx = classNames.bind(styles);
 
