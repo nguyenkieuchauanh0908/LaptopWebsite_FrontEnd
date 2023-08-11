@@ -26,7 +26,7 @@ function ProductCard(props) {
     };
 
     return (
-        <Card className={cx('pCard')}>
+        <Card style={{ width: '100%' }} className={cx('pCard')}>
             <div className={cx('pImg-wrapper')}>
                 <p className={cx('sale-tag')}>Giảm {props.salePercents}%</p>
                 <Card.Img className={cx('pImg')} variant="top" src={props.url} />

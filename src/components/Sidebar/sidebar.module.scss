@@ -1,10 +1,12 @@
 .sidebar-container {
     margin-bottom: 24px;
+    // padding: 6px !important;
 }
 
 .side-bar-wrapper {
-    margin-left: 12px;
+    //margin-left: 12px;
     // margin-right: 12px;
+    justify-content: center;
     background-color: #fff;
     box-shadow: 0 1px 6px rgba(189, 189, 189, 0.3);
 }
