@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceMeh } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../../components/Button';
 import classNames from 'classnames/bind';
+import PaginationBar from '../../../components/PaginationBar/PaginationBar';
 
 const cx = classNames.bind(styles)
 function SearchResult({ foundProducts }) {
@@ -40,6 +41,12 @@ function SearchResult({ foundProducts }) {
                                     }
 
 
+                                </Row>
+                            </div>
+                            <div className={cx('row-pagination')}>
+                                <Row>
+                                    <PaginationBar
+                                        pages={20} />
                                 </Row>
                             </div>
                         </Col >

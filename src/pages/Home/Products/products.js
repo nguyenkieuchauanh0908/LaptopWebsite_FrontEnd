@@ -7,6 +7,7 @@ import ColProductCard from '../../../components/Product/product';
 import ViewAll from '../../../components/view-all/view-all';
 import ImageSlider from '../../../components/Slider/slider';
 
+
 const cx = classNames.bind(styles)
 function Products() {
     let bestSellingProducts = [
@@ -547,6 +548,7 @@ function Products() {
                     }
                 </Row>
             </div>
+
 
         </Col >
     );

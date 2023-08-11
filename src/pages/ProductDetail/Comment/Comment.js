@@ -20,7 +20,7 @@ function Comment(props) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('overview-wrapper')}>
-                <div className='uImge-wrapper'>
+                <div className={cx('uImge-wrapper')}>
                     <img className={cx('uImage')} src='https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo' alt='user'></img>
                 </div>
                 <div className={cx('name-wrapper')}>
