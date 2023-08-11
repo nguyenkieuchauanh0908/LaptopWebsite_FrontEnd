@@ -46,7 +46,7 @@ function SearchResult({ foundProducts }) {
                             <div className={cx('row-pagination')}>
                                 <Row>
                                     <PaginationBar
-                                        pages={5} />
+                                        pages={20} />
                                 </Row>
                             </div>
                         </Col >
