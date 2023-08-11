@@ -20,7 +20,7 @@
 .input-wrapper-item {
     display: flex;
     flex-direction: column;
-    padding: 4px;
+    // padding: 4px;
 }
 
 .form-title {
@@ -63,6 +63,7 @@
     font-weight: 600;
     line-height: 150%; /* 21px */
     text-align: center;
+    margin-top: 12px;
 }
 
 .option-SignUp p a {
