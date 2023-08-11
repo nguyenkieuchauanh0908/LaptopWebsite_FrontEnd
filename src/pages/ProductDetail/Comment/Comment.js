@@ -1,4 +1,4 @@
-import styles from './Comment.scss'
+import styles from './Comment.module.scss'
 import classNames from 'classnames/bind'
 import { RatingStar } from '../../../components/Icons/Icons';
 const cx = classNames.bind(styles)

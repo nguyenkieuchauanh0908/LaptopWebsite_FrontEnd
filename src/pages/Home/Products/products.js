@@ -460,7 +460,7 @@ function Products() {
         'https://lh3.googleusercontent.com/GjZbfw6uAjrCzKQXyyRGnrgnb-PfChZIo2bsnps-q7DQguj34Av5FYmzCe2Lb8HqPjuREQ_VlGNLp6XOZ1xpW2Sh4yeqrjlX=w1920-rw'
     ]
     return (
-        <Col xs={12} sm={8} md={8} lg={9} className={cx('col-products')}>
+        <Col xs={12} sm={8} md={8} lg={9} xl={9} className={cx('col-products')}>
             <div className={cx('row-slider')}>
                 <Row>
                     <ImageSlider
