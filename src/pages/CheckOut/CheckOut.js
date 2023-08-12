@@ -10,6 +10,8 @@ import Button from '../../components/Button';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
 function CheckOut() {
+    const [isOrderSuccessful, setIsOrderSuccessful] = useState(null);
+    const [orderDetails, setOrderDetails] = useState(null);
     const [changeAddress, setChangeAddress] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState('');
     const [cartItems, setCartItems] = useState([
@@ -31,10 +33,38 @@ function CheckOut() {
     const calculateTotalQuantity = () => {
         return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0);
     };
-    console.log('trạng thái đơn hàng' + orderSuccess);
+
+    console.log('trạng thái' + isOrderSuccessful);
+    const handlePlaceOrder = () => {
+        // Simulate API call for placing an order
+        // Replace this with your actual API call
+        simulatePlaceOrderAPI()
+            .then((response) => {
+                setIsOrderSuccessful(true);
+                setOrderDetails(response.orderDetails);
+            })
+            .catch((error) => {
+                setIsOrderSuccessful(false);
+            });
+    };
+
+    const simulatePlaceOrderAPI = () => {
+        return new Promise((resolve, reject) => {
+            // Simulate success response
+            const orderDetails = {
+                orderNumber: '123456',
+                totalPrice: '$100',
+                // Other order details
+            };
+            resolve({ orderDetails });
+
+            // Simulate error response
+            // reject('Failed to place order');
+        });
+    };
     return (
         <div className={cx('wrapper')}>
-            {!orderSuccess ? (
+            {isOrderSuccessful === null && (
                 <>
                     <h2 className={cx('d-flex justify-content-center', 'title')}>Thanh Toán</h2>
 
@@ -216,7 +246,7 @@ function CheckOut() {
                                         </div>
                                     </div>
                                     <div className={cx('btn-order')}>
-                                        <Button onClick={() => setOrderSuccess(true)} primary>
+                                        <Button onClick={handlePlaceOrder} primary>
                                             Đặt hàng
                                         </Button>
                                     </div>
@@ -232,8 +262,10 @@ function CheckOut() {
                         </div>
                     </div>
                 </>
-            ) : (
-                <div className={cx('inner')}>
+            )}
+
+            {isOrderSuccessful === true && (
+                <div className={cx('inner', 'wrapper-success')}>
                     <div className={cx('container')}>
                         <div className={cx('row justify-content-center', 'order__success')}>
                             <div className={cx('col-lg-10', 'order__success-full')}>
@@ -408,6 +440,8 @@ function CheckOut() {
                     </div>
                 </div>
             )}
+            {isOrderSuccessful === false && <p>Đặt hàng thất bại!</p>}
+
             {changeAddress && (
                 <div className={cx('change__address')}>
                     <div className={cx('container d-flex align-items-center ', 'change__address-wrapper')}>
