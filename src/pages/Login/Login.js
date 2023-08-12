@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Login.module.scss'
 import classNames from 'classnames/bind';
-import { GoogleIcon, Facebook } from '../../components/Icons';
+import { GoogleIcon, FacebookIcon } from '../../components/Icons';
 
 const cx = classNames.bind(styles)
 
@@ -32,7 +32,7 @@ function Login() {
                             Đăng nhập bằng Gmail
                         </div>
                         <div className={cx('btn', 'btn-SignIn-facebook')} type="button">
-                            <Facebook />
+                            <FacebookIcon width='24' height='24' />
                             Đăng nhập bằng Facebook
                         </div>
                     </div>

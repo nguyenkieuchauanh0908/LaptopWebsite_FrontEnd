@@ -1,17 +1,18 @@
-import Products from '../../Layout/components/Products/products.js';
-import Sidebar from '../../Layout/components/Sidebar/sidebar.js';
+import Products from './Products/products.js';
+import Sidebar from '../../components/Sidebar/sidebar.js';
 import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 import classNames from 'classnames/bind';
 import styles from './home.page.scss'
 const cx = classNames.bind(styles)
 function Home() {
     return (
-        <div className={cx('wrapper')}>
+        <Container fluid="md">
             <Row className={cx('main-section')}>
                 <Sidebar />
                 <Products />
             </Row >
-        </div>
+        </Container>
 
 
     );

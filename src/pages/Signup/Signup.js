@@ -43,7 +43,7 @@ function Signup() {
                             Đăng ký bằng Gmail
                         </div>
                         <div className={cx('btn', 'btn-SignIn-facebook')} type="button">
-                            <FacebookIcon />
+                            <FacebookIcon width='24' height='24' />
                             Đăng ký bằng Facebook
                         </div>
                     </div>
