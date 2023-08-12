@@ -183,3 +183,11 @@
         margin-right: 24px;
     }
 }
+
+.form-modal-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 350%;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.3);
+}

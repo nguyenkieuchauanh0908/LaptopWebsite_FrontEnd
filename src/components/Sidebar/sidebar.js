@@ -3,6 +3,7 @@ import styles from './sidebar.module.scss'
 import classNames from 'classnames/bind'
 import Col from 'react-bootstrap/esm/Col'
 import ViewAll from '../view-all/view-all.js'
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 function Sidebar() {
@@ -86,7 +87,7 @@ function Sidebar() {
                     <ul className={cx('category-list')}>
                         {
                             categories.map((category) => (<li className={cx('category-item')}>
-                                <a key={category.id} href="#" className={cx('category-item__link')}>{category.name}</a>
+                                <Link key={category.id} to={'/search'} className={cx('category-item__link')}>{category.name}</Link>
                             </li>))
                         }
                     </ul>
@@ -100,7 +101,7 @@ function Sidebar() {
                         {
                             brands.map((brand) => (
                                 <li key={brand.id} className={cx('category-item')}>
-                                    <a href="#" className={cx('category-item__link')}>{brand.name}</a>
+                                    <Link key={brand.id} to={'/search'} className={cx('category-item__link')}>{brand.name}</Link>
                                 </li>
                             )
 
@@ -110,7 +111,6 @@ function Sidebar() {
 
                         <li className={cx('category-item')}>
                             <ViewAll />
-
                         </li>
                     </ul>
                 </nav>
