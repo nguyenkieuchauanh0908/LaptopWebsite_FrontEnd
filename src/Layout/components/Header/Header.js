@@ -130,8 +130,71 @@ function Header() {
                             >
                                 <div className={cx('notification', 'd-flex align-items-center')}>
                                     <FontAwesomeIcon className={cx('icon-notification')} icon={faBell} />
+                                    <div className={cx('notification-quantity')}>3</div>
                                     <div className={cx('nav__text', 'd-none d-lg-block')}>
                                         <p>Thông báo</p>
+                                    </div>
+                                    <div className={cx('notification-box')}>
+                                        <h3>Thông báo mới nhận</h3>
+                                        <div className={cx('list-notification')}>
+                                            <div className={cx('item-notification')}>
+                                                <Image
+                                                    className={cx('d-block', 'img-notification')}
+                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo.svg"
+                                                    alt="logo"
+                                                />
+                                                <div className={cx('item-title')}>
+                                                    <h4>Đơn hàng bạn đã được giao thành công</h4>
+                                                    <p>
+                                                        🛒 Giá rẻ nhất trong ngày 💥 Triệu deal hot đang chờ 🏃 Mua ngay
+                                                        trước khi hết!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className={cx('item-notification')}>
+                                                <Image
+                                                    className={cx('d-block', 'img-notification')}
+                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo.svg"
+                                                    alt="logo"
+                                                />
+                                                <div className={cx('item-title')}>
+                                                    <h4>Đơn hàng bạn đã được giao thành công</h4>
+                                                    <p>
+                                                        🛒 Giá rẻ nhất trong ngày 💥 Triệu deal hot đang chờ 🏃 Mua ngay
+                                                        trước khi hết!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className={cx('item-notification')}>
+                                                <Image
+                                                    className={cx('d-block', 'img-notification')}
+                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo.svg"
+                                                    alt="logo"
+                                                />
+                                                <div className={cx('item-title')}>
+                                                    <h4>ĐẠI TIỆC ĐỒNG GIÁ TỪ 9.000Đ</h4>
+                                                    <p>🎉 Nhanh tay mua ngay trước khi hết hàng!</p>
+                                                </div>
+                                            </div>
+                                            <div className={cx('item-notification')}>
+                                                <Image
+                                                    className={cx('d-block', 'img-notification')}
+                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo.svg"
+                                                    alt="logo"
+                                                />
+                                                <div className={cx('item-title')}>
+                                                    <h4>Đơn hàng bạn đã được giao thành công</h4>
+                                                    <p>
+                                                        Freeship cho mọi đơn, giảm tối đa 15.000đ 🚛 Freeship đến
+                                                        300.000đ cho đơn trên 100.000đ ⏰ Nhanh tay đặt hàng, số lượng
+                                                        có hạn!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <Link to={'/notification'}>
+                                            <h3 className={cx('see-all', 'text-center')}>Xem tất cả</h3>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className={cx('account', 'd-flex align-items-center')}>
