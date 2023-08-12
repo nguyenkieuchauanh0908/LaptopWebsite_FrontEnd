@@ -47,8 +47,10 @@ function Login({ isShown = false, handleCloseForm }) {
             {
                 !isLoggedIn ? (<div className={cx('form-wrapper')}>
                     <form className={cx('loginForm')} onSubmit={handleSubmit}>
-                        <div onClick={handleCloseForm} className={cx('icons-wrapper')}>
-                            <CloseIcon className={cx('close-icon-wrapper', 'icon', `${!isShown ? 'hidden' : ''}`)} />
+                        <div className={cx('icons-wrapper')}>
+                            <div onClick={handleCloseForm}>
+                                <CloseIcon className={cx('close-icon-wrapper', 'icon', `${!isShown ? 'hidden' : ''}`)} />
+                            </div>
                             <Link to={'/'}><div className={cx('home-icon-wrapper', 'icon', `${isShown ? 'hidden' : ''}`)}><HomeIcon width={24} height={24} /></div></Link>
                             <p className={cx('form-title')}>Đăng nhập</p>
                         </div>
