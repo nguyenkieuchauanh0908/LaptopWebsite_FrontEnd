@@ -2,8 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './Signup.module.scss'
 import classNames from 'classnames/bind';
-import { GoogleIcon, FacebookIcon } from '../../components/Icons';
+import { GoogleIcon, FacebookIcon, HomeIcon } from '../../components/Icons';
 import { Link, useNavigate } from 'react-router-dom';
+// import Modal from 'react-bootstrap/Modal';
 
 const cx = classNames.bind(styles)
 
@@ -20,6 +21,7 @@ function Signup() {
     const [lNameError, setLNameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [mailError, setMailError] = useState('')
+
 
 
 
@@ -101,7 +103,11 @@ function Signup() {
     return (
         <div className={cx('form-wrapper')}>
             <form className={cx('loginForm')} onSubmit={handleSubmit}>
-                <p className={cx('form-title')}>Đăng ký</p>
+                <div className={cx('icons-wrapper')}>
+
+                    <Link to={'/'}><div className={cx('home-icon-wrapper', 'icon')}><HomeIcon width={24} height={24} /></div></Link>
+                    <p className={cx('form-title')}>Đăng ký</p>
+                </div>
                 <div className={cx('input-wrapper')}>
                     <div>
                         <div className={cx('input-wrapper-item')}>
