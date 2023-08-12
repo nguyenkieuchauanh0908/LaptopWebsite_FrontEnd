@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './Signup.module.scss'
 import classNames from 'classnames/bind';
 import { GoogleIcon, FacebookIcon } from '../../components/Icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
@@ -59,9 +59,9 @@ function Signup() {
 
     const hasDiacritics = (name) => {
         // Regular expression to match diacritics
-        const regex = /[\u0300-\u036f]/g;
+        const diacriticsRegex = /[À-ÿ]/; // Range of characters with diacritics
 
-        return regex.test(name);
+        return diacriticsRegex.test(name);
     }
 
     const handleSubmit = (event) => {
@@ -73,7 +73,7 @@ function Signup() {
         setLNameError('')
         if (fName !== '' && lName !== '' && password !== '' && email !== '') {
             if (checkEmailValid(email) && checkPasswordComplexity(password) && !hasDiacritics(fName) && !hasDiacritics(lName)) {
-                setSucessMessage('Đăng ký thành công')
+                setSucessMessage('Đăng ký thành công!')
                 setError('')
                 setMailError('')
                 setPasswordError('')
@@ -85,11 +85,11 @@ function Signup() {
                 if (!checkEmailValid(email))
                     setMailError('Email không đúng định dạng!')
                 if (!checkPasswordComplexity(password))
-                    setPasswordError('Mật khẩu dài ít nhất 8 ký tự, tối đa 20 ký tự, phải bao gồm số, chữ hoa, chữ thường và ký tự đặc biệt')
+                    setPasswordError('Mật khẩu dài ít nhất 8 ký tự, tối đa 20 ký tự, phải bao gồm số, chữ hoa, chữ thường và ký tự đặc biệt!')
                 if (hasDiacritics(fName))
-                    setFNameError('Vui lòng dùng chữ không dấu')
+                    setFNameError('Vui lòng dùng chữ không dấu!')
                 if (hasDiacritics(lName))
-                    setLNameError('Vui lòng dùng chữ không dấu')
+                    setLNameError('Vui lòng dùng chữ không dấu!')
             }
         } else {
 
@@ -107,31 +107,31 @@ function Signup() {
                         <div className={cx('input-wrapper-item')}>
                             <label className={cx('form-label')} for="fName"> Họ </label>
                             <input className={cx('form-input')} type="text" id="fName" name="fName" placeholder='Nhập họ' onChange={(e) => setFName(e.target.value)}></input>
-                            {fNameError && <p className={cx('form-error-message')}>{fNameError}</p>}
+                            {fNameError && <p className={cx('form-error-message', 'form-error')}>{fNameError}</p>}
                         </div>
                         <div className={cx('input-wrapper-item')}>
                             <label className={cx('form-label')} for="lName"> Tên </label>
                             <input className={cx('form-input')} type="text" id="lName" name="lName" placeholder='Nhập tên' onChange={(e) => setLName(e.target.value)}></input>
-                            {lNameError && <p className={cx('form-error-message')}>{lNameError}</p>}
+                            {lNameError && <p className={cx('form-error-message', 'form-error')}>{lNameError}</p>}
                         </div>
                     </div>
 
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="email"> Email </label>
                         <input className={cx('form-input')} type="text" id="email" name="email" placeholder='Nhập email' onChange={(e) => setEmail(e.target.value)}></input>
-                        {mailError && <p className={cx('form-error-message')}>{mailError}</p>}
+                        {mailError && <p className={cx('form-error-message', 'form-error')}>{mailError}</p>}
                     </div>
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="pw">Mật khẩu</label>
                         <input className={cx('form-input')} type="password" id="pw" name="pw" placeholder='Nhập mật khẩu' onChange={(e) => setPassword(e.target.value)}></input>
-                        {passwordError && <p className={cx('form-error-message')}>{passwordError}</p>}
+                        {passwordError && <p className={cx('form-error-message', 'form-error')}>{passwordError}</p>}
                     </div>
                     {sucessMessage && <p className={cx('form-sucess-message')}>{sucessMessage}</p>}
                     {error && <p className={cx('form-error-message')}>{error}</p>}
 
                 </div>
                 <div className={cx('redirect-options', 'option-SignUp')}>
-                    <p>Đã có tài khoản? <a href=''>Đăng nhập ngay</a></p>
+                    <p>Đã có tài khoản? <Link to={'/login'}>Đăng nhập ngay</Link></p>
                 </div>
                 <div className={cx('btns-group-control')}>
                     <button className={cx('btn', 'btn-SignIn')} type="submit" >Đăng ký</button>
@@ -139,11 +139,13 @@ function Signup() {
                     <div className={cx('option-signIn')}>
                         <div className={cx('btn', 'btn-SignIn-google')} type="button">
                             <GoogleIcon />
-                            Đăng ký bằng Gmail
+                            <Link to={'/signup'}> Đăng ký bằng Gmail</Link>
+
                         </div>
                         <div className={cx('btn', 'btn-SignIn-facebook')} type="button">
                             <FacebookIcon width='24' height='24' />
-                            Đăng ký bằng Facebook
+                            <Link tp={'/signup'}>Đăng ký bằng Facebook</Link>
+
                         </div>
                     </div>
 

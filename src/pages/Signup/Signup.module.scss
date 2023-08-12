@@ -20,7 +20,11 @@
 .input-wrapper-item {
     display: flex;
     flex-direction: column;
-    // padding: 4px;
+}
+
+.form-error {
+    position: relative;
+    top: -6px;
 }
 
 .form-title {

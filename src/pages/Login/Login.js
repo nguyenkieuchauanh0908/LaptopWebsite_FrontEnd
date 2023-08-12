@@ -5,6 +5,7 @@ import styles from './Login.module.scss'
 import classNames from 'classnames/bind';
 import { GoogleIcon, FacebookIcon } from '../../components/Icons';
 import { useNavigate } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
@@ -22,7 +23,6 @@ function Login() {
         if (email !== '' && password !== '') {
             if (email === 'email@example.com' && password === 'password') {
                 setIsLoggedIn(true);
-
             }
             else {
                 setError('Email hoặc mật khẩu không đúng')
@@ -58,7 +58,7 @@ function Login() {
                                 </div>
                             </div>
                             <div className={cx('redirect-options', 'option-SignUp')}>
-                                <p>Chưa có tài khoản? <a href='#'>Đăng ký ngay</a></p>
+                                <p>Chưa có tài khoản? <Link to={'/signup'}>Đăng ký ngay</Link></p>
                             </div>
                             <div className={cx('btns-group-control')}>
                                 <button className={cx('btn', 'btn-SignIn')} type="submit">Đăng nhập</button>
@@ -66,17 +66,17 @@ function Login() {
                                 <div className={cx('option-signIn')}>
                                     <button className={cx('btn', 'btn-SignIn-google')}>
                                         <GoogleIcon />
-                                        Đăng nhập bằng Gmail
+                                        <Link to={'/'}>Đăng nhập bằng Gmail</Link>
                                     </button>
                                     <button className={cx('btn', 'btn-SignIn-facebook')}>
                                         <FacebookIcon width='24' height='24' />
-                                        Đăng nhập bằng Facebook
+                                        <Link to={'/'}> Đăng nhập bằng Facebook</Link>
                                     </button>
                                 </div>
 
                             </div>
                             <div className={cx('redirect-options', 'option-forgetPw')}>
-                                <p>Quên mật khẩu? <a href='#'>Đặt lại mật khẩu ngay</a></p>
+                                <p>Quên mật khẩu? <Link to={'/Forget Password'}>Đặt lại mật khẩu ngay</Link></p>
                             </div>
                         </form>
                     </div>
