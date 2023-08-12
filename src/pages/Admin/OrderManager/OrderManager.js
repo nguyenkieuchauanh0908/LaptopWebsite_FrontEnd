@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderManager.module.scss';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
+import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
 import ListOrder from './ListOrder';
 import OrderListItem from '../../../components/OrderListItem/OrderListItem';
 import OrderDetailAdmin from '../../../Layout/components/OrderDetailAdmin';
@@ -71,8 +72,17 @@ function OrderManager() {
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('row')}>
-                <SidebarAdmin />
-                <div className={cx('col-12 col-md-9 col-xl-10 container-fluid', 'content-section')}>
+                <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
+                    <SidebarAdmin />
+                </div>
+                {!orderDetail ? (
+                    <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
+                        <SidebarAdminMobi />
+                    </div>
+                ) : (
+                    ''
+                )}
+                <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
                     {!orderDetail ? (
                         <>
                             <div className={cx('d-flex align-items-center ', 'title')}>Quản lý đơn hàng</div>
@@ -148,7 +158,7 @@ function OrderManager() {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className={cx('row align-items-center', 'header')}>
+                                        <div className={cx('row align-items-center d-none d-md-flex', 'header')}>
                                             <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
                                                 <p>ID</p>
                                             </div>
@@ -161,10 +171,14 @@ function OrderManager() {
                                             <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
                                                 <p>SĐT</p>
                                             </div>
-                                            <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
+                                            <div
+                                                className={cx('col-lg-1 col-md-1 col-2 d-flex justify-content-center')}
+                                            >
                                                 <p>Trạng thái</p>
                                             </div>
-                                            <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
+                                            <div
+                                                className={cx('col-lg-1 col-md-1 col-1 d-flex justify-content-center')}
+                                            >
                                                 <p>Thao tác</p>
                                             </div>
                                         </div>
