@@ -6,7 +6,7 @@ import Account from '../pages/Account';
 import Login from '../pages/Login';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Search from '../pages/Search/Search';
-import Signup from '../pages/Signup/Signup'
+import Signup from '../pages/Signup/Signup';
 
 // public Routes
 const publicRoutes = [
@@ -16,7 +16,7 @@ const publicRoutes = [
     { path: '/signup', component: Signup },
     { path: '/product-detail', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },
-    { path: '/search', component: Search }
+    { path: '/search', component: Search },
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];

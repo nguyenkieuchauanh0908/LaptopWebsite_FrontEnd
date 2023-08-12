@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 function Footer() {
+    const handleClick = () => {
+        window.scrollTo(0, 0); // Di chuyển đến đầu trang (vị trí y=0)
+    };
     return (
         <footer>
             <div className={cx('container', 'footer')}>
@@ -97,11 +100,11 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className={cx('up-arrow')}>
+                <a className={cx('up-arrow')} onClick={handleClick}>
                     <div className={cx('icon')}>
                         <FontAwesomeIcon icon={faArrowUp} />
                     </div>
-                </div>
+                </a>
             </div>
         </footer>
     );
