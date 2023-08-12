@@ -1,5 +1,5 @@
 import ColProductCard from '../../../components/Product/product';
-import styles from './searchResult.scss';
+import styles from './searchResult.module.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

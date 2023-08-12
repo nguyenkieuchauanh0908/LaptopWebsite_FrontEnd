@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import styles from './ProductImgs.scss'
+import styles from './ProductImgs.module.scss'
 import classNames from 'classnames/bind'
 const cx = classNames.bind(styles)
 function ProductImgs({ images }) {

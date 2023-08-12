@@ -1,7 +1,7 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
-import styles from './ProductDetail.page.scss'
+import styles from './ProductDetail.module.scss'
 import classNames from 'classnames/bind'
 import ProductImgs from './ProductImgs/ProductImgs'
 import ProductInfo from './ProductInfo/ProductInfo'
@@ -403,7 +403,7 @@ function ProductDetail({ productId, brandId }) {
                 </Row>
             </Container>
 
-            <Container className={cx('wrapper')}>
+            <Container className={cx('container')}>
                 <span className={cx('row-heading')}>Thông số kỹ thuật</span>
                 <Row className={cx('bg-white', 'padding-12')}>
                     <Col>
@@ -416,7 +416,7 @@ function ProductDetail({ productId, brandId }) {
 
             </Container>
 
-            <Container className={cx('wrapper')}>
+            <Container className={cx('container')}>
                 <span className={cx('row-heading')}>Đánh giá</span>
                 <Row className={cx('bg-white', 'padding-12')}>
                     <div className={cx('overview-wrapper')}>
@@ -449,7 +449,7 @@ function ProductDetail({ productId, brandId }) {
                     </div>
                 </Row>
             </Container>
-            <Container className={cx('wrapper')}>
+            <Container className={cx('container')}>
                 <span className={cx('row-heading')}>Sản phẩm liên quan</span>
                 <Row sm={2} xs={2} md={3} lg={3} xl={6}>
                     {
