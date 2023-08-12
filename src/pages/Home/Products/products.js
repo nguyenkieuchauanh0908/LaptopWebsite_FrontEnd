@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './products.module.scss'
 import Row from 'react-bootstrap/Row';
@@ -471,12 +472,14 @@ function Products() {
             </div>
 
             <div className={cx('tag-wrapper')}>
-                <p>Top sale</p>
-                <p>Đang sale</p>
-                <p>Tìm kiếm nhiều nhất</p>
+                <p><a href='#top-sale-section'>Top sale</a></p>
+                <p><a href='#on-sale-section'>Đang sale</a></p>
+                <p><a href='#top-search-section'>Tìm kiếm nhiều nhất</a></p>
 
             </div>
-            <div className={cx('row-products')}>
+
+            {/* Top sale */}
+            <div id='top-sale-section' className={cx('row-products')}>
                 {/* Bán chạy nhất */}
                 <p className={cx('row-products-label')}>Sản phẩm bán chạy nhất</p>
                 <Row xs={2} sm={2} md={3} lg={3} xl={5}>
@@ -502,7 +505,7 @@ function Products() {
             </div>
 
             {/* Sản phẩm đang sale */}
-            <div className={cx('row-products')}>
+            <div id='on-sale-section' className={cx('row-products')}>
                 <p className={cx('row-products-label')}>Sản phẩm đang sale</p>
                 <Row sm xs={2} md={3} lg={3} xl={5}>
                     {
@@ -527,7 +530,7 @@ function Products() {
             </div>
 
             {/*Most searched  */}
-            <div className={cx('row-products')}>
+            <div id='top-search-section' className={cx('row-products')}>
                 <p className={cx('row-products-label')}>Sản phẩm được tìm kiếm nhiều nhất</p>
                 <Row sm xs={2} md={3} lg={3} xl={5}>
                     {
