@@ -11,6 +11,10 @@ import EmployeeManager from '../pages/Admin/EmployeeManager';
 import OrderManager from '../pages/Admin/OrderManager';
 import ProfileAdmin from '../pages/Admin/ProfileAdmin';
 import Statistical from '../pages/Admin/Statistical';
+import Profile from '../pages/Shipper/Profile/Profile'
+import ChangePass from '../pages/Shipper/ChangePass/ChangePass';
+import Otp from '../pages/Shipper/Otp/Otp';
+import Order from '../pages/Shipper/Order/Order';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
@@ -24,6 +28,10 @@ const publicRoutes = [
     { path: '/admin/order-manager', component: OrderManager, layout: null },
     { path: '/admin/profile', component: ProfileAdmin, layout: null },
     { path: '/admin/statistical', component: Statistical, layout: null },
+    { path: '/shipper/profile', component: Profile, layout: null},
+    { path: '/shipper/changePass', component: ChangePass, layout: null},
+    { path: '/shipper/otp', component: Otp, layout: null},
+    { path: '/shipper/order', component: Order, layout: null}
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];
