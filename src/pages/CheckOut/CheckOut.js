@@ -8,12 +8,32 @@ import { CodIcon, PayIcon } from '../../components/Icons';
 import Image from '../../components/Images';
 import Button from '../../components/Button';
 import { useState } from 'react';
+import AddressForm from './AddressForm/AddressForm';
 const cx = classNames.bind(styles);
 function CheckOut() {
+    const [changeAddress, setChangeAddress] = useState(false);
+
+    const initialAddressInfo = {
+        fullName: 'huỳnh khoa',
+        phoneNumber: '0869950090',
+        email: 'huynhkhoa@gmail.com',
+        province: 'Hồ Chí Minh',
+        district: 'quận 2',
+        ward: 'bình trưng tây',
+        address: '231 Nguyễn Thị Định',
+    };
+
+    const [addressInfo, setAddressInfo] = useState(initialAddressInfo);
+
+    const handleSave = (newAddressInfo) => {
+        setAddressInfo(newAddressInfo);
+        console.log('neww address' + addressInfo.fullName);
+        setChangeAddress(false);
+    };
+
     const [isOrderSuccessful, setIsOrderSuccessful] = useState(null);
     const [orderDetails, setOrderDetails] = useState(null);
-    const [changeAddress, setChangeAddress] = useState(false);
-    const [orderSuccess, setOrderSuccess] = useState('');
+
     const [cartItems, setCartItems] = useState([
         { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1 },
         { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2 },
@@ -21,18 +41,23 @@ function CheckOut() {
         // ...Thêm các sản phẩm khác vào đây
     ]);
 
+    const [shippingFee, setShippingFee] = useState(30000);
+    const [shippingFeeDiscount, setshippingFeeDiscount] = useState(0);
+    const [directDiscount, setDirectDiscount] = useState(284000);
+    const [voucherDiscount, setVoucherDiscount] = useState(50000);
+
     // xóa sản phẩm ra khỏi giỏ hàng
     const deleteItem = (itemId) => {
         setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== itemId));
     };
-    // Tính tổng giá trị giỏ hàng
+    // Tạm tính giá trị đơn hàng
     const calculateSubTotal = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
-    // Tính tổng số lượng sản phẩm
-    const calculateTotalQuantity = () => {
-        return cartItems.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0);
-    };
+    const subtotal = calculateSubTotal();
+
+    // Tính tổng giá trị đơn hàng
+    const totalPayment = subtotal + shippingFee - shippingFeeDiscount - directDiscount - voucherDiscount;
 
     console.log('trạng thái' + isOrderSuccessful);
     const handlePlaceOrder = () => {
@@ -62,6 +87,17 @@ function CheckOut() {
             // reject('Failed to place order');
         });
     };
+
+    const handleRetryPayment = () => {
+        // Xử lý khi người dùng bấm "Thanh toán lại"
+        setIsOrderSuccessful(null);
+    };
+
+    const handleContinueShopping = () => {
+        // Xử lý khi người dùng bấm "Tiếp tục mua sắm"
+        setIsOrderSuccessful(null);
+    };
+
     return (
         <div className={cx('wrapper')}>
             {isOrderSuccessful === null && (
@@ -76,8 +112,11 @@ function CheckOut() {
                             </div>
                             <div className={cx('d-flex justify-content-between', 'address-text')}>
                                 <div>
-                                    <span>huỳnh khoa (+84) 869950090</span> 230/1a Nguyễn Thị Định, Phường Bình Trưng
-                                    Tây, Thành Phố Thủ Đức, TP. Hồ Chí Minh
+                                    <span>
+                                        {addressInfo.fullName} {addressInfo.phoneNumber}
+                                    </span>{' '}
+                                    {addressInfo.address}, {addressInfo.ward}, {addressInfo.district},{' '}
+                                    {addressInfo.province}
                                 </div>
                                 <div>
                                     <a onClick={() => setChangeAddress(true)}>
@@ -197,7 +236,7 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Tạm tính</h4>
-                                                    <p>{calculateSubTotal().toLocaleString('vi-VN')}₫</p>
+                                                    <p>{subtotal.toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                                 <div
                                                     className={cx(
@@ -206,7 +245,7 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Phí vận chuyển</h4>
-                                                    <p>50.000₫</p>
+                                                    <p>{shippingFee.toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                                 <div
                                                     className={cx(
@@ -215,7 +254,7 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Giảm giá phí vận chuyển</h4>
-                                                    <p>0₫</p>
+                                                    <p>{shippingFeeDiscount.toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                                 <div
                                                     className={cx(
@@ -224,7 +263,7 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Giảm giá trực tiếp</h4>
-                                                    <p>284.000₫</p>
+                                                    <p>{directDiscount.toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                                 <div
                                                     className={cx(
@@ -233,13 +272,13 @@ function CheckOut() {
                                                     )}
                                                 >
                                                     <h4>Giảm giá voucher</h4>
-                                                    <p>50.000₫</p>
+                                                    <p>{voucherDiscount.toLocaleString('vi-VN')}₫</p>
                                                 </div>
                                             </div>
                                             <div className={cx('order__info-total', 'd-flex justify-content-between')}>
                                                 <p>Tổng thanh toán</p>
                                                 <div className={cx('total-payment', 'text-end')}>
-                                                    <p>1.897.600đ</p>
+                                                    <p>{totalPayment.toLocaleString('vi-VN')}đ</p>
                                                     <h4>Đã bao gồm VAT nếu có</h4>
                                                 </div>
                                             </div>
@@ -263,8 +302,8 @@ function CheckOut() {
                     </div>
                 </>
             )}
-
-            {isOrderSuccessful === true && (
+            {/* Khi đặt hàng thành công */}
+            {isOrderSuccessful === false && (
                 <div className={cx('inner', 'wrapper-success')}>
                     <div className={cx('container')}>
                         <div className={cx('row justify-content-center', 'order__success')}>
@@ -344,35 +383,46 @@ function CheckOut() {
                                     <div className={cx('ordered-product-title')}>
                                         <h3>Sản phẩm đã đặt</h3>
                                     </div>
-                                    <div className={cx('ordered-product-item', 'd-flex justify-content-between')}>
-                                        <div className={cx('ordered-product-left', 'd-flex')}>
-                                            <div className={cx('product-img')}>
-                                                <Image
-                                                    src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
-                                                    alt="img"
-                                                />
-                                            </div>
-                                            <div className={cx('product__info')}>
-                                                <h4 className={cx('product__info-name')}>
-                                                    Apple Macbook Air M2 2022 8GB 256GB
-                                                </h4>
-                                                <div className={cx('product__info-memory', 'd-flex')}>
-                                                    <p>
-                                                        Bộ nhớ: <span>256GB</span>
-                                                    </p>
-                                                    <p className={cx('color')}>
-                                                        Màu: <span>Xám bạc</span>
-                                                    </p>
+                                    {cartItems.map((item) => (
+                                        // <CartItemCheckOut
+                                        //     key={item.id}
+                                        //     itemName={item.name}
+                                        //     itemPrice={item.price}
+                                        //     itemQuantity={item.quantity}
+                                        //     deleteItem={() => {
+                                        //         deleteItem(item.id);
+                                        //     }}
+                                        // />
+                                        <div className={cx('ordered-product-item', 'd-flex justify-content-between')}>
+                                            <div className={cx('ordered-product-left', 'd-flex')}>
+                                                <div className={cx('product-img')}>
+                                                    <Image
+                                                        src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
+                                                        alt="img"
+                                                    />
+                                                </div>
+                                                <div className={cx('product__info')}>
+                                                    <h4 className={cx('product__info-name')}>{item.name}</h4>
+                                                    <div className={cx('product__info-memory', 'd-flex')}>
+                                                        <p>
+                                                            Bộ nhớ: <span>256GB</span>
+                                                        </p>
+                                                        <p className={cx('color')}>
+                                                            Màu: <span>Xám bạc</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div className={cx('product-right')}>
+                                                <p className={cx('product-price', 'text-end')}>
+                                                    {item.price.toLocaleString('vi-VN')}₫
+                                                </p>
+                                                <p className={cx('product-quantity', 'text-end')}>
+                                                    x<span>{item.quantity}</span>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div className={cx('product-right')}>
-                                            <p className={cx('product-price', 'text-end')}>105.000₫</p>
-                                            <p className={cx('product-quantity', 'text-end')}>
-                                                x<span>02</span>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
 
                                 <div className={cx('order__info')}>
@@ -384,7 +434,7 @@ function CheckOut() {
                                             )}
                                         >
                                             <h4>Tạm tính</h4>
-                                            <p>1.897.600₫</p>
+                                            <p>{subtotal.toLocaleString('vi-VN')}₫</p>
                                         </div>
                                         <div
                                             className={cx(
@@ -393,7 +443,7 @@ function CheckOut() {
                                             )}
                                         >
                                             <h4>Phí vận chuyển</h4>
-                                            <p>50.000₫</p>
+                                            <p>{shippingFee.toLocaleString('vi-VN')}₫</p>
                                         </div>
                                         <div
                                             className={cx(
@@ -402,7 +452,7 @@ function CheckOut() {
                                             )}
                                         >
                                             <h4>Giảm giá phí vận chuyển</h4>
-                                            <p>0₫</p>
+                                            <p>{shippingFeeDiscount.toLocaleString('vi-VN')}₫</p>
                                         </div>
                                         <div
                                             className={cx(
@@ -411,7 +461,7 @@ function CheckOut() {
                                             )}
                                         >
                                             <h4>Giảm giá trực tiếp</h4>
-                                            <p>284.000₫</p>
+                                            <p>{directDiscount.toLocaleString('vi-VN')}₫</p>
                                         </div>
                                         <div
                                             className={cx(
@@ -420,18 +470,18 @@ function CheckOut() {
                                             )}
                                         >
                                             <h4>Giảm giá voucher</h4>
-                                            <p>50.000₫</p>
+                                            <p>{voucherDiscount.toLocaleString('vi-VN')}₫</p>
                                         </div>
                                     </div>
                                     <div className={cx('order__info-total', 'd-flex justify-content-between')}>
                                         <p>Tổng thanh toán</p>
                                         <div className={cx('total-payment', 'text-end')}>
-                                            <p>1.897.600đ</p>
+                                            <p>{totalPayment.toLocaleString('vi-VN')}đ</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className={cx('btn-continuel', 'd-flex justify-content-center')}>
-                                    <Button to={'/'} primary>
+                                    <Button to={'/'} primary onClick={handleContinueShopping}>
                                         Tiếp tục mua sắm
                                     </Button>
                                 </div>
@@ -440,110 +490,89 @@ function CheckOut() {
                     </div>
                 </div>
             )}
-            {isOrderSuccessful === false && <p>Đặt hàng thất bại!</p>}
+            {/* Khi đặt hàng thất bại */}
+            {isOrderSuccessful === true && (
+                <div className={cx('inner', 'wrapper-success')}>
+                    <div className={cx('container')}>
+                        <div className={cx('row justify-content-center', 'order__success')}>
+                            <div className={cx('col-lg-10', 'order__success-full')}>
+                                <div className={cx('order__success-title', 'text-center')}>
+                                    <h1>Thanh toán thất bại</h1>
+                                    <p>
+                                        <span>Thanh toán thất bại.</span> Vui lòng thanh toán lại hoặc chọn phương thức
+                                        thanh toán khác
+                                    </p>
+                                </div>
 
-            {changeAddress && (
-                <div className={cx('change__address')}>
-                    <div className={cx('container d-flex align-items-center ', 'change__address-wrapper')}>
-                        <div className={cx('row justify-content-center')}>
-                            <div className={cx('col-lg-6 ', 'change__address-form')}>
-                                <div>
-                                    <h1 className={cx('change__address-title')}>ĐỊA CHỈ MỚI</h1>
-                                    <form className="row g-3">
-                                        <h2>Thông tin khách hàng</h2>
-                                        <h3>Người đặt hàng</h3>
-                                        <div className="col-12">
-                                            <label htmlFor="inputAddress" className="form-label">
-                                                Họ và Tên *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputName"
-                                                placeholder="Nhập họ và tên"
-                                            />
+                                <div className={cx('info-order')}>
+                                    <div className={cx('info-order-content', 'd-flex flex-column')}>
+                                        <div className={cx('info-order-code', 'd-flex justify-content-between')}>
+                                            <div className={cx('col-lg-4', 'text-1')}>Mã đơn hàng</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>KHOA123</div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputPhone" className="form-label">
-                                                Số điện thoại *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputPhone"
-                                                placeholder="Nhập số điện thoại"
-                                            />
+                                        <div
+                                            className={cx(
+                                                'info-order-address',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
+                                            <div className={cx('col-lg-4', 'text-1')}>Địa chỉ nhận hàng</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>
+                                                Chung cư Văn Hoàng, 890 Nguyễn Thị Minh Khai, Phường Nguyễn Cư Trinh,
+                                                Quận 1, TP Hồ Chí Minh
+                                            </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputEmail" className="form-label">
-                                                Email *
-                                            </label>
-                                            <input
-                                                type="email"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputEmail"
-                                                placeholder="Nhập email"
-                                            />
+                                        <div
+                                            className={cx(
+                                                'info-order-pay',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
+                                            <div className={cx('col-lg-4', 'text-1')}>Phương thức thanh toán</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>
+                                                Thanh toán tiền mặt khi nhận hàng (COD)
+                                            </div>
                                         </div>
-                                        <h3>Địa chỉ nhận hàng</h3>
-
-                                        <div className="col-12">
-                                            <label htmlFor="inputAddress" className="form-label"></label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputAddress"
-                                                placeholder="Số nhà, tên đường *"
-                                            />
+                                        <div
+                                            className={cx(
+                                                'info-order-note',
+                                                'd-flex flex-column flex-md-row flex-lg-row justify-content-between',
+                                            )}
+                                        >
+                                            <div className={cx('col-lg-4', 'text-1')}>Ghi chú</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>Giao cẩn thận, hàng dễ vỡ</div>
                                         </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="inputCity" className="form-label"></label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputCity"
-                                                placeholder="Tỉnh/Thành phố *"
-                                            />
+                                    </div>
+                                </div>
+                                <div className={cx('order__info')}>
+                                    <div className={cx('order__info-total', 'd-flex justify-content-between')}>
+                                        <p>Tổng tiền cần thanh toán</p>
+                                        <div className={cx('total-payment', 'text-end')}>
+                                            <p>{totalPayment.toLocaleString('vi-VN')}đ</p>
                                         </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="inputDistrict" className="form-label"></label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputDistrict"
-                                                placeholder="Quận/Huyện *"
-                                            />
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="inputCommune" className="form-label"></label>
-                                            <input
-                                                type="text"
-                                                className={cx('form-control', 'font-size-16')}
-                                                id="inputCommune"
-                                                placeholder="Phường/Xã *"
-                                            />
-                                        </div>
-                                        <div className={cx('col-12 text-end', 'button')}>
-                                            <button
-                                                onClick={() => setChangeAddress(false)}
-                                                className={cx('btn btn-light', 'btn-back')}
-                                            >
-                                                Trở lại
-                                            </button>
-                                            <button
-                                                onClick={() => setChangeAddress(false)}
-                                                type="submit"
-                                                className={cx('btn btn-primary', 'btn-submit')}
-                                            >
-                                                Hoàn Thành
-                                            </button>
-                                        </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <div
+                                    className={cx(
+                                        'btn-continuel',
+                                        'd-flex flex-column flex-md-row flex-lg-row align-items-center justify-content-center',
+                                    )}
+                                >
+                                    <Button to={'/'} outline onClick={handleContinueShopping}>
+                                        Tiếp tục mua sắm
+                                    </Button>
+                                    <Button className={cx('pay-back')} to={''} primary onClick={handleRetryPayment}>
+                                        Thanh toán lại
+                                    </Button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            )}
+            {/* form thay đổi địa chỉ mặc định */}
+            {changeAddress && (
+                <AddressForm addressInfo={addressInfo} onSave={handleSave} onCancel={() => setChangeAddress(false)} />
             )}
         </div>
     );
