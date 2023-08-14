@@ -4,6 +4,7 @@ import styles from './EmployeeManager.module.scss';
 import ListEmployee from './ListEmployee/ListEmployee';
 import EmployeeListItem from '../../../components/EmployeeListItem';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
+import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -42,8 +43,13 @@ function EmployeeManager() {
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('row')}>
-                <SidebarAdmin />
-                <div className={cx('col-12 col-md-9 col-xl-10 container-fluid', 'content-section')}>
+                <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
+                    <SidebarAdmin />
+                </div>
+                <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
+                    <SidebarAdminMobi />
+                </div>
+                <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
                     <div className={cx('d-flex align-items-center ', 'title')}>Quản lý nhân viên</div>
                     <div className={cx('wrapper')}>
                         <div className={cx('content')}>
@@ -57,7 +63,7 @@ function EmployeeManager() {
                                         Thêm
                                     </button>
                                 </div>
-                                <div className={cx('row align-items-center', 'header')}>
+                                <div className={cx('row align-items-center d-none d-md-flex', 'header')}>
                                     <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
                                         <p>ID</p>
                                     </div>

@@ -8,6 +8,7 @@ import {
     QuanlityIcon,
     MenuIcon,
     CartIcon,
+    CloseIcon
 } from '../../../components/Icons';
 import Image from '../../../components/Images';
 import MobileMenu from './MobileMenu';
@@ -18,10 +19,12 @@ import Search from '../Search';
 import Menu from '../../Popper/Menu';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Login from '../../../pages/Login/Login';
 const cx = classNames.bind(styles);
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -59,6 +62,14 @@ function Header() {
             separate: true,
         },
     ];
+
+    const handleShowLoginForm = () => {
+        setShowModal(true)
+    }
+
+    const handleCloseForm = () => {
+        setShowModal(false);
+    }
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -200,7 +211,7 @@ function Header() {
                                 <div className={cx('account', 'd-flex align-items-center')}>
                                     <FontAwesomeIcon className={cx('icon-user')} icon={faCircleUser} />
                                     <div className={cx('nav__text', 'd-none d-lg-block')}>
-                                        <p className={cx('nav__text-login')}>Đăng nhập</p>
+                                        <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>Đăng nhập</p>
                                         <div className={cx('d-flex')}>
                                             <p>Tài khoản</p>
                                             <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
@@ -256,6 +267,10 @@ function Header() {
                 </div>
             </div>
             <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            {showModal && <div className={cx('form-modal-wrapper')}>
+                <Login isShown={showModal} handleCloseForm={() => handleCloseForm()} />
+            </div>
+            }
         </header>
     );
 }

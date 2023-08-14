@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './ProfileAdmin.module.scss';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
+import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
@@ -17,14 +18,19 @@ function ProfileAdmin() {
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('row')}>
-                <SidebarAdmin />
-                <div className={cx('col-12 col-md-9 col-xl-10 container-fluid', 'content-section')}>
+                <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
+                    <SidebarAdmin />
+                </div>
+                <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
+                    <SidebarAdminMobi />
+                </div>
+                <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
                     <div className={cx('d-flex align-items-center ', 'title')}>Thông tin cá nhân</div>
                     <div className={cx('wrapper')}>
                         <div className={cx('content')}>
                             <div className={cx('container-fluid')}>
                                 <div className={cx('row align-items-center', 'profile')}>
-                                    <div className={cx('col-lg-7 col-md-7', 'profile-info')}>
+                                    <div className={cx('col-lg-7 col-md-7 d-none d-lg-block', 'profile-info')}>
                                         <div className={cx('row')}>
                                             <div className={cx('col-lg-3 col-md-3', 'heading')}>
                                                 <div>Tên:</div>
@@ -74,7 +80,7 @@ function ProfileAdmin() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={cx('col-lg-5 col-md-5', 'profile-avatar')}>
+                                    <div className={cx('col-lg-5 col-md-5 d-none d-lg-block', 'profile-avatar')}>
                                         <div className={cx('d-flex justify-content-center')}>
                                             <div className={cx('avatar')}>
                                                 <img
@@ -101,6 +107,85 @@ function ProfileAdmin() {
                                             >
                                                 Đổi mật khẩu
                                             </button>
+                                        </div>
+                                    </div>
+                                    <div className={cx('col-12 col-md-12 d-block d-lg-none', 'profile-avatar')}>
+                                        <div className={cx('d-flex justify-content-center')}>
+                                            <div className={cx('avatar')}>
+                                                <img
+                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo-full.svg"
+                                                    alt="avatar"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={cx('d-flex justify-content-center', 'change-avatar-btn')}>
+                                            <button type="button" class="btn btn-primary btn-lg">
+                                                Đổi ảnh
+                                            </button>
+                                        </div>
+                                        <div className={cx('d-flex justify-content-center', 'update-profile-btn')}>
+                                            <button className={cx('btn btn-primary btn-lg')} onClick={showUpdateModal}>
+                                                Cập nhật thông tin cá nhân
+                                            </button>
+                                        </div>
+                                        <div className={cx('d-flex justify-content-center', 'change-pass-btn')}>
+                                            <button
+                                                type="button"
+                                                className={cx('btn btn-primary btn-lg')}
+                                                onClick={showChangePassWordModal}
+                                            >
+                                                Đổi mật khẩu
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className={cx('col-12 col-md-12 d-block d-lg-none', 'profile-info')}>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Tên:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>Trần Thị Trà My</div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Email:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>mytran070202@gmail.com</div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Số điện thoại:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>0938049556</div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Địa chỉ:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM</div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Ngày sinh:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>07/02/2002</div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('row')}>
+                                            <div className={cx('col-4 col-md-3', 'heading')}>
+                                                <div>Giới tính:</div>
+                                            </div>
+                                            <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
+                                                <div>Nữ</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

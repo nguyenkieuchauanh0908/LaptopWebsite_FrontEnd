@@ -19,12 +19,12 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                 <div className={cx('content')}>
                     <div className={cx('container-fluid')}>
                         <div className={cx('row', 'header')}>
-                            <div className={cx('col-md-6 col-lg-6', 'order-code')}>
+                            <div className={cx('col-md-6 col-lg-6 col-6', 'order-code')}>
                                 <p>Mã đơn hàng: 1</p>
                             </div>
                             <div
                                 className={cx(
-                                    'col-md-6 col-lg-6 d-flex justify-content-end text-primary',
+                                    'col-md-6 col-lg-6 col-6 d-flex justify-content-end text-primary',
                                     'order-status',
                                 )}
                             >
@@ -48,20 +48,20 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                             <div className={cx('col-md-6 col-lg-6')}></div>
                             <div className={cx('col-md-6 col-lg-6')}>
                                 <div className={cx('row', 'ship-fee')}>
-                                    <div className={cx('col-md-6 col-lg-6')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <h2>Phí vận chuyển: </h2>
                                     </div>
-                                    <div className={cx('col-md-6 col-lg-6')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <div className={cx('d-flex justify-content-end')}>
                                             <p>0đ</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className={cx('row', 'order-fee')}>
-                                    <div className={cx('col-md-6 col-lg-6')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <h2>Thành tiền: </h2>
                                     </div>
-                                    <div className={cx('col-md-6 col-lg-6')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <div className={cx('d-flex justify-content-end')}>
                                             <p>74.999.000đ</p>
                                         </div>
@@ -73,12 +73,12 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                             <div className={cx('col-md-8 col-lg-8')}></div>
                             <div className={cx('col-md-4 col-lg-4')}>
                                 <div className={cx('row')}>
-                                    <div className={cx('col-md-6 col-lg-6', 'hand-over-btn')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6', 'hand-over-btn')}>
                                         <button type="button" className={cx('btn btn-primary', 'custom-large-button')}>
                                             Giao cho shiper
                                         </button>
                                     </div>
-                                    <div className={cx('col-md-6 col-lg-6', 'cancel-btn')}>
+                                    <div className={cx('col-md-6 col-lg-6 col-6', 'cancel-btn')}>
                                         <div className={cx('d-flex justify-content-end')}>
                                             <button
                                                 type="button"

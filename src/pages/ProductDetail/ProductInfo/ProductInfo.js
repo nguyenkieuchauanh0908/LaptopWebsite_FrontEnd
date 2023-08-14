@@ -6,6 +6,7 @@ import {
     AddIcon,
     MinusIcon
 } from '../../../components/Icons'
+import { Link, Navigate } from "react-router-dom";
 
 const cx = classNames.bind(styles)
 function ProductInfo(props) {
@@ -80,7 +81,8 @@ function ProductInfo(props) {
 
             </div>
             <div className={cx('flex-item', 'buttons-group')}>
-                <button type="button" className={cx('btn', 'buy-btn')} onClick={() => handleCheckOut}>Mua ngay</button>
+
+                <button type="button" className={cx('btn', 'buy-btn')} onClick={() => handleCheckOut}><Link to={'/cart/checkout'}>Mua ngay</Link></button>
                 <button type="button" className={cx('btn', 'add-to-cart-btn')} onClick={() => handleAddToCart}>Thêm vào giỏ</button>
             </div>
         </div >

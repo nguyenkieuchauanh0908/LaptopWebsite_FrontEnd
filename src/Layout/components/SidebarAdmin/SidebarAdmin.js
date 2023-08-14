@@ -7,7 +7,7 @@ import { SidebarAdminNav } from './SidebarAdminNav';
 const cx = classNames.bind(styles);
 function SidebarAdmin() {
     return (
-        <div className={cx('col-12 col-md-3 col-xl-2 d-flex flex-column justify-content-between', 'sidebar-wrapper')}>
+        <div className={cx(' d-flex flex-column justify-content-between', 'sidebar-wrapper')}>
             <div>
                 <div className={cx('d-flex align-items-center justify-content-center', 'profil')}>
                     <div className={cx('logo')}>
