@@ -1,0 +1,47 @@
+.wrapper {
+    padding: 24px 8px;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.wrapper:last-child {
+    border-bottom: none;
+}
+
+.hide {
+    color: red;
+}
+
+.hide:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.edit {
+    color: #FAC515;
+    margin-right: 20px;
+}
+
+.edit:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .product {
+        .product-img{
+            width:20%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .product {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .product-img{
+            width:10%;
+        }
+    }
+}
+

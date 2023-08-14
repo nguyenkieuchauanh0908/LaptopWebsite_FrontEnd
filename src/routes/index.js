@@ -8,6 +8,7 @@ import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Search from '../pages/Search/Search';
 import Signup from '../pages/Signup/Signup';
 import EmployeeManager from '../pages/Admin/EmployeeManager';
+import ProductManager from '../pages/Admin/ProductManager';
 import OrderManager from '../pages/Admin/OrderManager';
 import ProfileAdmin from '../pages/Admin/ProfileAdmin';
 import Statistical from '../pages/Admin/Statistical';
@@ -25,6 +26,7 @@ const publicRoutes = [
     { path: '/cart/checkout', component: CheckOut },
     { path: '/search', component: Search },
     { path: '/admin/employee-manager', component: EmployeeManager, layout: null },
+    { path: '/admin/product-manager', component: ProductManager, layout: null },
     { path: '/admin/order-manager', component: OrderManager, layout: null },
     { path: '/admin/profile', component: ProfileAdmin, layout: null },
     { path: '/admin/statistical', component: Statistical, layout: null },
