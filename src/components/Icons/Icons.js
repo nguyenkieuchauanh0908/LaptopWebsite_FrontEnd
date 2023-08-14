@@ -360,7 +360,6 @@ export const RatingStar = () => (
     </svg>
 );
 
-
 export const RightArrow = ({ width = '2rem', height = '2rem', className }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -368,13 +367,17 @@ export const RightArrow = ({ width = '2rem', height = '2rem', className }) => (
         height={height}
         className={className}
         viewBox="0 0 15 20"
-        fill="none">
-        <path d="M7.5 15L12.5 9.99997L7.5 4.99997" stroke="#1570EF" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+        fill="none"
+    >
+        <path
+            d="M7.5 15L12.5 9.99997L7.5 4.99997"
+            stroke="#1570EF"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
     </svg>
-)
-
-
-
+);
 
 export const LeftArrowWithTail = ({ width = '2rem', height = '2rem', className, color = '#344054' }) => (
     <svg
@@ -383,50 +386,77 @@ export const LeftArrowWithTail = ({ width = '2rem', height = '2rem', className, 
         height={height}
         viewBox="0 0 21 20"
         className={className}
-        fill="none">
-        <path d="M16.3334 10H4.66669M4.66669 10L10.5 15.8333M4.66669 10L10.5 4.16667" stroke={color} stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+        fill="none"
+    >
+        <path
+            d="M16.3334 10H4.66669M4.66669 10L10.5 15.8333M4.66669 10L10.5 4.16667"
+            stroke={color}
+            stroke-width="1.67"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
     </svg>
-)
+);
 
 export const RightArrowWithTail = ({ width = '2rem', height = '2rem', className, color = '#344054' }) => (
-    <svg xmlns="http://www.w3.org/2000/svg"
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
         className={className}
-        viewBox="0 0 21 20" fill="none">
-        <path d="M4.66667 10H16.3333M16.3333 10L10.5 4.16667M16.3333 10L10.5 15.8333" stroke={color} stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+        viewBox="0 0 21 20"
+        fill="none"
+    >
+        <path
+            d="M4.66667 10H16.3333M16.3333 10L10.5 4.16667M16.3333 10L10.5 15.8333"
+            stroke={color}
+            stroke-width="1.67"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
     </svg>
-)
+);
 
-export const AddIcon = ({ width = '20', height = '20', className, color = '#667085' }) =>
-    <svg xmlns="http://www.w3.org/2000/svg"
+export const AddIcon = ({ width = '20', height = '20', className, color = '#667085' }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
         className={className}
         viewBox="0 0 20 20"
-        fill="none">
-        <path d="M10.0001 4.16667V15.8333M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+        fill="none"
+    >
+        <path
+            d="M10.0001 4.16667V15.8333M4.16675 10H15.8334"
+            stroke={color}
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
     </svg>
+);
 
+export const MinusIcon = ({ width = '20', height = '20', className, color = '#667085' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} className={className} fill="none">
+        <path
+            d="M4.16675 10H15.8334"
+            stroke={color}
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+);
 
-
-export const MinusIcon = ({ width = '20', height = '20', className, color = '#667085' }) =>
-    <svg xmlns="http://www.w3.org/2000/svg"
+export const GoogleIcon = ({ width = '24', height = '24', className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
         className={className}
-        fill="none">
-        <path d="M4.16675 10H15.8334" stroke={color} stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-
-
-
-export const GoogleIcon = ({ width = '24', height = '24', className }) =>
-    <svg xmlns="http://www.w3.org/2000/svg"
-        width={width}
-        height={height}
-        className={className}
-        viewBox="0 0 24 24" fill="none">
+        viewBox="0 0 24 24"
+        fill="none"
+    >
         <g clip-path="url(#clip0_559_4645)">
             <path
                 d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z"
@@ -451,7 +481,7 @@ export const GoogleIcon = ({ width = '24', height = '24', className }) =>
             </clipPath>
         </defs>
     </svg>
-
+);
 
 export const Facebook = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -506,6 +536,28 @@ export const DarkUserIcon = ({ width = '2.4rem', height = '2.4rem', className })
             strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
+        />
+    </svg>
+);
+export const ErrorIcon = ({ width = '1.8rem', height = '1.8rem', className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 32 32"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M3 16C3 8.8203 8.8203 3 16 3C23.1797 3 29 8.8203 29 16C29 23.1797 23.1797 29 16 29C8.8203 29 3 23.1797 3 16ZM27 16C27 9.92487 22.0751 5 16 5C9.92487 5 5 9.92487 5 16C5 22.0751 9.92487 27 16 27C22.0751 27 27 22.0751 27 16Z"
+            fill="#f04438"
+        />
+        <path d="M15 22V20H17V22H15Z" fill="#f04438" />
+        <path
+            d="M16 18C15.4872 18 15.0645 17.614 15.0067 17.1166L15 17V10C15 9.44772 15.4477 9 16 9C16.5128 9 16.9355 9.38604 16.9933 9.88338L17 10V17C17 17.5523 16.5523 18 16 18Z"
+            fill="#f04438"
         />
     </svg>
 );

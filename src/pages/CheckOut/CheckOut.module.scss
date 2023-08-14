@@ -1,5 +1,4 @@
 .wrapper {
-    min-height: 100vh;
     background-color: var(--grey-background);
     padding-bottom: 20px;
     position: relative;
@@ -293,6 +292,23 @@
         font-size: 1.6rem;
         border-radius: 0px;
     }
+    .input {
+        position: relative;
+    }
+    .error {
+        font-size: 1.4rem;
+        line-height: 170%;
+        color: #f04438;
+    }
+    .error-border {
+        border: 1px solid red;
+    }
+    .error-icon {
+        display: block !important;
+        position: absolute;
+        top: 33px;
+        right: 10px;
+    }
 }
 
 // Đặt hàng thành công
@@ -411,9 +427,19 @@
         }
     }
 }
-
-.btn-continuel a {
+.btn-continuel {
+    gap: 8px;
+}
+.btn-continuel a,
+.pay-back {
     width: 310px;
+}
+.pay-back {
+    border: 1px solid var(--error-600, #d92d20);
+    background-color: #d92d20;
+    &:hover {
+        border: 1px solid var(--error-600, #d92d20);
+    }
 }
 
 // responsive
