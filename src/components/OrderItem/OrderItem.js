@@ -5,13 +5,13 @@ import Button from '../../components/Button';
 const cx = classNames.bind(styles);
 function OrderItem({
     itemName,
-    checked,
     itemPrice,
     itemQuantity,
-    increaseQuantity,
-    decreaseQuantity,
-    handleCheckboxChange,
-    deleteItem,
+    address,
+    phone,
+    note,
+    cancelItem,
+    comfirmItem,
 }) {
     // const formattedPrice = price1.toLocaleString('vi-VN'); // '100.000'
 
@@ -27,13 +27,13 @@ function OrderItem({
                             />
                         </div>
                         <div className={cx('col-lg-10','product__info')}>
-                            <h3 className={cx('product__info-name')}>{itemName}</h3>
+                            <h3 className={cx('product__info-name')}>{itemName} (x{itemQuantity})</h3>
                             <div className={cx('product__info-user')}>
                                 <p>
-                                    Địa chỉ: <span>256GB</span>
+                                    Địa chỉ: <span>{address}</span>
                                 </p>
                                 <p className={cx('color')}>
-                                    Liên hệ: <span>Xám bạc</span>
+                                    Liên hệ: <span>{phone}</span>
                                 </p>
                             </div>
                         </div>
@@ -45,15 +45,15 @@ function OrderItem({
                 <div className={cx('col-lg-12', 'd-flex', 'under')}>
                     <div className={cx('col-lg-8','product__note')}>
                         <p>
-                            Ghi chú: <span>256GB</span>
+                            Ghi chú: <span>{note}</span>
                         </p>
                         </div>
                     <div className={cx('col-lg-4','button','d-flex')}>
                         <div className={cx('col-lg-6','btn-center')}>
-                            <input type='button' className={cx('btn-success')} value={'Nhận đơn'} />
+                            <input onClick={comfirmItem} type='button' className={cx('btn-success')} value={'Nhận đơn'} />
                         </div>
                         <div className={cx('col-lg-6')}>
-                            <input type='button' className={cx('btn-cancel')} value={'Hủy'} />
+                            <input onClick={cancelItem} type='button' className={cx('btn-cancel')} value={'Hủy'} />
                         </div>
                     </div>
                 </div>

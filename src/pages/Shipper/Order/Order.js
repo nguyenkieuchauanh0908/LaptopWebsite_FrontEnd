@@ -1,4 +1,4 @@
-import React, { useEffect, useRef,useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Order.module.scss'
 import classNames from 'classnames/bind';
 import Search from '../../../Layout/components/Search';
@@ -6,26 +6,16 @@ import ListOrder from './ListOrder/ListOrder';
 import OrderItem from '../../../components/OrderItem';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
 import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
-import { Simulate } from 'react-dom/test-utils';
 
 const cx = classNames.bind(styles)
 
 function Order() {
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1, checked: false },
-        { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2, checked: false },
-        { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1, checked: false },
+    const [orderItems, setOrderItems] = useState([
+        { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1, address: '1 Vo Van Ngan', phone: '09191912', note:'kem cuc sac' },
+        { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2, address: '1 Vo Van Ngan', phone: '09191912', note:'kem cuc sac' },
+        { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1, address: '1 Vo Van Ngan', phone: '09191912', note:'kem cuc sac' },
         // ...Thêm các sản phẩm khác vào đây
     ]);
-    const [isProductsSelected, setIsProductsSelected] = useState(false);
-
-    // chọn từng sản phẩm
-    const handleCheckboxChange = (productId) => {
-        setCartItems((prevCartItems) =>
-            prevCartItems.map((item) => (item.id === productId ? { ...item, checked: !item.checked } : item)),
-        );
-        setIsProductsSelected(true); // Đã chọn ít nhất một sản phẩm
-    };
 
     return (  
         <div className={cx('d-flex', 'page')}>
@@ -60,24 +50,19 @@ function Order() {
                             </div>
                         </div>
                         
-                        <div className={cx('row align-items-center', 'cart-detail')}>
+                        <div className={cx('row align-items-center', 'order-detail')}>
                             <ListOrder>
-                                {cartItems.map((item) => (
+                                {orderItems.map((item) => (
                                     <div className={cx('col-lg-12', 'orderItem')}>
                                         <OrderItem
                                             key={item.id}
-                                            checked={item.checked}
                                             itemName={item.name}
                                             itemPrice={item.price}
                                             itemQuantity={item.quantity}
-                                            handleCheckboxChange={() => handleCheckboxChange(item.id)}
+                                            address={item.address}
+                                            phone={item.phone}
+                                            note={item.note}
                                             deleteItem={item.id} // Thêm hàm xóa sản phẩm
-                                            increaseQuantity={() => {
-                                                
-                                            }}
-                                            decreaseQuantity={() => {
-                                                
-                                            }}
                                         />
                                         </div>
                                 ))}

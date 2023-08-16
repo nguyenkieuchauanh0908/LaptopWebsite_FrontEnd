@@ -1,19 +1,18 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './ProductManager.module.scss';
-import ListProduct from './ListProduct/ListProduct';
-import ProductListItem from '../../../components/ProductListItem';
+import styles from './CustomerManager.module.scss';
+import ListCustomer from './ListCustomer/ListCustomer';
+import CustomerListItem from '../../../components/CustomerListItem';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
 import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Image from '../../../components/Images';
 
 const cx = classNames.bind(styles);
-function ProductManager() {
-    const [productListItems, setProductListItems] = useState([
+function CustomerManager() {
+    const [customerListItems, setCustomerListItems] = useState([
         { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
         { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
         { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
@@ -22,28 +21,28 @@ function ProductManager() {
     ]);
 
     const deleteItem = (itemId) => {
-        const shouldDelete = window.confirm('Bạn có muốn xóa nhân viên này không?');
+        const shouldDelete = window.confirm('Bạn có muốn ẩn khách hàng này không?');
         if (shouldDelete) {
-            setProductListItems((prevProductListItems) => prevProductListItems.filter((item) => item.id !== itemId));
+            setCustomerListItems((prevCustomerListItems) => prevCustomerListItems.filter((item) => item.id !== itemId));
         }
     };
     const [currentPage, setCurrentPage] = useState(1); // page mặc định là 1
-    const totalPages = Math.ceil(productListItems.length / 5); // số page mỗi page 5 item
+    const totalPages = Math.ceil(customerListItems.length / 5); // số page mỗi page 5 item
     const pageItems = [];
     for (let i = 1; i <= totalPages; i++) {
         pageItems.push(i);
     }
     const startIndex = (currentPage - 1) * 5; // item bắt đầu cho mỗi page
     const endIndex = startIndex + 5; // item kết thúc cho mỗi page
-    const currentItems = productListItems.slice(startIndex, endIndex); // item cho page hiện tại
+    const currentItems = customerListItems.slice(startIndex, endIndex); // item cho page hiện tại
 
-    const [addProduct, setAddProduct] = useState(false);
-    const showAddProductModal = () => setAddProduct(true);
-    const closeAddProductModal = () => setAddProduct(false);
+    const [addCustomer, setAddCustomer] = useState(false);
+    const showAddCustomerModal = () => setAddCustomer(true);
+    const closeAddCustomerModal = () => setAddCustomer(false);
 
     return (
         <div className={cx('container-fluid')}>
-            <div className={cx('row', 'd-flex')}>
+            <div className={cx('row')}>
                 <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
                     <SidebarAdmin />
                 </div>
@@ -51,14 +50,14 @@ function ProductManager() {
                     <SidebarAdminMobi />
                 </div>
                 <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
-                    <div className={cx('d-flex align-items-center ', 'title')}>Quản lý nhân viên</div>
+                    <div className={cx('d-flex align-items-center ', 'title')}>Quản lý khách hàng</div>
                     <div className={cx('wrapper')}>
                         <div className={cx('content')}>
                             <div className={cx('container-fluid')}>
                                 <div className={cx('add-btn')}>
                                     <button
                                         className={cx('btn btn-primary btn-lg font-weight-bold')}
-                                        onClick={showAddProductModal}
+                                        onClick={showAddCustomerModal}
                                     >
                                         <FontAwesomeIcon icon={faPlus} />
                                         Thêm
@@ -68,31 +67,31 @@ function ProductManager() {
                                     <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
                                         <p>ID</p>
                                     </div>
-                                    <div className={cx('col-lg-5 col-md-5 d-flex justify-content-center')}>
-                                        <p>Sản phẩm</p>
+                                    <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center')}>
+                                        <p>Họ và tên</p>
                                     </div>
                                     <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
-                                        <p>Giá</p>
+                                        <p>SĐT</p>
                                     </div>
-                                    <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
-                                        <p>Số lượng</p>
+                                    <div className={cx('col-lg-4 col-md-4 d-flex justify-content-center')}>
+                                        <p>Địa chỉ</p>
                                     </div>
                                     <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
                                         <p>Thao tác</p>
                                     </div>
                                 </div>
-                                <div className={cx('row align-items-center', 'product-list')}>
-                                    <ListProduct>
+                                <div className={cx('row align-items-center', 'customer-list')}>
+                                    <ListCustomer>
                                         {currentItems.map((item) => (
-                                            <ProductListItem
+                                            <CustomerListItem
                                                 key={item.id}
-                                                product={item.name}
-                                                price={item.phone}
-                                                quantity={item.address}
+                                                fullname={item.name}
+                                                phone={item.phone}
+                                                address={item.address}
                                                 deleteItem={() => deleteItem(item.id)}
                                             />
                                         ))}
-                                    </ListProduct>
+                                    </ListCustomer>
                                 </div>
                                 <div className={cx('d-flex justify-content-center', 'paging')}>
                                     <ul className={cx('pagination pagination-lg')}>
@@ -145,67 +144,65 @@ function ProductManager() {
                             </div>
                         </div>
                     </div>
-                    <Modal show={addProduct} onHide={closeAddProductModal} className={cx('add-product-modal')}>
+                    <Modal show={addCustomer} onHide={closeAddCustomerModal} className={cx('add-customer-modal')}>
                         <Modal.Header closeButton>
-                            <div className={cx('title-modal')}>Thêm sản phẩm</div>
+                            <div className={cx('title-modal')}>Thêm khách hàng</div>
                         </Modal.Header>
                         <Modal.Body>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Tên sản phẩm:</div>
+                                    <div>Tên:</div>
                                 </div>
                                 <input type="text" className={cx('col-lg-9 col-md-9')} />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Số lượng:</div>
+                                    <div>Email:</div>
                                 </div>
                                 <input type="email" className={cx('col-lg-9 col-md-9')} />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Giá:</div>
+                                    <div>Mật khẩu:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input type="password" className={cx('col-lg-9 col-md-9')} />
                             </div>
 
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Thông tin:</div>
+                                    <div>Số điện thoại:</div>
                                 </div>
-                                <textarea type="text" className={cx('col-lg-9 col-md-9')} ></textarea>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Hình ảnh:</div>
+                                    <div>Địa chỉ:</div>
                                 </div>
-                                <div class={cx('col-lg-9 col-md-9','d-flex')}>
-                                    <div class={cx('col-lg-6 col-md-6')}>
-                                        <Image
-                                            src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
-                                            alt="img"
-                                        />
-                                    </div>
-                                    <div class={cx('center')}>
-                                        <input type="file" class={cx('form-control')}/>
-                                    </div>
-                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Danh mục</div>
+                                    <div>Ngày sinh:</div>
                                 </div>
-                                <select className={cx('col-lg-9 col-md-9')} >
-                                    <option value="${o.id}">111</option>
-                                    <option value="${o.id}">12</option>
-								</select>
+                                <input type="date" className={cx('col-lg-9 col-md-9')} />
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Giới tính:</div>
+                                </div>
+                                <span className={cx('col-lg-9 col-md-9', 'gender')}>
+                                    <input type="radio" id="male" name="gender" value="male" />
+                                    <label for="male">Nam</label>
+                                    <input type="radio" id="female" name="gender" value="female" />
+                                    <label for="female">Nữ</label>
+                                </span>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className={cx('btn btn-secondary btn-lg')} onClick={closeAddProductModal}>
+                            <button className={cx('btn btn-secondary btn-lg')} onClick={closeAddCustomerModal}>
                                 Đóng
                             </button>
-                            <button className={cx('btn btn-primary btn-lg')} onClick={closeAddProductModal}>
+                            <button className={cx('btn btn-primary btn-lg')} onClick={closeAddCustomerModal}>
                                 Thêm
                             </button>
                         </Modal.Footer>
@@ -216,4 +213,4 @@ function ProductManager() {
     );
 }
 
-export default ProductManager;
+export default CustomerManager;
