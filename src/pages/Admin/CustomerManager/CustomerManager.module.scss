@@ -19,7 +19,7 @@
     padding: 20px;
 }
 .header,
-.product-list {
+.customer-list {
     padding: 24px 0;
     border-radius: 6px;
     background-color: var(--white-background);
@@ -34,47 +34,26 @@
     margin-bottom: 12px;
 }
 
-.add-product-modal{
-    .row{
-        padding:20px
-    }
-}
-.add-product-modal input {
+.add-customer-modal input {
     border: 1px solid #ebebeb;
     color: #3a3a3a;
 	border-radius: 4px;
     padding: 5px;
 }
-
-.add-product-modal textarea {
-    border: 1px solid #ebebeb;
-    height: 80px;
-    color: #3a3a3a;
-	border-radius: 4px;
-    padding: 5px;
-}
-
-.add-product-modal select {
-    border: 1px solid #ebebeb;
-    color: #3a3a3a;
-	border-radius: 4px;
-    padding: 5px;
-}
-
-.add-product-modal div {
+.add-customer-modal div {
     padding: 6px;
     font-size: 12px;
 }
 
-.add-product-modal .title-modal {
+.add-customer-modal .title-modal {
     font-weight: bold;
 }
 
-.add-product-modal .gender label {
+.add-customer-modal .gender label {
     padding-right: 8px;
+    margin-right: 30px;
 }
-.center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.gender input{
+    margin-right: 10px;
 }
