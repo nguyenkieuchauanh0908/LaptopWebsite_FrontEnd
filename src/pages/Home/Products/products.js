@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './products.module.scss'
@@ -11,6 +12,11 @@ import ImageSlider from '../../../components/Slider/slider';
 
 const cx = classNames.bind(styles)
 function Products() {
+
+    const [banners, setBanners] = useState(['https://lh3.googleusercontent.com/AlIQ9zLNegLMYK3iZ0C38iJTsSuSBolyYK4SH_LmhKgohVHcmz6atxdRtydFItYjNYbhBf_ZdBKg6n0IyHbKOvC7EwqAsQc=w1920-rw',
+        'https://lh3.googleusercontent.com/AlIQ9zLNegLMYK3iZ0C38iJTsSuSBolyYK4SH_LmhKgohVHcmz6atxdRtydFItYjNYbhBf_ZdBKg6n0IyHbKOvC7EwqAsQc=w1920-rw',
+        'https://lh3.googleusercontent.com/AlIQ9zLNegLMYK3iZ0C38iJTsSuSBolyYK4SH_LmhKgohVHcmz6atxdRtydFItYjNYbhBf_ZdBKg6n0IyHbKOvC7EwqAsQc=w1920-rw'])
+
     let bestSellingProducts = [
         {
             id: 1,
@@ -456,17 +462,25 @@ function Products() {
 
     ]
 
-    let sliderImages = [
-        'https://lh3.googleusercontent.com/AlIQ9zLNegLMYK3iZ0C38iJTsSuSBolyYK4SH_LmhKgohVHcmz6atxdRtydFItYjNYbhBf_ZdBKg6n0IyHbKOvC7EwqAsQc=w1920-rw',
-        'https://lh3.googleusercontent.com/yGbn05_hSIwK_fXbPbBHvXhrXqghu7hBitp685frRTTcgPNGYazYxMUo5v536ZpSLZzLSIp53dmS1O3lfXyIHuKXM4ORwPw=w1920-rw',
-        'https://lh3.googleusercontent.com/GjZbfw6uAjrCzKQXyyRGnrgnb-PfChZIo2bsnps-q7DQguj34Av5FYmzCe2Lb8HqPjuREQ_VlGNLp6XOZ1xpW2Sh4yeqrjlX=w1920-rw'
-    ]
+    //Lấy danh sách hình banners
+    // const fetchBannersImages = fetch('/api/banners')
+    //     .then((response) => {
+    //         return response.json()
+    //     })
+    //     .then((banners) => {
+    //         setBanners(banners[0]._images)
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //         alert('Failed to retrieve data. Please try again later.');
+    //     })
+
     return (
         <Col xs={12} sm={8} md={8} lg={9} xl={9} className={cx('col-products')}>
             <div className={cx('row-slider')}>
                 <Row>
                     <ImageSlider
-                        sliderImages={sliderImages}
+                        sliderImages={banners}
                     />
                 </Row>
             </div>
