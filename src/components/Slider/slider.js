@@ -17,9 +17,10 @@ function ImageSlider({ sliderImages }) {
         setCurrentImage((currentImage - 1 + sliderImages.length) % sliderImages.length);
     };
 
+    console.log(sliderImages)
+
     return (
         <div className={cx('slider-container')}>
-
             <button className={cx('btn', 'prev')} onClick={prevImage}> <LeftArrowWithTail color='#fff' /></button>
             <img src={sliderImages[currentImage]} alt={`Image ${currentImage + 1}`} />
             <button className={cx('btn', 'next')} onClick={nextImage}><RightArrowWithTail color='#fff' /></button>
