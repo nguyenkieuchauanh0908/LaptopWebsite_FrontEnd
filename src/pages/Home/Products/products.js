@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './products.module.scss'
@@ -463,17 +462,19 @@ function Products() {
     ]
 
     //Lấy danh sách hình banners
-    // const fetchBannersImages = fetch('/api/banners')
-    //     .then((response) => {
-    //         return response.json()
-    //     })
-    //     .then((banners) => {
-    //         setBanners(banners[0]._images)
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //         alert('Failed to retrieve data. Please try again later.');
-    //     })
+    useEffect(() => {
+        let mounted = true
+        fetch('/api/banners')
+            .then((response) => response.json())
+            .then((banners) => {
+                if (mounted) {
+                    console.log(banners)
+                    setBanners(banners[0]._images)
+                }
+                return () => !mounted
+            })
+            .catch((error) => alert('Failed to retrieve data'))
+    }, [])
 
     return (
         <Col xs={12} sm={8} md={8} lg={9} xl={9} className={cx('col-products')}>
@@ -510,7 +511,6 @@ function Products() {
                                 stars={product.rating}
                                 ratingNumber={product.ratingNumber}
                             />
-
 
                         </div>)
                         )
