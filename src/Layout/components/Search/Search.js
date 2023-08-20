@@ -22,6 +22,7 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const debouncedValue = useDebounce(searchValue, 500);
     const inputRef = useRef();
+    console.log(searchResult);
     useEffect(() => {
         if (!debouncedValue.trim()) {
             setSearchResult([]);
@@ -30,6 +31,7 @@ function Search() {
 
         const fetchApi = async () => {
             const result = await searchSrvices.search(debouncedValue);
+            console.log(result);
             setSearchResult(result);
         };
 
@@ -54,7 +56,7 @@ function Search() {
                         <PopperWapper>
                             <h4 className={cx('search-title')}>Gợi ý tìm kiếm</h4>
                             {searchResult.map((result) => (
-                                <SearchItem data={result} key={result.id} />
+                                <SearchItem data={result} key={result._id} />
                             ))}
                         </PopperWapper>
                     </div>
