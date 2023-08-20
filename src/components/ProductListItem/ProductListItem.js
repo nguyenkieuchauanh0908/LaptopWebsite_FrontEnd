@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './ProductListItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import Image from '../Images';
 const cx = classNames.bind(styles);
 function ProductListItem({ product, price, quantity, editItem, hideItem }) {
@@ -31,7 +31,7 @@ function ProductListItem({ product, price, quantity, editItem, hideItem }) {
                         <FontAwesomeIcon icon={faPencil} />
                     </a>
                     <a onClick={hideItem} className={cx('hide')}>
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FontAwesomeIcon icon={faEyeSlash} />
                     </a>
                 </div>
             </div>
