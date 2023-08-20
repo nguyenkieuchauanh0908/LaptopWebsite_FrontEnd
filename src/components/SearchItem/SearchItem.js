@@ -10,11 +10,11 @@ import Image from '../Images';
 const cx = classNames.bind(styles);
 function SearchItem({ data }) {
     return (
-        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
-            <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
+        <Link to={`/@${data._name}`} className={cx('wrapper')}>
+            <Image className={cx('avatar')} src={data._images[0]} alt={data.nickname} />
             <div className={cx('info')}>
                 <p className={cx('name')}>
-                    <span>{data.nickname}</span>
+                    <span>{data._name}</span>
                     {data.tick && <FontAwesomeIcon className={cx('check-icon')} icon={faCheckCircle} />}
                 </p>
                 <p className={cx('username')}>{data.full_name}</p>
