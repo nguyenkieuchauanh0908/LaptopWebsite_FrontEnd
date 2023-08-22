@@ -2,7 +2,7 @@ import * as httprequest from '../utils/httprequest';
 
 export const getCartByUserId = async (userId) => {
     try {
-        const res = await httprequest.get(`/cart/get-cart`, {
+        const res = await httprequest.get(`/carts/`, {
             params: {
                 userId,
             },

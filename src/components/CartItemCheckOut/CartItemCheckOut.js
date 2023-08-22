@@ -38,7 +38,7 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                     )}
                 >
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-price')}>
-                        <p>{itemPrice.toLocaleString('vi-VN')}₫</p>
+                        <p>{parseInt(itemPrice).toLocaleString('vi-VN')}₫</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-quantity')}>
                         <div className={cx('quantity')}>{itemQuantity}</div>
