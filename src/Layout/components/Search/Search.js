@@ -44,8 +44,9 @@ function Search() {
             setSearchValue(e.target.value);
         }
     };
+
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', position: 'relative' }}>
             <HeadlessTippy
                 interactive
                 theme="custom"

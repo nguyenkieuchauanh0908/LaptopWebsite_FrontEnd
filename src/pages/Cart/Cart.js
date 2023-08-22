@@ -13,9 +13,7 @@ const cx = classNames.bind(styles);
 function Cart() {
     const userId = '64b8b4a1116933190a3d3544';
     const navigate = useNavigate();
-
     const [cartItems, setCartItems] = useState([]);
-    const [cart, setCart] = useState([]);
     const fetchProductDetails = async (productId) => {
         try {
             const response = await fetch(`http://localhost:5000/api/products/${productId}`);
@@ -34,7 +32,6 @@ function Cart() {
         const fetchCartData = async () => {
             try {
                 const data = await cartService.getCartByUserId(userId);
-                setCart(data);
                 // Gọi fetchProductDetails cho mỗi sản phẩm trong giỏ hàng
                 const productDetailsPromises = data.map(async (item) => {
                     return fetchProductDetails(item.itemId);
@@ -124,12 +121,17 @@ function Cart() {
         setIsProductsSelected(!allChecked);
     };
 
-    // Kiểm Tra Trạng Thái Trước Khi Đặt Hàng:
+    // Kiểm tra Trạng Thái Trước Khi Đặt Hàng:
     const placeOrder = () => {
         if (!isProductsSelected) {
             alert('Vui lòng chọn ít nhất một sản phẩm trước khi đặt hàng.');
             return;
         }
+
+        // Lưu thông tin giỏ hàng vào sessionStorage
+        const selectedProducts = cartItems.filter((item) => item[0].checked);
+        sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+
         navigate('./checkout');
         // Tiến hành đặt hàng và xử lý các thao tác khác
     };

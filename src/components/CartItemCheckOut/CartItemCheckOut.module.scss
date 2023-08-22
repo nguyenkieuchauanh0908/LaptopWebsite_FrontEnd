@@ -16,12 +16,17 @@
     .product-img {
         max-height: 80px;
         margin-right: 12px;
+        flex-shrink: 0;
     }
     .product__info {
         margin: auto;
         .product__info-name {
             font-size: 1.6rem;
-            line-height: 170%;
+            line-height: 150%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
 
         .product__info-memory {
