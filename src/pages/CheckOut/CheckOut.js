@@ -7,7 +7,7 @@ import CartItemCheckOut from '../../components/CartItemCheckOut';
 import { CodIcon, PayIcon } from '../../components/Icons';
 import Image from '../../components/Images';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddressForm from './AddressForm/AddressForm';
 const cx = classNames.bind(styles);
 function CheckOut() {
@@ -34,12 +34,20 @@ function CheckOut() {
     const [isOrderSuccessful, setIsOrderSuccessful] = useState(null);
     const [orderDetails, setOrderDetails] = useState(null);
 
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1 },
-        { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2 },
-        { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1 },
-        // ...Thêm các sản phẩm khác vào đây
-    ]);
+    // const [cartItems, setCartItems] = useState([
+    //     { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1 },
+    //     { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2 },
+    //     { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1 },
+    //     // ...Thêm các sản phẩm khác vào đây
+    // ]);
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        const storedCartItems = sessionStorage.getItem('selectedProducts');
+        if (storedCartItems) {
+            setCartItems(JSON.parse(storedCartItems));
+        }
+    }, []);
 
     const [shippingFee, setShippingFee] = useState(30000);
     const [shippingFeeDiscount, setshippingFeeDiscount] = useState(0);
@@ -48,11 +56,11 @@ function CheckOut() {
 
     // xóa sản phẩm ra khỏi giỏ hàng
     const deleteItem = (itemId) => {
-        setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== itemId));
+        setCartItems((prevCartItems) => prevCartItems.filter((item) => item[0]._id !== itemId));
     };
     // Tạm tính giá trị đơn hàng
     const calculateSubTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        return cartItems.reduce((total, item) => total + item[0]._price * item[1].quantity, 0);
     };
     const subtotal = calculateSubTotal();
 
@@ -151,12 +159,12 @@ function CheckOut() {
                                     <ListCart>
                                         {cartItems.map((item) => (
                                             <CartItemCheckOut
-                                                key={item.id}
-                                                itemName={item.name}
-                                                itemPrice={item.price}
-                                                itemQuantity={item.quantity}
+                                                key={item[0]._id}
+                                                itemName={item[0]._name}
+                                                itemPrice={item[0]._price}
+                                                itemQuantity={item[1].quantity}
                                                 deleteItem={() => {
-                                                    deleteItem(item.id);
+                                                    deleteItem(item[0]._id);
                                                 }}
                                             />
                                         ))}

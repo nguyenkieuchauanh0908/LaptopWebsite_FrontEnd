@@ -50,7 +50,7 @@ function CartItem({
                     )}
                 >
                     <div className={cx('col-lg-3', 'cart__item-price')}>
-                        <p>{itemPrice.toLocaleString('vi-VN')}đ</p>
+                        <p>{parseInt(itemPrice).toLocaleString('vi-VN')}đ</p>
                     </div>
                     <div className={cx('col-lg-3 col-md-4 d-flex justify-content-center', 'cart__item-quantity')}>
                         <a onClick={decreaseQuantity} className={cx('btn-reduce')}>

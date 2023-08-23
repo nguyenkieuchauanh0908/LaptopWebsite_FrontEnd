@@ -5,31 +5,68 @@ import CartItem from '../../components/CartItem';
 import Button from '../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faFaceMeh } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as cartService from '../../services/cartService';
+
 const cx = classNames.bind(styles);
 function Cart() {
+    const userId = '64b8b4a1116933190a3d3544';
     const navigate = useNavigate();
+    const [cartItems, setCartItems] = useState([]);
+    const fetchProductDetails = async (productId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/products/${productId}`);
+            if (!response.ok) {
+                throw new Error('Yêu cầu không thành công');
+            }
+            const product = await response.json();
+            return product;
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu thông tin sản phẩm:', error);
+            return null;
+        }
+    };
 
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1, checked: false },
-        { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2, checked: false },
-        { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1, checked: false },
-        // ...Thêm các sản phẩm khác vào đây
-    ]);
+    useEffect(() => {
+        const fetchCartData = async () => {
+            try {
+                const data = await cartService.getCartByUserId(userId);
+                // Gọi fetchProductDetails cho mỗi sản phẩm trong giỏ hàng
+                const productDetailsPromises = data.map(async (item) => {
+                    return fetchProductDetails(item.itemId);
+                });
+                const productDetails = await Promise.all(productDetailsPromises);
+                const listcart = productDetails.map((value, index) => [value, data[index]]);
+                console.log(listcart);
+                setCartItems(listcart);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchCartData();
+    }, []);
+
     const [isProductsSelected, setIsProductsSelected] = useState(false);
 
     // tăng số lượng
     const increaseQuantity = (itemId) => {
         setCartItems((prevCartItems) =>
-            prevCartItems.map((item) => (item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item)),
+            prevCartItems.map((item) =>
+                item[0]._id === itemId
+                    ? [{ ...item[0] }, { ...item[1], quantity: parseInt(item[1].quantity) + 1 }]
+                    : item,
+            ),
         );
     };
     // giảm số lượng
     const decreaseQuantity = (itemId) => {
         setCartItems((prevCartItems) =>
             prevCartItems.map((item) =>
-                item.id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item,
+                item[0]._id === itemId && item[1].quantity > 1
+                    ? [{ ...item[0] }, { ...item[1], quantity: parseInt(item[1].quantity) - 1 }]
+                    : item,
             ),
         );
     };
@@ -37,7 +74,7 @@ function Cart() {
     const deleteItem = (itemId) => {
         const shouldDelete = window.confirm('Bạn có muốn xóa sản phẩm này không?');
         if (shouldDelete) {
-            setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== itemId));
+            setCartItems((prevCartItems) => prevCartItems.filter((item) => item[0]._id !== itemId));
         }
     };
 
@@ -45,14 +82,14 @@ function Cart() {
     const deleteAllItem = () => {
         const shouldDelete = window.confirm('Bạn có muốn xóa sản phẩm này không?');
         if (shouldDelete) {
-            setCartItems((prevCartItems) => prevCartItems.filter((item) => item.checked !== true));
+            setCartItems((prevCartItems) => prevCartItems.filter((item) => item[0].checked !== true));
         }
     };
     // Tính tổng giá trị giỏ hàng
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => {
-            if (item.checked) {
-                return total + item.price * item.quantity;
+            if (item[0].checked) {
+                return total + parseInt(item[0]._price) * parseInt(item[1].quantity);
             }
             return total;
         }, 0);
@@ -60,8 +97,8 @@ function Cart() {
     // Tính tổng số lượng sản phẩm
     const calculateTotalQuantity = () => {
         return cartItems.reduce((totalQuantity, item) => {
-            if (item.checked) {
-                return totalQuantity + item.quantity;
+            if (item[0].checked) {
+                return totalQuantity + parseInt(item[1].quantity);
             }
             return totalQuantity;
         }, 0);
@@ -69,22 +106,32 @@ function Cart() {
     // chọn từng sản phẩm
     const handleCheckboxChange = (productId) => {
         setCartItems((prevCartItems) =>
-            prevCartItems.map((item) => (item.id === productId ? { ...item, checked: !item.checked } : item)),
+            prevCartItems.map((item) =>
+                item[0]._id === productId ? [{ ...item[0], checked: !item[0].checked }, item[1]] : item,
+            ),
         );
         setIsProductsSelected(true); // Đã chọn ít nhất một sản phẩm
     };
+
     // chọn tất cả sản phẩm
+
     const handleSelectAll = () => {
-        const allChecked = cartItems.every((item) => item.checked);
-        setCartItems((prevCartItems) => prevCartItems.map((item) => ({ ...item, checked: !allChecked })));
-        setIsProductsSelected(!allChecked); // Đã chọn ít nhất một sản phẩm nếu có ít nhất một sản phẩm đã chọn hoặc bỏ chọn hết nếu tất cả đều đã chọn
+        const allChecked = cartItems.every((item) => item[0].checked);
+        setCartItems((prevCartItems) => prevCartItems.map((item) => [{ ...item[0], checked: !allChecked }, item[1]]));
+        setIsProductsSelected(!allChecked);
     };
-    // Kiểm Tra Trạng Thái Trước Khi Đặt Hàng:
+
+    // Kiểm tra Trạng Thái Trước Khi Đặt Hàng:
     const placeOrder = () => {
         if (!isProductsSelected) {
             alert('Vui lòng chọn ít nhất một sản phẩm trước khi đặt hàng.');
             return;
         }
+
+        // Lưu thông tin giỏ hàng vào sessionStorage
+        const selectedProducts = cartItems.filter((item) => item[0].checked);
+        sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+
         navigate('./checkout');
         // Tiến hành đặt hàng và xử lý các thao tác khác
     };
@@ -97,7 +144,7 @@ function Cart() {
                         <div className={cx('col-lg-6 col-md-6 col-12 d-flex', 'header__products')}>
                             <input
                                 type="checkbox"
-                                checked={cartItems.every((item) => item.checked)}
+                                checked={cartItems.every((item) => item[0].checked)}
                                 onChange={handleSelectAll}
                                 name="products"
                             />
@@ -122,20 +169,20 @@ function Cart() {
                         <ListCart>
                             {cartItems.map((item) => (
                                 <CartItem
-                                    key={item.id}
-                                    checked={item.checked}
-                                    itemName={item.name}
-                                    itemPrice={item.price}
-                                    itemQuantity={item.quantity}
-                                    handleCheckboxChange={() => handleCheckboxChange(item.id)}
-                                    deleteItem={() => deleteItem(item.id)} // Thêm hàm xóa sản phẩm
+                                    key={item[0]._id}
+                                    checked={item[0].checked}
+                                    itemName={[item[0]._name]}
+                                    itemPrice={[item[0]._price]}
+                                    itemQuantity={item[1].quantity}
+                                    handleCheckboxChange={() => handleCheckboxChange(item[0]._id)}
+                                    deleteItem={() => deleteItem(item[0]._id)} // Thêm hàm xóa sản phẩm
                                     increaseQuantity={() => {
-                                        increaseQuantity(item.id);
+                                        increaseQuantity(item[0]._id);
                                         calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
                                         calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
                                     }}
                                     decreaseQuantity={() => {
-                                        decreaseQuantity(item.id);
+                                        decreaseQuantity(item[0]._id);
                                         calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
                                         calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
                                     }}
@@ -147,7 +194,7 @@ function Cart() {
                         <div className={cx('col-lg-6 col-md-3 col-12', 'footer__products', 'd-flex')}>
                             <input
                                 type="checkbox"
-                                checked={cartItems.every((item) => item.checked)}
+                                checked={cartItems.every((item) => item[0].checked)}
                                 onChange={handleSelectAll}
                                 name="products"
                             />
