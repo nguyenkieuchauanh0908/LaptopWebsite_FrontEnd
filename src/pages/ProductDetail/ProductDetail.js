@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -11,8 +12,42 @@ import ViewAll from '../../components/view-all/view-all';
 import { RatingStar } from '../../components/Icons'
 
 const cx = classNames.bind(styles)
-function ProductDetail({ productId, brandId }) {
-    let productDetail = {}
+function ProductDetail({ productId }) {
+
+    //thảm khảo: https://www.pluralsight.com/guides/how-to-use-reactjs-and-complex-json-objects 
+    const [productDetails, setProductDetails] = useState({
+        _name: '',
+        _price: 0,
+        _salePercent: 0,
+        _status: true,
+        _quantity: 0,
+        _detail: ''
+
+    })
+    const [brandId, setBrandId] = useState({
+        _id: '',
+        _name: '',
+    })
+    const [pImages, setPImages] = useState([{
+        id: 1,
+        url: 'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw'
+    },
+    {
+        id: 2,
+        url: 'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw'
+    },
+    {
+        id: 3,
+        url: 'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw'
+    },
+    {
+        id: 4,
+        url: 'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
+    },
+
+    ])
+
+
     let avarageRating = 0
     let comments = []
     let relatedProducts = []
@@ -31,34 +66,25 @@ function ProductDetail({ productId, brandId }) {
     };
 
 
-    const getProductDetails = (productId) => {
-        productDetail = {
-            name: 'Laptop Lenovo IdeaPad 3 15IAU7 - 82RK001QVN (i5-1235U/RAM 8GB/512GB SSD/ Windows 11)',
-            brand: 'Lenovo',
-            images: [{
-                id: 1,
-                url: 'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw'
-            },
-            {
-                id: 2,
-                url: 'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw'
-            },
-            {
-                id: 3,
-                url: 'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw'
-            },
-            {
-                id: 4,
-                url: 'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
-            },
 
-            ],
-            salePercents: 10,
-            price: 16000000,
-            status: 'Selling',
-            quantity: 10,
+    useEffect(() => {
+        const fetchProductDetails = async () => {
+            try {
+                const response = await fetch('/api/products/64b6367474e10f82ea5c17d7');
+                if (!response.ok) {
+                    throw new Error('Request failed');
+                }
+                const data = await response.json();
+                console.log(data._brandId._name);
+                setProductDetails(data);
+                setBrandId(data._brandId);
+            } catch (error) {
+                console.error('Không lấy được dữ liệu:', error);
+            }
         }
-    }
+        fetchProductDetails();
+    }, [])
+
 
     const getAverageRating = (productId) => {
         avarageRating = 5
@@ -374,116 +400,122 @@ function ProductDetail({ productId, brandId }) {
     }
 
 
-    getProductDetails(productId)
+
     getAverageRating(productId)
     getRelatedProducts(brandId)
     getComments(productId)
 
-    return (
-        <div className={cx('wrapper')}>
-            <Container className={cx('container')}>
-                <span className={cx('row-heading')}>Thông tin sản phẩm</span>
-                <Row className={cx('bg-white', 'padding-12', 'productInfo')}>
-                    <Col className={cx('col-wrapper')} md={{ span: 4 }}>
-                        <ProductImgs
-                            images={productDetail.images}
-                        />
-                    </Col>
-                    <Col className={cx('col-wrapper')} md={{ span: 6, offset: 1 }}>
-                        <ProductInfo
-                            name={productDetail.name}
-                            brand={productDetail.brand}
-                            oldPrice={productDetail.price}
-                            salePercents={productDetail.salePercents}
-                            status={productDetail.status}
-                            quantity={productDetail.quantity}
+    if (productDetails) {
+        return (
+            <div className={cx('wrapper')}>
+                <Container className={cx('container')}>
+                    <span className={cx('row-heading')}>Thông tin sản phẩm</span>
+                    <Row className={cx('bg-white', 'padding-12', 'productInfo')}>
+                        <Col className={cx('col-wrapper')} md={{ span: 4 }}>
+                            <ProductImgs
+                                images={pImages}
+                            />
+                        </Col>
 
-                        />
-                    </Col>
-                </Row>
-            </Container>
+                        <Col className={cx('col-wrapper')} md={{ span: 6, offset: 1 }}>
+                            <ProductInfo
+                                name={productDetails._name}
+                                brand={brandId._name}
+                                oldPrice={productDetails._price}
+                                salePercents={productDetails._salePercent}
+                                status={productDetails._status}
+                                quantity={productDetails._quantity}
 
-            <Container className={cx('container')}>
-                <span className={cx('row-heading')}>Thông số kỹ thuật</span>
-                <Row className={cx('bg-white', 'padding-12')}>
-                    <Col>
-                        <p>- Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</p>
-                        <p>- Tần số quét: 75Hz</p>
-                        <p>- Công nghệ đồng bộ: FreeSync</p>
-                        <p>- Cổng hình ảnh: , 1 x HDMI 1.4, 1 x VGA/D-sub </p>
-                    </Col>
-                </Row>
+                            />
+                        </Col>
+                    </Row>
+                </Container>
 
-            </Container>
+                <Container className={cx('container')}>
+                    <span className={cx('row-heading')}>Thông số kỹ thuật</span>
+                    <Row className={cx('bg-white', 'padding-12')}>
+                        <Col>
+                            <p>- Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</p>
+                            <p>- Tần số quét: 75Hz</p>
+                            <p>- Công nghệ đồng bộ: FreeSync</p>
+                            <p>- Cổng hình ảnh: , 1 x HDMI 1.4, 1 x VGA/D-sub </p>
+                        </Col>
+                    </Row>
 
-            <Container className={cx('container')}>
-                <span className={cx('row-heading')}>Đánh giá</span>
-                <Row className={cx('bg-white', 'padding-12')}>
-                    <div className={cx('overview-wrapper')}>
-                        <p className={cx('title')}>Điểm đánh giá trung bình: </p>
-                        <div className={cx('rating-stars')}>
-                            <div className={cx('stars')}>
-                                <div className={cx('stars-wrapper')}>
-                                    {renderStars(avarageRating)}
+                </Container>
+
+                <Container className={cx('container')}>
+                    <span className={cx('row-heading')}>Đánh giá</span>
+                    <Row className={cx('bg-white', 'padding-12')}>
+                        <div className={cx('overview-wrapper')}>
+                            <p className={cx('title')}>Điểm đánh giá trung bình: </p>
+                            <div className={cx('rating-stars')}>
+                                <div className={cx('stars')}>
+                                    <div className={cx('stars-wrapper')}>
+                                        {renderStars(avarageRating)}
+                                    </div>
                                 </div>
+                                <span className={cx('ratingNumber')}>(63)</span>
                             </div>
-                            <span className={cx('ratingNumber')}>(63)</span>
+
                         </div>
-
-                    </div>
-                    {comments.map((comment, index) => {
-                        return (
-                            <Row>
-                                <Comment
-                                    key={index}
-                                    uName={comment.uName}
-                                    content={comment.content}
-                                    stars={comment.stars}
-                                    images={comment.images}
-                                />
-                            </Row>
-                        )
-                    })}
-                    <div className={cx('viewAll-wrapper')}>
-                        <ViewAll />
-                    </div>
-                </Row>
-            </Container>
-            <Container className={cx('container')}>
-                <span className={cx('row-heading')}>Sản phẩm liên quan</span>
-                <Row sm={2} xs={2} md={3} lg={3} xl={6}>
-                    {
-                        relatedProducts.map((product, index) => {
+                        {comments.map((comment, index) => {
                             return (
-                                <div className={cx('card-wrapper')}>
-                                    <ColProductCard
+                                <Row>
+                                    <Comment
                                         key={index}
-                                        url={product.images[1].url}
-                                        pCate={product.brand}
-                                        pName={product.name}
-                                        oldPrice={product.price}
-                                        salePercents={product.salePercent}
-                                        stars={product.rating}
-                                        ratingNumber={product.ratingNumber}
+                                        uName={comment.uName}
+                                        content={comment.content}
+                                        stars={comment.stars}
+                                        images={comment.images}
                                     />
-                                </div>
+                                </Row>
                             )
-                        })
+                        })}
+                        <div className={cx('viewAll-wrapper')}>
+                            <ViewAll />
+                        </div>
+                    </Row>
+                </Container>
+                <Container className={cx('container')}>
+                    <span className={cx('row-heading')}>Sản phẩm liên quan</span>
+                    <Row sm={2} xs={2} md={3} lg={3} xl={6}>
+                        {
+                            relatedProducts.map((product, index) => {
+                                return (
+                                    <div className={cx('card-wrapper')}>
+                                        <ColProductCard
+                                            key={index}
+                                            url={product.images[1].url}
+                                            pCate={product.brand}
+                                            pName={product.name}
+                                            oldPrice={product.price}
+                                            salePercents={product.salePercent}
+                                            stars={product.rating}
+                                            ratingNumber={product.ratingNumber}
+                                        />
+                                    </div>
+                                )
+                            })
 
-                    }
-                    <div className={cx('viewAll-wrapper')}>
-                        <ViewAll />
-                    </div>
-                </Row>
+                        }
+                        <div className={cx('viewAll-wrapper')}>
+                            <ViewAll />
+                        </div>
+                    </Row>
 
-            </Container>
-
-
-
-        </div>
+                </Container>
 
 
 
-    )
+            </div>
+
+
+
+        )
+    }
+    else
+        return null
+
 }
 export default ProductDetail
