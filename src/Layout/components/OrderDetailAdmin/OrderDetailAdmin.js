@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './OrderDetailAdmin.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import OrderListDetailItem from '../../../components/OrderListDetailItem';
+import * as orderAdminService from '../../../services/orderAdminService';
 const cx = classNames.bind(styles);
 
-function OrderDetailAdmin({ rollbackListOrder }) {
+function OrderDetailAdmin({ id, rollbackListOrder }) {
+    const [order, setOrder] = useState([]);
+    const [orderItems, setOrderItems] = useState([]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await orderAdminService.getOrder(id);
+            setOrderItems(result._items);
+            setOrder(result);
+        };
+        fetchApi();
+    }, []);
     return (
         <>
             <div className={cx('d-flex align-items-center ', 'title')}>
@@ -20,7 +32,7 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                     <div className={cx('container-fluid')}>
                         <div className={cx('row', 'header')}>
                             <div className={cx('col-md-6 col-lg-6 col-6', 'order-code')}>
-                                <p>Mã đơn hàng: 1</p>
+                                <p>Mã đơn hàng: {order._id}</p>
                             </div>
                             <div
                                 className={cx(
@@ -28,20 +40,28 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                                     'order-status',
                                 )}
                             >
-                                <p>Chưa giao</p>
+                                {order._status === '0' ? (
+                                    <p>Chưa giao</p>
+                                ) : order._status === '1' ? (
+                                    <p>Đang giao</p>
+                                ) : order._status === '2' ? (
+                                    <p>Đã giao</p>
+                                ) : (
+                                    <p>Đã hủy</p>
+                                )}
                             </div>
                         </div>
                         <div className={cx('row', 'shipment-details')}>
                             <h2>THÔNG TIN GIAO HÀNG</h2>
-                            <h4>Trần Thị Trà My</h4>
-                            <p>566 Nguyễn Thái Sơn, F.5, Q.GV, TP.HCM</p>
-                            <p>0938049556</p>
+                            <h4>{order._name}</h4>
+                            <p>{order._address}</p>
+                            <p>{order._phone}</p>
                         </div>
                         <div className={cx('row', 'order-details')}>
                             <div className={cx('list-items')}>
-                                <OrderListDetailItem />
-                                <OrderListDetailItem />
-                                <OrderListDetailItem />
+                                {orderItems.map((item) => (
+                                    <OrderListDetailItem key={item.itemId} id={item.itemId} quantity={item.quantity} />
+                                ))}
                             </div>
                         </div>
                         <div className={cx('row', 'total-fee')}>
@@ -53,7 +73,7 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                                     </div>
                                     <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <div className={cx('d-flex justify-content-end')}>
-                                            <p>0đ</p>
+                                            <p>{order._shippingFee}đ</p>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +83,7 @@ function OrderDetailAdmin({ rollbackListOrder }) {
                                     </div>
                                     <div className={cx('col-md-6 col-lg-6 col-6')}>
                                         <div className={cx('d-flex justify-content-end')}>
-                                            <p>74.999.000đ</p>
+                                            <p>{order._totalPayment}đ</p>
                                         </div>
                                     </div>
                                 </div>
