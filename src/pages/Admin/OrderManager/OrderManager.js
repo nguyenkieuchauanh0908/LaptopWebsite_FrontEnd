@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderManager.module.scss';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
@@ -6,67 +6,73 @@ import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdm
 import ListOrder from './ListOrder';
 import OrderListItem from '../../../components/OrderListItem/OrderListItem';
 import OrderDetailAdmin from '../../../Layout/components/OrderDetailAdmin';
+import * as orderAdminService from '../../../services/orderAdminService';
 
 const cx = classNames.bind(styles);
 
 function OrderManager() {
-    const [orderListItems, setOrderListItems] = useState([
-        {
-            id: 1,
-            fullname: 'Trần Thị Trà My',
-            address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM',
-            phone: '0938049556',
-            status: 'Chưa giao',
-        },
-        {
-            id: 2,
-            fullname: 'Trần Thị Trà My',
-            address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM',
-            phone: '0938049556',
-            status: 'Chưa giao',
-        },
-        {
-            id: 3,
-            fullname: 'Trần Thị Trà My',
-            address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM',
-            phone: '0938049556',
-            status: 'Chưa giao',
-        },
-        {
-            id: 4,
-            fullname: 'Trần Thị Trà My',
-            address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM',
-            phone: '0938049556',
-            status: 'Chưa giao',
-        },
-        {
-            id: 5,
-            fullname: 'Trần Thị Trà My',
-            address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM',
-            phone: '0938049556',
-            status: 'Chưa giao',
-        },
-    ]);
-    const [tagCurrent, setTagcurrent] = useState(1);
+    const [orderListItems, setOrderListItems] = useState([]);
+    const [orderListItemTagCurrent, setOrderListItemTagCurrent] = useState([]);
 
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await orderAdminService.getAllOrders();
+            setOrderListItems(result);
+            setOrderListItemTagCurrent(result);
+        };
+        fetchApi();
+    }, []);
+
+    const [tagCurrent, setTagcurrent] = useState(1);
+    const filter = (tag) => {
+        setOrderListItemTagCurrent(orderListItems);
+        if (tag === 1) {
+            setTagcurrent(1);
+        }
+        if (tag === 2) {
+            setTagcurrent(2);
+            setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
+                prevOrderListItemTagCurrent.filter((item) => item._status === '0'),
+            );
+        }
+        if (tag === 3) {
+            setTagcurrent(3);
+            setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
+                prevOrderListItemTagCurrent.filter((item) => item._status === '1'),
+            );
+        }
+        if (tag === 4) {
+            setTagcurrent(4);
+            setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
+                prevOrderListItemTagCurrent.filter((item) => item._status === '2'),
+            );
+        }
+        if (tag === 5) {
+            setTagcurrent(5);
+            setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
+                prevOrderListItemTagCurrent.filter((item) => item._status === '3'),
+            );
+        }
+    };
     const [currentPage, setCurrentPage] = useState(1); // page mặc định là 1
-    const totalPages = Math.ceil(orderListItems.length / 5); // số page mỗi page 5 item
+    const totalPages = Math.ceil(orderListItemTagCurrent.length / 5); // số page mỗi page 5 item
     const pageItems = [];
     for (let i = 1; i <= totalPages; i++) {
         pageItems.push(i);
     }
     const startIndex = (currentPage - 1) * 5; // item bắt đầu cho mỗi page
     const endIndex = startIndex + 5; // item kết thúc cho mỗi page
-    const currentItems = orderListItems.slice(startIndex, endIndex); // item cho page hiện tại
+    const currentItems = orderListItemTagCurrent.slice(startIndex, endIndex); // item cho page hiện tại
 
-    const [orderDetail, setOrderDetail] = useState(false); // false ở trang danh sách, true là trang chi tiết
-
-    const showOrderDetail = () => {
-        setOrderDetail(true);
+    const [displayOrderDetail, setDisplayOrderDetail] = useState(false); // false ở trang danh sách, true là trang chi tiết
+    const [orderDetail, setOrderDetail] = useState('64b8f72b29869c0f9f0dab70');
+    const showOrderDetail = (orderId) => {
+        setOrderDetail(orderId);
+        setDisplayOrderDetail(true);
     };
 
     const rollbackListOrder = () => {
-        setOrderDetail(false);
+        setDisplayOrderDetail(false);
     };
 
     return (
@@ -75,7 +81,7 @@ function OrderManager() {
                 <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
                     <SidebarAdmin />
                 </div>
-                {!orderDetail ? (
+                {!displayOrderDetail ? (
                     <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
                         <SidebarAdminMobi />
                     </div>
@@ -83,7 +89,7 @@ function OrderManager() {
                     ''
                 )}
                 <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
-                    {!orderDetail ? (
+                    {!displayOrderDetail ? (
                         <>
                             <div className={cx('d-flex align-items-center ', 'title')}>Quản lý đơn hàng</div>
                             <div className={cx('wrapper')}>
@@ -97,7 +103,9 @@ function OrderManager() {
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        onClick={() => setTagcurrent(1)}
+                                                        onClick={() => {
+                                                            filter(1);
+                                                        }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
                                                     >
@@ -110,7 +118,9 @@ function OrderManager() {
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        onClick={() => setTagcurrent(2)}
+                                                        onClick={() => {
+                                                            filter(2);
+                                                        }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
                                                     >
@@ -123,7 +133,9 @@ function OrderManager() {
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        onClick={() => setTagcurrent(3)}
+                                                        onClick={() => {
+                                                            filter(3);
+                                                        }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
                                                     >
@@ -136,7 +148,9 @@ function OrderManager() {
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        onClick={() => setTagcurrent(4)}
+                                                        onClick={() => {
+                                                            filter(4);
+                                                        }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
                                                     >
@@ -149,7 +163,9 @@ function OrderManager() {
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        onClick={() => setTagcurrent(5)}
+                                                        onClick={() => {
+                                                            filter(5);
+                                                        }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
                                                     >
@@ -186,12 +202,13 @@ function OrderManager() {
                                             <ListOrder>
                                                 {currentItems.map((item) => (
                                                     <OrderListItem
-                                                        key={item.id}
-                                                        fullname={item.fullname}
-                                                        address={item.address}
-                                                        phone={item.phone}
-                                                        status={item.status}
-                                                        showOrderDetail={() => showOrderDetail()}
+                                                        key={item._id}
+                                                        id={item._id}
+                                                        name={item._name}
+                                                        address={item._address}
+                                                        phone={item._phone}
+                                                        status={item._status}
+                                                        showOrderDetail={() => showOrderDetail(item._id)}
                                                     />
                                                 ))}
                                             </ListOrder>
@@ -249,7 +266,7 @@ function OrderManager() {
                             </div>
                         </>
                     ) : (
-                        <OrderDetailAdmin rollbackListOrder={() => rollbackListOrder()} />
+                        <OrderDetailAdmin id={orderDetail} rollbackListOrder={() => rollbackListOrder()} />
                     )}
                 </div>
             </div>
