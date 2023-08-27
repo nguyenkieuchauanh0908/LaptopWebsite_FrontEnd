@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
 import styles from './sidebar.module.scss'
 import classNames from 'classnames/bind'
 import Col from 'react-bootstrap/esm/Col'
@@ -7,63 +8,63 @@ import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 function Sidebar() {
-    let categories = []
-    let brands = []
+    const [brands, setBrands] = useState([
+        {
+            _id: '',
+            _name: ''
+        }
+    ])
 
-    const getCategories = () => {
-        categories = [
-            {
-                id: 1,
-                name: 'Laptop'
-            },
-            {
-                id: 2,
-                name: 'PC'
-            },
-            {
-                id: 3,
-                name: 'Linh kiện'
-            },
-            {
-                id: 4,
-                name: 'Phụ kiện'
-            },
-            {
-                id: 5,
-                name: 'Màn hình'
-            },
+    const [categories, setCategories] = useState([
+        {
+            _id: '',
+            _name: '',
+            status: true
+        }
+    ])
 
-        ]
-    }
+    //get all brands
+    useEffect(() => {
+        const fetchAllBrands = async () => {
+            try {
+                const response = await fetch('/api/brands')
+                if (!response.ok) {
+                    throw new Error('Request failed')
+                }
+                const data = await response.json()
+                //console.log(data)
+                setBrands(data)
 
-    const getBrands = () => {
-        brands = [
-            {
-                id: 1,
-                name: 'Lenovo'
-            },
-            {
-                id: 2,
-                name: 'Asus'
-            },
-            {
-                id: 3,
-                name: 'Dell'
-            },
-            {
-                id: 4,
-                name: 'MSI'
-            },
-            {
-                id: 5,
-                name: 'Acer'
-            },
 
-        ]
-    }
+            }
+            catch (error) {
+                console.error('Không lấy được dữ liệu: ', error)
+            }
+        }
+        fetchAllBrands()
+    }, [])
 
-    getCategories()
-    getBrands()
+    //get all categories
+    useEffect(() => {
+        const fetchAllCagtegories = async () => {
+            try {
+                const response = await fetch('/api/categories/')
+                if (!response.ok) {
+                    throw new Error('Request failed')
+                }
+                const data = await response.json()
+                //console.log(data)
+                setCategories(data)
+
+
+            }
+            catch (error) {
+                console.error('Không lấy được dữ liệu: ', error)
+            }
+        }
+        fetchAllCagtegories()
+
+    }, [])
 
     return (
         <Col sm={3} md={3} lg={2} className={cx('sidebar-container')}>
@@ -87,7 +88,7 @@ function Sidebar() {
                     <ul className={cx('category-list')}>
                         {
                             categories.map((category) => (<li className={cx('category-item')}>
-                                <Link key={category.id} to={'/search'} className={cx('category-item__link')}>{category.name}</Link>
+                                <Link key={category._id} to={'/search'} className={cx('category-item__link')}>{category._name}</Link>
                             </li>))
                         }
                     </ul>
@@ -101,7 +102,7 @@ function Sidebar() {
                         {
                             brands.map((brand) => (
                                 <li key={brand.id} className={cx('category-item')}>
-                                    <Link key={brand.id} to={'/search'} className={cx('category-item__link')}>{brand.name}</Link>
+                                    <Link key={brand._id} to={'/search'} className={cx('category-item__link')}>{brand._name}</Link>
                                 </li>
                             )
 

@@ -47,7 +47,7 @@ function ProductCard(props) {
                     <span className={cx('oldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</span>
                     <span className={cx('newPrice')}>{(props.oldPrice - props.oldPrice * (props.salePercents / 100)).toLocaleString('vi-VN')}đ</span>
                 </div>
-                <div className={cx('rating-display')}>
+                {/* <div className={cx('rating-display')}>
                     <div className={cx('rating-stars')}>
                         <div className={cx('stars')}>
                             <div className={cx('stars-wrapper')}>
@@ -57,7 +57,7 @@ function ProductCard(props) {
                         <span className={cx('ratingNumber')}>({props.ratingNumber})</span>
                     </div>
                     <span className={cx('origin')}>{props.origin}</span>
-                </div>
+                </div> */}
                 <div className={cx('btn-wrapper')}>
                     <Button className={cx('btn-add-to-cart')} variant="primary">{btnText}</Button>
                 </div>
