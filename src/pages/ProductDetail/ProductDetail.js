@@ -21,37 +21,51 @@ function ProductDetail({ productId }) {
         _salePercent: 0,
         _status: true,
         _quantity: 0,
-        _detail: ''
+        _detail: '',
+        _sold: 0,
+        _brandId: {
+            _id: '',
+            _name: '',
+        }
 
     })
-    const [brandId, setBrandId] = useState({
-        _id: '',
-        _name: '',
-    })
-    const [pImages, setPImages] = useState([{
-        id: 1,
-        url: 'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw'
-    },
-    {
-        id: 2,
-        url: 'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw'
-    },
-    {
-        id: 3,
-        url: 'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw'
-    },
-    {
-        id: 4,
-        url: 'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
-    },
 
+    const [pImages, setPImages] = useState([
+        'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw',
+        'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw',
+        'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw',
+        'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
+    ])
+
+    const [comments, setComments] = useState([
+        {
+            _id: '',
+            _content: '',
+            _rating: 0,
+            _uId: {
+                _id: '',
+                _fname: '',
+                _lname: '',
+                _avatar: ''
+            },
+            _pId: '',
+            _images: [],
+        }
+    ])
+
+    const [cmtImgs, setCmtImgs] = useState([
+        'https://lh3.googleusercontent.com/GG6CCVgMW1ufUI2K_8gAkwU9JcQFNDItu7NCRlYpxgqPpBCMzZCWFLP4W5k4jWQTGKdd901uILnL1YYswzxGyhomqu1x0J0r=w230-rw',
+        'https://lh3.googleusercontent.com/v3qv2PgRZTf3ZoRxxCFarBUFV9go2UFWAmqLCXdCKvqfFIrV5PsGw4RynO4HQNJz2jvMYRdc8ZNk39dSiZINoTSMpk1cHHQ=w230-rw',
+        'https://lh3.googleusercontent.com/CM_6GZhK7z1iauRQqaCi1ZXmtWTp7G1sF0inBnN6PogJCkXCPhX6IE62hxlOH2fd4oM0CV5sJ6wGgmMLQ4fVkJNaokP4Rqj7=w230-rw',
+        'https://lh3.googleusercontent.com/N-tp-JYfRbASQfIqRrxe626j5US-0hV9PEuSXhwGQea_qrCbncfUJ5fE0ZUjgK5pbBdXsPf_ubm8hN1kKfCNRoMW87WsaW8=w230-rw'
     ])
 
 
     let avarageRating = 0
-    let comments = []
+    //let comments = []
     let relatedProducts = []
 
+    //Hiển thị icon sao
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 0; i < rating; i++) {
@@ -65,160 +79,54 @@ function ProductDetail({ productId }) {
         return stars;
     };
 
-
-
+    //Get oroduct details from productId
     useEffect(() => {
-        const fetchProductDetails = async () => {
+        const fetchProductDetails = async (productId) => {
             try {
-                const response = await fetch('/api/products/64b6367474e10f82ea5c17d7');
+                const response = await fetch(`/api/products/${productId}`);
                 if (!response.ok) {
                     throw new Error('Request failed');
                 }
                 const data = await response.json();
-                console.log(data._brandId._name);
+                //console.log(data._brandId._name);
                 setProductDetails(data);
-                setBrandId(data._brandId);
             } catch (error) {
                 console.error('Không lấy được dữ liệu:', error);
             }
         }
-        fetchProductDetails();
+        fetchProductDetails('64b6367474e10f82ea5c17d7')
     }, [])
+
+    //get all comments of a product from productId
+    useEffect(() => {
+        const fetchProductComments = async (produtId) => {
+            try {
+                const response = await fetch(`/api/reviews/${produtId}`)
+                if (!response.ok) {
+                    throw new Error('Request failed')
+                }
+                const data = await response.json()
+                //console.log(data)
+                setComments(data)
+
+
+            }
+            catch (error) {
+                console.error('Không lấy được dữ liệu: ', error)
+            }
+        }
+        fetchProductComments('64b6367474e10f82ea5c17d7')
+
+    }, [])
+
+
 
 
     const getAverageRating = (productId) => {
         avarageRating = 5
     }
 
-    const getComments = (productId) => {
-        comments = [
-            {
-                uName: 'Nguyễn Kiều Châu Anh',
-                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
-                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
-                stars: 5,
-                images: [
-                    {
-                        id: 1,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 2,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 3,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 4,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
 
-                ]
-            },
-            {
-                uName: 'Nguyễn Kiều Châu Anh',
-                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
-                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
-                stars: 5,
-                images: [
-                    {
-                        id: 1,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 2,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 3,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 4,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-
-                ]
-            },
-            {
-                uName: 'Nguyễn Kiều Châu Anh',
-                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
-                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
-                stars: 5,
-                images: [
-                    {
-                        id: 1,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 2,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 3,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 4,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-
-                ]
-            },
-            {
-                uName: 'Nguyễn Kiều Châu Anh',
-                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
-                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
-                stars: 5,
-                images: [
-                    {
-                        id: 1,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 2,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 3,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 4,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-
-                ]
-            },
-            {
-                uName: 'Nguyễn Kiều Châu Anh',
-                uImage: 'https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo',
-                content: 'Sản phẩm có chất lượng tuyệt vời,  mỏng nhẹ, hợp cho dân văn phòng, để code thì hơi yếu ... ',
-                stars: 5,
-                images: [
-                    {
-                        id: 1,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 2,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 3,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-                    {
-                        id: 4,
-                        url: 'https://lh3.googleusercontent.com/cBdOXgYGm5cLGaxviqHQflM2yCWnvYv3uU__kFllR0ZMqEVW-IUK6xIizab9q0NVmHjQJzdQ9bVyNTmRp4dbUOkwo5ZEOVPJ=w230-rw'
-                    },
-
-                ]
-            },
-        ]
-    }
 
     const getRelatedProducts = (brandId) => {
         relatedProducts = [{
@@ -402,8 +310,8 @@ function ProductDetail({ productId }) {
 
 
     getAverageRating(productId)
-    getRelatedProducts(brandId)
-    getComments(productId)
+    getRelatedProducts()
+    //getComments(productId)
 
     if (productDetails) {
         return (
@@ -420,7 +328,7 @@ function ProductDetail({ productId }) {
                         <Col className={cx('col-wrapper')} md={{ span: 6, offset: 1 }}>
                             <ProductInfo
                                 name={productDetails._name}
-                                brand={brandId._name}
+                                brand={productDetails._brandId._name}
                                 oldPrice={productDetails._price}
                                 salePercents={productDetails._salePercent}
                                 status={productDetails._status}
@@ -434,11 +342,13 @@ function ProductDetail({ productId }) {
                 <Container className={cx('container')}>
                     <span className={cx('row-heading')}>Thông số kỹ thuật</span>
                     <Row className={cx('bg-white', 'padding-12')}>
+
                         <Col>
-                            <p>- Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</p>
-                            <p>- Tần số quét: 75Hz</p>
-                            <p>- Công nghệ đồng bộ: FreeSync</p>
-                            <p>- Cổng hình ảnh: , 1 x HDMI 1.4, 1 x VGA/D-sub </p>
+                            {
+                                productDetails._detail.split('- ').map((detail, index) =>
+                                    <p key={index}>{detail}</p>
+                                )
+                            }
                         </Col>
                     </Row>
 
@@ -463,11 +373,12 @@ function ProductDetail({ productId }) {
                             return (
                                 <Row>
                                     <Comment
-                                        key={index}
-                                        uName={comment.uName}
-                                        content={comment.content}
-                                        stars={comment.stars}
-                                        images={comment.images}
+                                        key={comment._id}
+                                        fName={comment._uId._fname}
+                                        lName={comment._uId._lname}
+                                        content={comment._content}
+                                        stars={comment._rating}
+                                        images={cmtImgs}
                                     />
                                 </Row>
                             )

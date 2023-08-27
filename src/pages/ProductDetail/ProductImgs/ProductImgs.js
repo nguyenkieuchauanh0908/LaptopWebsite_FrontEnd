@@ -5,10 +5,10 @@ import classNames from 'classnames/bind'
 const cx = classNames.bind(styles)
 function ProductImgs({ images }) {
 
-    const [pMainImg, setpMainImg] = useState(images[0].url)
+    const [pMainImg, setpMainImg] = useState(images[0])
 
     const handleChangeMainImg = (index) => {
-        setpMainImg(images[index].url)
+        setpMainImg(images[index])
     }
 
     return (
@@ -20,11 +20,11 @@ function ProductImgs({ images }) {
             <div className={cx('sub-pImages-wrapper')}>
                 {
                     images.map((image, index) => {
-                        if (image.url === pMainImg) {
-                            return <img key={image.id} className={cx('sub-pImage', 'current-pImg')} src={image.url} alt='Ảnh sản phẩm' onMouseOver={() => handleChangeMainImg(index)}></img>
+                        if (image === pMainImg) {
+                            return <img key={index} className={cx('sub-pImage', 'current-pImg')} src={image} alt='Ảnh sản phẩm' onMouseOver={() => handleChangeMainImg(index)}></img>
                         }
                         else
-                            return <img key={image.id} className={cx('sub-pImage')} src={image.url} alt='Ảnh sản phẩm' onMouseOver={() => handleChangeMainImg(index)}></img>
+                            return <img key={index} className={cx('sub-pImage')} src={image} alt='Ảnh sản phẩm' onMouseOver={() => handleChangeMainImg(index)}></img>
                     })
                 }
             </div>
