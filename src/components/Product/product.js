@@ -11,8 +11,6 @@ const cx = classNames.bind(styles);
 const btnText = 'Thêm vào giỏ'
 function ProductCard(props) {
 
-
-
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 0; i < rating; i++) {
@@ -26,10 +24,21 @@ function ProductCard(props) {
         return stars;
     };
 
+    const capitalizeFirstLetter = (word) => {
+        if (!word) {
+            return ""; // Return an empty string or handle the case when word is undefined or empty
+        }
+        else
+            return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+
     return (
         <Card style={{ width: '100%' }} className={cx('pCard')}>
             <div className={cx('pImg-wrapper')}>
-                <p className={cx('sale-tag')}>Giảm {props.salePercents}%</p>
+                {
+                    props.salePercents > 0 && <p className={cx('sale-tag')}>-{props.salePercents}%</p>
+                }
                 <Link to={'/product-detail'}>
                     <Card.Img className={cx('pImg')} variant="top" src={props.url} />
                 </Link>
@@ -37,11 +46,11 @@ function ProductCard(props) {
             </div>
             <Card.Body className={cx('card-content')}>
                 <Link to={'/search'}>
-                    <p className={cx('pCate')}>{props.pCate}</p>
+                    <p className={cx('pCate')}>{capitalizeFirstLetter(props.pCate)}</p>
                 </Link>
 
                 <Link to={'/product-detail'}>
-                    <Card.Title className={cx('pName')}>{props.pName}</Card.Title>
+                    <Card.Title className={cx('pName')}>{capitalizeFirstLetter(props.pName)}</Card.Title>
                 </Link>
                 <div className={cx('pPrice')}>
                     <span className={cx('oldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</span>

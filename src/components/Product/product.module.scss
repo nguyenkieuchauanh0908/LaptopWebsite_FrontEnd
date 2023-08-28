@@ -28,7 +28,7 @@
     text-align: center;
     /* PC/L/Label 2 */
     font-family: Nunito;
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: 140%; /* 19.6px */
@@ -38,7 +38,7 @@
     right: 12px !important;
     background-color: #f60;
     border-radius: 4px;
-    z-index: 1;
+    z-index: 5;
     text-align: center;
     width: 73px;
     height: 19px;
@@ -73,6 +73,7 @@
 
 .pName {
     position: relative;
+    max-width: 100%;
     top: -4px;
     color: #434657;
     font-size: 11px;
@@ -81,11 +82,15 @@
     line-height: 130%; /* 14.3px */
     letter-spacing: 0.3px;
     margin-bottom: 0 !important;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
 }
 
 .pPrice {
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
 }
 
 .oldPrice {
@@ -96,6 +101,7 @@
     line-height: 130%; /* 10.4px */
     letter-spacing: 0.3px;
     text-decoration: line-through;
+    //margin-right: 1px;
 }
 
 .newPrice {
@@ -166,6 +172,7 @@
 .btn-wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .btn-add-to-cart {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './ProductImgs.module.scss'
 import classNames from 'classnames/bind'
 const cx = classNames.bind(styles)
-function ProductImgs({ images }) {
+function ProductImgs({ images, salePercents }) {
 
     const [pMainImg, setpMainImg] = useState(images[0])
 
@@ -14,7 +14,7 @@ function ProductImgs({ images }) {
     return (
         <div className={cx('pImages-wrapper')}>
             <div className={cx('main-pImages-wrapper')}>
-                <p className={cx('sale-tag')}>Giảm 20%</p>
+                {salePercents > 0 && <p className={cx('sale-tag')}>-{salePercents}%</p>}
                 <img className={cx('main-pImage')} alt='Ảnh sản phẩm' src={pMainImg}></img>
             </div>
             <div className={cx('sub-pImages-wrapper')}>

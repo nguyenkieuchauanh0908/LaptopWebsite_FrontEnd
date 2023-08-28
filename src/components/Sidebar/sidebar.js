@@ -23,6 +23,14 @@ function Sidebar() {
         }
     ])
 
+    const capitalizeFirstLetter = (word) => {
+        if (!word) {
+            return ""; // Return an empty string or handle the case when word is undefined or empty
+        }
+        else
+            return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
     //get all brands
     useEffect(() => {
         const fetchAllBrands = async () => {
@@ -88,7 +96,7 @@ function Sidebar() {
                     <ul className={cx('category-list')}>
                         {
                             categories.map((category) => (<li className={cx('category-item')}>
-                                <Link key={category._id} to={'/search'} className={cx('category-item__link')}>{category._name}</Link>
+                                <Link key={category._id} to={'/search'} className={cx('category-item__link')}>{capitalizeFirstLetter(category._name)}</Link>
                             </li>))
                         }
                     </ul>
@@ -102,7 +110,7 @@ function Sidebar() {
                         {
                             brands.map((brand) => (
                                 <li key={brand.id} className={cx('category-item')}>
-                                    <Link key={brand._id} to={'/search'} className={cx('category-item__link')}>{brand._name}</Link>
+                                    <Link key={brand._id} to={'/search'} className={cx('category-item__link')}>{capitalizeFirstLetter(brand._name)}</Link>
                                 </li>
                             )
 
