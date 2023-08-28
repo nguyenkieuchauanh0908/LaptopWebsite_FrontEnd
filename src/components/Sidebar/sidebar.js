@@ -118,9 +118,9 @@ function Sidebar() {
                         }
 
 
-                        <li className={cx('category-item')}>
+                        {/* <li className={cx('category-item')}>
                             <ViewAll />
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>
