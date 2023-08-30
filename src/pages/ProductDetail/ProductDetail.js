@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -18,6 +19,7 @@ function ProductDetail({ productId }) {
     const [productDetails, setProductDetails] = useState({
         _name: '',
         _price: 0,
+        _categoryId: '',
         _salePercent: 0,
         _status: true,
         _quantity: 0,
@@ -65,6 +67,7 @@ function ProductDetail({ productId }) {
             _id: '',
             _name: '',
             _price: 0,
+            _categoryId: '',
             _quantity: 0,
             _salePercent: 0,
             _sold: 0,
@@ -83,6 +86,7 @@ function ProductDetail({ productId }) {
     //let comments = []
     //let relatedProducts = []
 
+    const routeParam = useParams();
     //Hiển thị icon sao
     const renderStars = (rating) => {
         const stars = [];
@@ -97,11 +101,11 @@ function ProductDetail({ productId }) {
         return stars;
     };
 
-    //Get oroduct details from productId
+    //Get product details from productId
     useEffect(() => {
-        const fetchProductDetails = async (productId) => {
+        const fetchProductDetails = async () => {
             try {
-                const response = await fetch(`/api/products/${productId}`);
+                const response = await fetch(`/api/products/${routeParam.productId}`);
                 if (!response.ok) {
                     throw new Error('Request failed');
                 }
@@ -112,14 +116,14 @@ function ProductDetail({ productId }) {
                 console.error('Không lấy được dữ liệu:', error);
             }
         }
-        fetchProductDetails('64b6367474e10f82ea5c17d7')
+        fetchProductDetails()
     }, [])
 
     //get all comments of a product from productId
     useEffect(() => {
-        const fetchProductComments = async (produtId) => {
+        const fetchProductComments = async () => {
             try {
-                const response = await fetch(`/api/reviews/${produtId}`)
+                const response = await fetch(`/api/reviews/${routeParam.productId}`)
                 if (!response.ok) {
                     throw new Error('Request failed')
                 }
@@ -133,31 +137,29 @@ function ProductDetail({ productId }) {
                 console.error('Không lấy được dữ liệu: ', error)
             }
         }
-        fetchProductComments('64b6367474e10f82ea5c17d7')
+        fetchProductComments()
 
     }, [])
 
     //get realted products
     useEffect(() => {
-        const fetchRelatedProducts = async (produtId) => {
+        const fetchRelatedProducts = async () => {
             try {
-                const response = await fetch(`/api/products/related_products/${produtId}`)
+                const response = await fetch(`/api/products/related_products/${productDetails._categoryId}`)
                 if (!response.ok) {
                     throw new Error('Request failed')
                 }
                 const data = await response.json()
                 console.log(data)
                 setRelatedProducts(data)
-
-
             }
             catch (error) {
                 console.error('Không lấy được dữ liệu: ', error)
             }
         }
-        fetchRelatedProducts('64b6377e850413a49cf46632')
+        fetchRelatedProducts()
 
-    }, [])
+    }, [productDetails])
 
     const getAverageRating = (productId) => {
         avarageRating = 5
@@ -252,7 +254,8 @@ function ProductDetail({ productId }) {
                                 return (
                                     <div className={cx('card-wrapper')}>
                                         <ColProductCard
-                                            key={index}
+                                            key={product._id}
+                                            pId={product._id}
                                             url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
                                             pCate={product._brandId._name}
                                             pName={product._name}

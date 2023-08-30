@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -39,7 +39,7 @@ function ProductCard(props) {
                 {
                     props.salePercents > 0 && <p className={cx('sale-tag')}>-{props.salePercents}%</p>
                 }
-                <Link to={'/product-detail'}>
+                <Link to={`/product-detail/${props.pId}`}>
                     <Card.Img className={cx('pImg')} variant="top" src={props.url} />
                 </Link>
 
@@ -48,10 +48,12 @@ function ProductCard(props) {
                 <Link to={'/search'}>
                     <p className={cx('pCate')}>{capitalizeFirstLetter(props.pCate)}</p>
                 </Link>
+                {
+                    <Link to={`/product-detail/${props.pId}`}>
+                        <Card.Title className={cx('pName')} >{capitalizeFirstLetter(props.pName)}</Card.Title>
+                    </Link>
+                }
 
-                <Link to={'/product-detail'}>
-                    <Card.Title className={cx('pName')}>{capitalizeFirstLetter(props.pName)}</Card.Title>
-                </Link>
                 <div className={cx('pPrice')}>
                     <span className={cx('oldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</span>
                     <span className={cx('newPrice')}>{(props.oldPrice - props.oldPrice * (props.salePercents / 100)).toLocaleString('vi-VN')}đ</span>

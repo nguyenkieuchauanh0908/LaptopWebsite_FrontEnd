@@ -23,7 +23,7 @@ const publicRoutes = [
     { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
     { path: '/signup', component: Signup, layout: null },
-    { path: '/product-detail', component: ProductDetail },
+    { path: '/product-detail/:productId', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },
     { path: '/search', component: Search },
     { path: '/admin/customer-manager', component: CustomerManager, layout: null },
@@ -32,10 +32,10 @@ const publicRoutes = [
     { path: '/admin/order-manager', component: OrderManager, layout: null },
     { path: '/admin/profile', component: ProfileAdmin, layout: null },
     { path: '/admin/statistical', component: Statistical, layout: null },
-    { path: '/shipper/profile', component: Profile, layout: null},
-    { path: '/shipper/changePass', component: ChangePass, layout: null},
-    { path: '/shipper/otp', component: Otp, layout: null},
-    { path: '/shipper/order', component: Order, layout: null}
+    { path: '/shipper/profile', component: Profile, layout: null },
+    { path: '/shipper/changePass', component: ChangePass, layout: null },
+    { path: '/shipper/otp', component: Otp, layout: null },
+    { path: '/shipper/order', component: Order, layout: null }
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];

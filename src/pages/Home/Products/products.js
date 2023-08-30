@@ -168,7 +168,8 @@ function Products() {
                         bestSellingProducts.map((product, index) =>
                         (<div className={cx('card-wrapper')}>
                             <ColProductCard
-                                key={index}
+                                key={product._id}
+                                pId={product._id}
                                 url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
                                 pCate={product._brandId._name}
                                 pName={product._name}
@@ -190,7 +191,8 @@ function Products() {
                         onSaleProducts.map((product, index) => (
                             <div className={cx('card-wrapper')}>
                                 <ColProductCard
-                                    key={index}
+                                    key={product._id}
+                                    pId={product._id}
                                     url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
                                     pCate={product._brandId._name}
                                     pName={product._name}
@@ -213,7 +215,8 @@ function Products() {
                         mostSearchedProducts.map((product, index) => (
                             (<div className={cx('card-wrapper')}>
                                 <ColProductCard
-                                    key={index}
+                                    key={product._id}
+                                    pId={product._id}
                                     url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
                                     pCate={product._brandId._name}
                                     pName={product._name}
