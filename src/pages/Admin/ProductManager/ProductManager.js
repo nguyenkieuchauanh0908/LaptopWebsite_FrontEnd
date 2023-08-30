@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ProductManager.module.scss';
 import ListProduct from './ListProduct/ListProduct';
@@ -7,23 +7,32 @@ import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
 import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Image from '../../../components/Images';
+import * as productService from '../../../services/productService';
 
 const cx = classNames.bind(styles);
 function ProductManager() {
-    const [productListItems, setProductListItems] = useState([
-        { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 4, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 5, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    ]);
+    const [productListItems, setProductListItems] = useState([]);
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await productService.getAllProducts();
+            setProductListItems(result);
+        };
+        fetchApi();
+    }, []);
 
-    const deleteItem = (itemId) => {
-        const shouldDelete = window.confirm('Bạn có muốn xóa nhân viên này không?');
-        if (shouldDelete) {
+    // const [productListItems, setProductListItems] = useState([
+    //     { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
+    //     { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
+    //     { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
+    //     { id: 4, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
+    //     { id: 5, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
+    // ]);
+
+    const hideItem = (itemId) => {
+        const shouldHide = window.confirm('Bạn có muốn ẩn sản phẩm này không?');
+        if (shouldHide) {
             setProductListItems((prevProductListItems) => prevProductListItems.filter((item) => item.id !== itemId));
         }
     };
@@ -85,11 +94,12 @@ function ProductManager() {
                                     <ListProduct>
                                         {currentItems.map((item) => (
                                             <ProductListItem
-                                                key={item.id}
-                                                product={item.name}
-                                                price={item.phone}
-                                                quantity={item.address}
-                                                deleteItem={() => deleteItem(item.id)}
+                                                pId={item._id}
+                                                product={item._name}
+                                                price={item._price}
+                                                quantity={item._quantity}
+                                                editItem={"0"}
+                                                hideItem={() => hideItem(item.id)}
                                             />
                                         ))}
                                     </ListProduct>
