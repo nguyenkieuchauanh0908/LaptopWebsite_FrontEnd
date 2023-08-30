@@ -7,7 +7,6 @@ export const getCartByUserId = async (userId) => {
                 userId,
             },
         });
-        console.log(res);
         return res._cartItems;
     } catch (error) {
         console.error(error);

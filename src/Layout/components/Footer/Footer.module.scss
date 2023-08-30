@@ -1,6 +1,9 @@
+footer {
+    border-top: 2px solid var(--primary);
+}
 .footer {
     position: relative;
-    padding-top: 90px;
+    padding-top: 24px;
     padding-bottom: 45px;
 }
 .footer__contact {
@@ -19,14 +22,13 @@
             margin-left: 6px;
         }
     }
-
-    .footer__contact-certification {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin-top: 20px;
-        img {
-            width: 120px;
-        }
+}
+.footer-certification {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 20px;
+    .footer-certification-img {
+        width: 310px;
     }
 }
 .footer-policy,

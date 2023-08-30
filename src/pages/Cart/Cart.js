@@ -11,7 +11,7 @@ import * as cartService from '../../services/cartService';
 
 const cx = classNames.bind(styles);
 function Cart() {
-    const userId = '64b8b4a1116933190a3d3544';
+    const userId = '64b9342a58972d571fafc292';
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const fetchProductDetails = async (productId) => {
@@ -32,13 +32,9 @@ function Cart() {
         const fetchCartData = async () => {
             try {
                 const data = await cartService.getCartByUserId(userId);
-                // Gọi fetchProductDetails cho mỗi sản phẩm trong giỏ hàng
-                const productDetailsPromises = data.map(async (item) => {
-                    return fetchProductDetails(item.itemId);
-                });
+                const productDetailsPromises = data.map(async (item) => fetchProductDetails(item.itemId));
                 const productDetails = await Promise.all(productDetailsPromises);
                 const listcart = productDetails.map((value, index) => [value, data[index]]);
-                console.log(listcart);
                 setCartItems(listcart);
             } catch (error) {
                 console.error(error);
@@ -110,9 +106,8 @@ function Cart() {
                 item[0]._id === productId ? [{ ...item[0], checked: !item[0].checked }, item[1]] : item,
             ),
         );
-        setIsProductsSelected(true); // Đã chọn ít nhất một sản phẩm
+        setIsProductsSelected(true);
     };
-
     // chọn tất cả sản phẩm
 
     const handleSelectAll = () => {
@@ -128,12 +123,9 @@ function Cart() {
             return;
         }
 
-        // Lưu thông tin giỏ hàng vào sessionStorage
         const selectedProducts = cartItems.filter((item) => item[0].checked);
         sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
-
-        navigate('./checkout');
-        // Tiến hành đặt hàng và xử lý các thao tác khác
+        navigate('./vnPayPayment');
     };
     return (
         <div className={cx('wrapper')}>
@@ -175,17 +167,9 @@ function Cart() {
                                     itemPrice={[item[0]._price]}
                                     itemQuantity={item[1].quantity}
                                     handleCheckboxChange={() => handleCheckboxChange(item[0]._id)}
-                                    deleteItem={() => deleteItem(item[0]._id)} // Thêm hàm xóa sản phẩm
-                                    increaseQuantity={() => {
-                                        increaseQuantity(item[0]._id);
-                                        calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
-                                        calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
-                                    }}
-                                    decreaseQuantity={() => {
-                                        decreaseQuantity(item[0]._id);
-                                        calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
-                                        calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
-                                    }}
+                                    deleteItem={() => deleteItem(item[0]._id)}
+                                    increaseQuantity={() => increaseQuantity(item[0]._id)}
+                                    decreaseQuantity={() => decreaseQuantity(item[0]._id)}
                                 />
                             ))}
                         </ListCart>

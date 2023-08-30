@@ -1,5 +1,7 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
+import HeadlessTippy from '@tippyjs/react/headless';
+
 import {
     PhoneIcon,
     MailIcon,
@@ -8,68 +10,58 @@ import {
     QuanlityIcon,
     MenuIcon,
     CartIcon,
-    CloseIcon
 } from '../../../components/Icons';
 import Image from '../../../components/Images';
 import MobileMenu from './MobileMenu';
-import { faSortDown, faBars, faCartShopping, faHeadphonesSimple, faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+    faSortDown,
+    faBars,
+    faCartShopping,
+    faArrowRightFromBracket,
+    faUser,
+    faTruckFast,
+} from '@fortawesome/free-solid-svg-icons';
 import { faBell, faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from '../Search';
 import Menu from '../../Popper/Menu';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Login from '../../../pages/Login/Login';
+import * as categoryService from '../../../services/categoryService';
 const cx = classNames.bind(styles);
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
+    const [category, setCategory] = useState([]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
     };
-    const handleMenuOnchange = (menuItem) => {
-        switch (menuItem.type) {
-            case 'language':
-                // handle langue
-                break;
-            default:
-        }
-    };
 
-    const userMenut = [
-        {
-            title: 'MacBook',
-            to: '/macbook',
-        },
-        {
-            title: 'Dell',
-            to: '/dell',
-        },
-        {
-            title: 'Lenovo',
-            to: '/lenovo',
-        },
-        {
-            title: 'Asus',
-            to: '/asus',
-        },
-        {
-            title: 'Xem tất cả',
-            to: '/danhmuc',
-            separate: true,
-        },
-    ];
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const data = await categoryService.getAllCategories();
+                setCategory(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchCategory();
+    }, []);
 
     const handleShowLoginForm = () => {
-        setShowModal(true)
-    }
+        setShowModal(true);
+    };
 
     const handleCloseForm = () => {
         setShowModal(false);
-    }
+    };
+
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -120,14 +112,47 @@ function Header() {
                                         alt="logo"
                                     />
                                 </Link>
-                                <Menu items={userMenut} onChange={handleMenuOnchange}>
+                                <HeadlessTippy
+                                    delay={[0, 200]}
+                                    interactive
+                                    placement="bottom-start"
+                                    // hideOnClick={false} // Không ẩn khi nhấp chuột vào subcategory
+                                    render={(attrs) => (
+                                        <div
+                                            className={cx('menu-list')}
+                                            tabIndex="-1"
+                                            // onMouseLeave={() => handleMouseLeave()} // Xử lý khi di chuột ra khỏi menu-list
+                                            {...attrs}
+                                        >
+                                            {category.map((item) => (
+                                                <div key={item._id}>
+                                                    <Link to={`./category/${item._name}`} className={cx('menu-body')}>
+                                                        {item._name}
+                                                    </Link>
+                                                    {item._subCategory && (
+                                                        <div className={cx('abc')}>
+                                                            {item._subCategory.map((subCategory) => (
+                                                                <Link
+                                                                    key={subCategory._id}
+                                                                    to={`./category/${item._name}/${subCategory._name}`}
+                                                                >
+                                                                    {subCategory._name}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                >
                                     <div className={cx('menu', 'd-flex align-items-center')}>
                                         <MenuIcon />
                                         <div className={cx('menu-text')}>
                                             <span style={{ whiteSpace: 'nowrap' }}>Danh Mục</span>
                                         </div>
                                     </div>
-                                </Menu>
+                                </HeadlessTippy>
                             </div>
                             <div className={cx(' d-flex align-items-center justify-content-between', 'search')}>
                                 <Search />
@@ -211,11 +236,41 @@ function Header() {
                                 <div className={cx('account', 'd-flex align-items-center')}>
                                     <FontAwesomeIcon className={cx('icon-user')} icon={faCircleUser} />
                                     <div className={cx('nav__text', 'd-none d-lg-block')}>
-                                        <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>Đăng nhập</p>
-                                        <div className={cx('d-flex')}>
-                                            <p>Tài khoản</p>
-                                            <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
-                                        </div>
+                                        {!isLogin ? (
+                                            <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>
+                                                Đăng nhập
+                                            </p>
+                                        ) : (
+                                            <HeadlessTippy
+                                                delay={[0, 700]}
+                                                interactive
+                                                placement="bottom-end"
+                                                trigger="click"
+                                                render={(attrs) => (
+                                                    <div className={cx('accout-result')}>
+                                                        <Link to={'/account'}>
+                                                            <FontAwesomeIcon icon={faUser} />
+                                                            <p>Xem hồ sơ</p>
+                                                        </Link>
+                                                        <Link to={'/account'}>
+                                                            <FontAwesomeIcon icon={faTruckFast} />
+                                                            <p>Theo dõi đơn hàng</p>
+                                                        </Link>
+                                                        <Link to={'/'}>
+                                                            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                                                            <p>Đăng Xuất</p>
+                                                        </Link>
+                                                    </div>
+                                                )}
+                                                // onHide={handleResetMenu}
+                                                hideOnClick
+                                            >
+                                                <div className={cx('d-flex')}>
+                                                    <p>Tài khoản</p>
+                                                    <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
+                                                </div>
+                                            </HeadlessTippy>
+                                        )}
                                     </div>
                                 </div>
                                 <Link
@@ -266,11 +321,12 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-            {showModal && <div className={cx('form-modal-wrapper')}>
-                <Login isShown={showModal} handleCloseForm={() => handleCloseForm()} />
-            </div>
-            }
+            <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} category={category} />
+            {showModal && (
+                <div className={cx('form-modal-wrapper')}>
+                    <Login isShown={showModal} handleCloseForm={() => handleCloseForm()} />
+                </div>
+            )}
         </header>
     );
 }
