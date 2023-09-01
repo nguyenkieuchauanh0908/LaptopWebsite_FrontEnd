@@ -195,10 +195,70 @@
         }
     }
 }
+.accout-result,
+.menu-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0px;
+    background-color: var(--white-text-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
+    a {
+        display: flex;
+        align-items: center;
+        padding: 10px 8px 10px 16px;
+        font-size: 1.6rem;
+        p {
+            margin-left: 8px;
+        }
+        &:hover {
+            background-color: var(--grey-background);
+        }
+    }
+}
+.accout-result {
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: 9;
+        top: -8px;
+        right: 18px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #fff;
+    }
+}
+.menu-list {
+    min-width: 350px;
+}
 .header__mobi {
     display: none;
 }
+/* Lớp cho menu có sub-category */
+.abc {
+    display: none;
+    width: 300px;
+    position: absolute;
+    top: 0; /* Hiển thị phần tử bên dưới menu-body */
+    right: -300px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999; /* Đảm bảo hiển thị trên các phần tử khác */
+}
+
+/* Hiển thị sub-category khi hover vào menu-body */
+.menu-body:hover + .abc,
+.abc:hover {
+    display: block !important;
+}
+
 // responsive
 /* Styles cho điện thoại */
 @media screen and (max-width: 576px) {

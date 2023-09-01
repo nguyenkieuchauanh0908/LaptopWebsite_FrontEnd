@@ -9,9 +9,25 @@ import Image from '../../components/Images';
 import Button from '../../components/Button';
 import { useState, useEffect } from 'react';
 import AddressForm from './AddressForm/AddressForm';
+import { useNavigate } from 'react-router-dom';
+import { postOrder } from '../../services/orderService';
+
 const cx = classNames.bind(styles);
 function CheckOut() {
+    const userId = '64b8b4a1116933190a3d3544';
+    let navigate = useNavigate();
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [isOrderPlaced, setIsOrderPlaced] = useState(null);
     const [changeAddress, setChangeAddress] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
+
+    const dataValues = cartItems.map((item) => item[1]);
+    useEffect(() => {
+        const storedCartItems = sessionStorage.getItem('selectedProducts');
+        if (storedCartItems) {
+            setCartItems(JSON.parse(storedCartItems));
+        }
+    }, []);
 
     const initialAddressInfo = {
         fullName: 'huỳnh khoa',
@@ -22,42 +38,25 @@ function CheckOut() {
         ward: 'bình trưng tây',
         address: '231 Nguyễn Thị Định',
     };
-
     const [addressInfo, setAddressInfo] = useState(initialAddressInfo);
 
     const handleSave = (newAddressInfo) => {
         setAddressInfo(newAddressInfo);
-        console.log('neww address' + addressInfo.fullName);
         setChangeAddress(false);
     };
 
-    const [isOrderSuccessful, setIsOrderSuccessful] = useState(null);
-    const [orderDetails, setOrderDetails] = useState(null);
-
-    // const [cartItems, setCartItems] = useState([
-    //     { id: 1, name: 'Apple Macbook Air M1 2022 8GB 256GB', price: 12000000, quantity: 1 },
-    //     { id: 2, name: 'Apple Macbook Air M2 2023 16GB 256GB', price: 22300000, quantity: 2 },
-    //     { id: 3, name: 'Máy tính Asus 2023 16GB 256GB', price: 15600000, quantity: 1 },
-    //     // ...Thêm các sản phẩm khác vào đây
-    // ]);
-    const [cartItems, setCartItems] = useState([]);
-
-    useEffect(() => {
-        const storedCartItems = sessionStorage.getItem('selectedProducts');
-        if (storedCartItems) {
-            setCartItems(JSON.parse(storedCartItems));
-        }
-    }, []);
-
     const [shippingFee, setShippingFee] = useState(30000);
     const [shippingFeeDiscount, setshippingFeeDiscount] = useState(0);
-    const [directDiscount, setDirectDiscount] = useState(284000);
-    const [voucherDiscount, setVoucherDiscount] = useState(50000);
+    const [voucherDiscount, setVoucherDiscount] = useState(0);
 
     // xóa sản phẩm ra khỏi giỏ hàng
     const deleteItem = (itemId) => {
         setCartItems((prevCartItems) => prevCartItems.filter((item) => item[0]._id !== itemId));
+        if (cartItems.length === 1) {
+            navigate('/cart');
+        }
     };
+
     // Tạm tính giá trị đơn hàng
     const calculateSubTotal = () => {
         return cartItems.reduce((total, item) => total + item[0]._price * item[1].quantity, 0);
@@ -65,50 +64,93 @@ function CheckOut() {
     const subtotal = calculateSubTotal();
 
     // Tính tổng giá trị đơn hàng
-    const totalPayment = subtotal + shippingFee - shippingFeeDiscount - directDiscount - voucherDiscount;
-
-    console.log('trạng thái' + isOrderSuccessful);
-    const handlePlaceOrder = () => {
-        // Simulate API call for placing an order
-        // Replace this with your actual API call
-        simulatePlaceOrderAPI()
-            .then((response) => {
-                setIsOrderSuccessful(true);
-                setOrderDetails(response.orderDetails);
-            })
-            .catch((error) => {
-                setIsOrderSuccessful(false);
-            });
-    };
-
-    const simulatePlaceOrderAPI = () => {
-        return new Promise((resolve, reject) => {
-            // Simulate success response
-            const orderDetails = {
-                orderNumber: '123456',
-                totalPrice: '$100',
-                // Other order details
-            };
-            resolve({ orderDetails });
-
-            // Simulate error response
-            // reject('Failed to place order');
-        });
-    };
+    const totalPayment = subtotal + shippingFee - shippingFeeDiscount - voucherDiscount;
 
     const handleRetryPayment = () => {
         // Xử lý khi người dùng bấm "Thanh toán lại"
-        setIsOrderSuccessful(null);
+        setIsOrderPlaced(null);
     };
 
     const handleContinueShopping = () => {
         // Xử lý khi người dùng bấm "Tiếp tục mua sắm"
-        setIsOrderSuccessful(null);
+        setIsOrderPlaced(null);
+    };
+
+    // Xóa dữ liệu trong sessionStorage khi người dùng nhấn F5
+    // Kiểm tra trạng thái isOrderPlaced khi người dùng nhấn F5
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            if (isOrderPlaced) {
+                sessionStorage.clear();
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isOrderPlaced]);
+
+    const handlePaymentMethodChange = (event) => {
+        setPaymentMethod(event.target.value);
+    };
+
+    const simulatePlaceOrderAPI = () => {
+        return new Promise((resolve, reject) => {
+            // Simulate API call delay
+            setTimeout(() => {
+                if (Math.random() < 0.8) {
+                    resolve();
+                } else {
+                    reject(new Error('Đặt hàng thất bại'));
+                }
+            }, 1000);
+        });
+    };
+
+    const handlePlaceOrder = () => {
+        if (paymentMethod !== '') {
+            simulatePlaceOrderAPI()
+                .then(() => {
+                    // Tạo dữ liệu đơn hàng
+                    const orderData = {
+                        _address: addressInfo.address,
+                        _name: addressInfo.fullName,
+                        _phone: addressInfo.phoneNumber,
+                        _status: 0,
+                        _totalPayment: totalPayment,
+                        _uId: userId,
+                        _shippingFee: shippingFee,
+                        _items: dataValues,
+                    };
+                    // Gửi yêu cầu POST đến API endpoint
+
+                    postOrder(orderData)
+                        .then((response) => {
+                            if (response !== null) {
+                                setIsOrderPlaced(true);
+                            } else {
+                                setIsOrderPlaced(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Lỗi khi đặt hàng:', error);
+                            setIsOrderPlaced(false);
+                        });
+                })
+                .catch((error) => {
+                    alert('Đặt hàng thất bại. Vui lòng thử lại sau.');
+                    setIsOrderPlaced(false);
+                });
+        } else {
+            alert('Vui lòng chọn hình thức thanh toán trước khi đặt hàng.');
+        }
     };
 
     return (
         <div className={cx('wrapper')}>
-            {isOrderSuccessful === null && (
+            {isOrderPlaced === null && (
                 <>
                     <h2 className={cx('d-flex justify-content-center', 'title')}>Thanh Toán</h2>
 
@@ -176,21 +218,42 @@ function CheckOut() {
                                     </div>
                                     <div className={cx('payment-list', 'd-flex flex-column')}>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="creditCard" required />
+                                            <input
+                                                type="radio"
+                                                name="paymentMethod"
+                                                value="shipcod"
+                                                checked={paymentMethod === 'shipcod'}
+                                                onChange={handlePaymentMethodChange}
+                                                required
+                                            />
                                             <div className={cx('payment-logo')}>
                                                 <CodIcon />
                                             </div>
                                             Thanh toán tiền mặt khi nhận hàng (COD)
                                         </label>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="paypal" required />
+                                            <input
+                                                type="radio"
+                                                name="paymentMethod"
+                                                value="bankTransfer"
+                                                checked={paymentMethod === 'bankTransfer'}
+                                                onChange={handlePaymentMethodChange}
+                                                required
+                                            />
                                             <div className={cx('payment-logo')}>
                                                 <PayIcon />
                                             </div>
                                             Chuyển khoản
                                         </label>
                                         <label className={cx('d-flex')}>
-                                            <input type="radio" name="paymentMethod" value="bankTransfer" required />
+                                            <input
+                                                type="radio"
+                                                name="paymentMethod"
+                                                value="vnpay"
+                                                checked={paymentMethod === 'vnpay'}
+                                                onChange={handlePaymentMethodChange}
+                                                required
+                                            />
                                             <div className={cx('payment-logo')}>
                                                 <Image
                                                     className={cx('payment')}
@@ -264,15 +327,7 @@ function CheckOut() {
                                                     <h4>Giảm giá phí vận chuyển</h4>
                                                     <p>{shippingFeeDiscount.toLocaleString('vi-VN')}₫</p>
                                                 </div>
-                                                <div
-                                                    className={cx(
-                                                        'd-flex justify-content-between align-items-center',
-                                                        'discounted',
-                                                    )}
-                                                >
-                                                    <h4>Giảm giá trực tiếp</h4>
-                                                    <p>{directDiscount.toLocaleString('vi-VN')}₫</p>
-                                                </div>
+
                                                 <div
                                                     className={cx(
                                                         'd-flex justify-content-between align-items-center',
@@ -311,7 +366,7 @@ function CheckOut() {
                 </>
             )}
             {/* Khi đặt hàng thành công */}
-            {isOrderSuccessful === false && (
+            {isOrderPlaced === true && (
                 <div className={cx('inner', 'wrapper-success')}>
                     <div className={cx('container')}>
                         <div className={cx('row justify-content-center', 'order__success')}>
@@ -392,15 +447,6 @@ function CheckOut() {
                                         <h3>Sản phẩm đã đặt</h3>
                                     </div>
                                     {cartItems.map((item) => (
-                                        // <CartItemCheckOut
-                                        //     key={item.id}
-                                        //     itemName={item.name}
-                                        //     itemPrice={item.price}
-                                        //     itemQuantity={item.quantity}
-                                        //     deleteItem={() => {
-                                        //         deleteItem(item.id);
-                                        //     }}
-                                        // />
                                         <div className={cx('ordered-product-item', 'd-flex justify-content-between')}>
                                             <div className={cx('ordered-product-left', 'd-flex')}>
                                                 <div className={cx('product-img')}>
@@ -410,7 +456,7 @@ function CheckOut() {
                                                     />
                                                 </div>
                                                 <div className={cx('product__info')}>
-                                                    <h4 className={cx('product__info-name')}>{item.name}</h4>
+                                                    <h4 className={cx('product__info-name')}>{item[0]._name}</h4>
                                                     <div className={cx('product__info-memory', 'd-flex')}>
                                                         <p>
                                                             Bộ nhớ: <span>256GB</span>
@@ -423,10 +469,10 @@ function CheckOut() {
                                             </div>
                                             <div className={cx('product-right')}>
                                                 <p className={cx('product-price', 'text-end')}>
-                                                    {item.price.toLocaleString('vi-VN')}₫
+                                                    {parseInt(item[0]._price).toLocaleString('vi-VN')}₫
                                                 </p>
                                                 <p className={cx('product-quantity', 'text-end')}>
-                                                    x<span>{item.quantity}</span>
+                                                    x<span>{item[1].quantity}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -462,15 +508,7 @@ function CheckOut() {
                                             <h4>Giảm giá phí vận chuyển</h4>
                                             <p>{shippingFeeDiscount.toLocaleString('vi-VN')}₫</p>
                                         </div>
-                                        <div
-                                            className={cx(
-                                                'd-flex justify-content-between align-items-center',
-                                                'discounted',
-                                            )}
-                                        >
-                                            <h4>Giảm giá trực tiếp</h4>
-                                            <p>{directDiscount.toLocaleString('vi-VN')}₫</p>
-                                        </div>
+
                                         <div
                                             className={cx(
                                                 'd-flex justify-content-between align-items-center',
@@ -499,7 +537,7 @@ function CheckOut() {
                 </div>
             )}
             {/* Khi đặt hàng thất bại */}
-            {isOrderSuccessful === true && (
+            {isOrderPlaced === false && (
                 <div className={cx('inner', 'wrapper-success')}>
                     <div className={cx('container')}>
                         <div className={cx('row justify-content-center', 'order__success')}>

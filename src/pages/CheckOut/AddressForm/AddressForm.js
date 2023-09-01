@@ -1,18 +1,82 @@
 import classNames from 'classnames/bind';
 import styles from '../CheckOut.module.scss';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ErrorIcon } from '../../../components/Icons';
 const cx = classNames.bind(styles);
 function AddressForm({ addressInfo, onSave, onCancel }) {
     const [fullName, setFullName] = useState(addressInfo.fullName || '');
     const [phoneNumber, setPhoneNumber] = useState(addressInfo.phoneNumber || '');
     const [email, setEmail] = useState(addressInfo.email || '');
+    const [address, setAddress] = useState(addressInfo.address || '');
+    const [errors, setErrors] = useState({});
+
+    // tỉnh huyện xã
+    const [provinces, setProvinces] = useState([]);
+    const [selectedProvince, setSelectedProvince] = useState('');
+    const [districts, setDistricts] = useState([]);
+    const [selectedDistrict, setSelectedDistrict] = useState('');
+    const [wards, setWards] = useState([]);
     const [province, setProvince] = useState(addressInfo.province || '');
     const [district, setDistrict] = useState(addressInfo.district || '');
     const [ward, setWard] = useState(addressInfo.ward || '');
-    const [address, setAddress] = useState(addressInfo.address || '');
-    const [errors, setErrors] = useState({});
+    console.log(province);
+    console.log(district);
+    console.log(ward);
+    useEffect(() => {
+        // Gọi API bằng fetch để lấy thông tin các tỉnh/thành phố
+        fetch('https://provinces.open-api.vn/api/?depth=3')
+            .then((response) => response.json())
+            .then((data) => {
+                setProvinces(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching provinces', error);
+            });
+    }, []);
+
+    const handleProvinceChange = (event) => {
+        const selectedProvinceId = event.target.value;
+        setSelectedProvince(selectedProvinceId);
+
+        // Lấy thông tin quận/huyện của tỉnh/thành phố được chọn
+        const selectedProvinceInfo = provinces.find((province) => province.code == selectedProvinceId);
+        if (selectedProvinceInfo) {
+            setDistricts(selectedProvinceInfo.districts);
+            setProvince(selectedProvinceInfo.name);
+        } else {
+            setDistricts([]);
+        }
+
+        setSelectedDistrict('');
+        setWards([]);
+    };
+
+    const handleDistrictChange = (event) => {
+        const selectedDistrictId = event.target.value;
+        setSelectedDistrict(selectedDistrictId);
+
+        // Lấy thông tin xã/phường của quận/huyện được chọn
+        const selectedDistrictInfo = districts.find((district) => district.code == selectedDistrictId);
+        if (selectedDistrictInfo) {
+            setWards(selectedDistrictInfo.wards);
+            setDistrict(selectedDistrictInfo.name);
+        } else {
+            setWards([]);
+        }
+    };
+
+    const handleWardChange = (event) => {
+        const selectedWardId = event.target.value;
+
+        // Lấy thông tin xã được chọn
+        const selectedWardInfo = wards.find((ward) => ward.code == selectedWardId);
+        if (selectedWardInfo) {
+            setWard(selectedWardInfo.name);
+        } else {
+            setWard([]);
+        }
+    };
 
     const validatePhoneNumber = (number) => {
         // Đây là một ví dụ đơn giản, bạn có thể thay thế bằng kiểm tra phức tạp hơn
@@ -42,7 +106,6 @@ function AddressForm({ addressInfo, onSave, onCancel }) {
         if (!validateEmail(email)) {
             newErrors.email = 'Địa chỉ email hợp lệ theo cấu trúc hello@example.com';
         }
-
         if (!province) {
             newErrors.province = 'Vui lòng chọn tỉnh';
         }
@@ -177,49 +240,58 @@ function AddressForm({ addressInfo, onSave, onCancel }) {
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="inputCity" className="form-label"></label>
-                                    <input
-                                        value={province}
-                                        onChange={(e) => setProvince(e.target.value)}
-                                        type="text"
-                                        className={cx('form-control', 'font-size-16', {
-                                            'error-border': errors.province, // Thêm lớp 'error-border' nếu có lỗi ở trường này
-                                        })}
+                                    <select
+                                        value={selectedProvince}
+                                        onChange={handleProvinceChange}
+                                        className={cx('form-control', 'font-size-16')}
                                         id="inputCity"
-                                        placeholder="Tỉnh/Thành phố *"
                                         required
-                                    />
+                                    >
+                                        <option value="">Tỉnh/Thành phố *</option>
+                                        {provinces.map((province) => (
+                                            <option key={province.code} value={province.code}>
+                                                {province.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                     {errors.province && <span className={cx('error')}>{errors.province}</span>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="inputDistrict" className="form-label"></label>
-                                    <input
-                                        value={district}
-                                        onChange={(e) => setDistrict(e.target.value)}
-                                        type="text"
-                                        className={cx('form-control', 'font-size-16', {
-                                            'error-border': errors.district, // Thêm lớp 'error-border' nếu có lỗi ở trường này
-                                        })}
+                                    <select
+                                        value={selectedDistrict}
+                                        onChange={handleDistrictChange}
+                                        className={cx('form-control', 'font-size-16')}
                                         id="inputDistrict"
-                                        placeholder="Quận/Huyện *"
                                         required
-                                    />
+                                    >
+                                        <option value="">Quận/Huyện *</option>
+                                        {districts.map((district) => (
+                                            <option key={district.code} value={district.code}>
+                                                {district.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                     {errors.district && <span className={cx('error')}>{errors.district}</span>}
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="inputCommune" className="form-label"></label>
-                                    <input
-                                        value={ward}
-                                        onChange={(e) => setWard(e.target.value)}
-                                        type="text"
-                                        className={cx('form-control', 'font-size-16', {
-                                            'error-border': errors.ward, // Thêm lớp 'error-border' nếu có lỗi ở trường này
-                                        })}
+                                    <select
+                                        onChange={handleWardChange}
+                                        className={cx('form-control', 'font-size-16')}
                                         id="inputCommune"
-                                        placeholder="Phường/Xã *"
                                         required
-                                    />
+                                    >
+                                        <option value="">Phường/Xã *</option>
+                                        {wards.map((ward) => (
+                                            <option key={ward.code} value={ward.code}>
+                                                {ward.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                     {errors.ward && <span className={cx('error')}>{errors.ward}</span>}
                                 </div>
+
                                 <div className={cx('col-12 text-end', 'button')}>
                                     <button onClick={onCancel} className={cx('btn btn-light', 'btn-back')}>
                                         Trở lại
