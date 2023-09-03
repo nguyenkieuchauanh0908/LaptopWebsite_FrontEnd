@@ -32,6 +32,33 @@ function ProductCard(props) {
             return word.charAt(0).toUpperCase() + word.slice(1);
     }
 
+    const handleAddToCartClick = async (itemId, itemQuantity = 1) => {
+
+        try {
+            // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64b6413d850413a49cf46648
+            const response = await fetch('/api/carts/64b6413d850413a49cf46648/add-to-cart', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "itemId": itemId,
+                    "quantity": itemQuantity
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Item added to cart successfully');
+            } else {
+                console.error('Failed to add item to cart');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            console.log('Done!')
+        }
+    };
+
 
     return (
         <Card style={{ width: '100%' }} className={cx('pCard')}>
@@ -48,11 +75,11 @@ function ProductCard(props) {
                 <Link to={'/search'}>
                     <p className={cx('pCate')}>{capitalizeFirstLetter(props.pCate)}</p>
                 </Link>
-                {
-                    <Link to={`/product-detail/${props.pId}`}>
-                        <Card.Title className={cx('pName')} >{capitalizeFirstLetter(props.pName)}</Card.Title>
-                    </Link>
-                }
+
+                <Link to={`/product-detail/${props.pId}`}>
+                    <Card.Title className={cx('pName')} >{capitalizeFirstLetter(props.pName)}</Card.Title>
+                </Link>
+
 
                 <div className={cx('pPrice')}>
                     <span className={cx('oldPrice')}>{props.oldPrice.toLocaleString('vi-VN')}đ</span>
@@ -70,7 +97,7 @@ function ProductCard(props) {
                     <span className={cx('origin')}>{props.origin}</span>
                 </div> */}
                 <div className={cx('btn-wrapper')}>
-                    <Button className={cx('btn-add-to-cart')} variant="primary">{btnText}</Button>
+                    <Button className={cx('btn-add-to-cart')} variant="primary" onClick={e => handleAddToCartClick(props.pId)}>{btnText}</Button>
                 </div>
 
             </Card.Body>

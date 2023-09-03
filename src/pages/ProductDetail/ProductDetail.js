@@ -17,6 +17,7 @@ function ProductDetail({ productId }) {
 
     //thảm khảo: https://www.pluralsight.com/guides/how-to-use-reactjs-and-complex-json-objects 
     const [productDetails, setProductDetails] = useState({
+        _id: '',
         _name: '',
         _price: 0,
         _categoryId: '',
@@ -83,9 +84,6 @@ function ProductDetail({ productId }) {
 
 
     let avarageRating = 0
-    //let comments = []
-    //let relatedProducts = []
-
     const routeParam = useParams();
     //Hiển thị icon sao
     const renderStars = (rating) => {
@@ -185,6 +183,7 @@ function ProductDetail({ productId }) {
 
                         <Col className={cx('col-wrapper')} md={{ span: 6, offset: 1 }}>
                             <ProductInfo
+                                pId={productDetails._id}
                                 name={productDetails._name}
                                 brand={productDetails._brandId._name}
                                 oldPrice={productDetails._price}

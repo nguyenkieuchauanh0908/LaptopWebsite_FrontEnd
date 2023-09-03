@@ -34,14 +34,42 @@ function ProductInfo(props) {
         }
     }
 
-    const handleAddToCart = () => {
+    const handleAddToCartClick = async (itemId, itemQuantity = 1) => {
         if (props.quantity === 0) {
             alert('Sản phẩm hiện tại hết hàng, vui lòng quay lại sau!')
         }
+        else {
+            try {
+                // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64b6413d850413a49cf46648
+                const response = await fetch('/api/carts/64b6413d850413a49cf46648/add-to-cart', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "itemId": itemId,
+                        "quantity": itemQuantity
+                    }),
+                });
+
+                if (response.ok) {
+                    console.log('Item added to cart successfully');
+                } else {
+                    console.error('Failed to add item to cart');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                console.log('Done!')
+            }
+        }
+
+
+
 
     }
 
-    const handleCheckOut = () => {
+    const handleCheckOutClick = () => {
         if (props.quantity === 0) {
             alert('Sản phẩm hiện tại hết hàng, vui lòng quay lại sau!')
         }
@@ -82,8 +110,8 @@ function ProductInfo(props) {
             </div>
             <div className={cx('flex-item', 'buttons-group')}>
 
-                <button type="button" className={cx('btn', 'buy-btn')} onClick={() => handleCheckOut}><Link to={'/cart/checkout'}>Mua ngay</Link></button>
-                <button type="button" className={cx('btn', 'add-to-cart-btn')} onClick={() => handleAddToCart}>Thêm vào giỏ</button>
+                <button type="button" className={cx('btn', 'buy-btn')} onClick={() => handleCheckOutClick}><Link to={'/cart/checkout'}>Mua ngay</Link></button>
+                <button type="button" className={cx('btn', 'add-to-cart-btn')} onClick={() => handleAddToCartClick(props.pId, quantity)}>Thêm vào giỏ</button>
             </div>
         </div >
     )
