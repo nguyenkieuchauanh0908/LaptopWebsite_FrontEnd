@@ -38,10 +38,7 @@ const publicRoutes = [
     { path: '/shipper/changePass', component: ChangePass, layout: null },
     { path: '/shipper/otp', component: Otp, layout: null },
     { path: '/shipper/order', component: Order, layout: null }
-    { path: '/shipper/profile', component: Profile, layout: null },
-    { path: '/shipper/changePass', component: ChangePass, layout: null },
-    { path: '/shipper/otp', component: Otp, layout: null },
-    { path: '/shipper/order', component: Order, layout: null },
+
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];
