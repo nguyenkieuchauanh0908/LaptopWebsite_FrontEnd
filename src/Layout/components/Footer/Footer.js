@@ -38,13 +38,13 @@ function Footer() {
                                         <a href="mailto:contact@gmail.com">contact@gmail.com</a>
                                     </div>
                                 </div>
-                                <div className={cx('footer__contact-certification')}>
+                                {/* <div className={cx('footer__contact-certification')}>
                                     <p>Chứng nhận bởi</p>
                                     <Image
                                         src="https://shopfront-cdn.tekoapis.com/common/da-dang-ky.png"
                                         alt="certification"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -87,10 +87,12 @@ function Footer() {
                             </div>
                             <div className={cx('footer-certification')}>
                                 <p>Chứng nhận bởi</p>
-                                <Image
-                                    src="https://shopfront-cdn.tekoapis.com/common/da-dang-ky.png"
-                                    alt="certification"
-                                />
+                                <div className={cx('footer-certification-img')}>
+                                    <Image
+                                        src="https://mona.media/wp-content/uploads/2020/07/tai-sao-can-dang-ky-website-voi-bo-cong-thuong.jpg"
+                                        alt="certification"
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className={cx('row')}>
