@@ -35,7 +35,7 @@ function ProductCard(props) {
     const handleAddToCartClick = async (itemId, itemQuantity = 1) => {
 
         try {
-            // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64b6413d850413a49cf46648
+            // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64f592ce606ba857bd35af20
             const response = await fetch('/api/carts/64f592ce606ba857bd35af20/add-to-cart', {
                 method: 'PUT',
                 headers: {
