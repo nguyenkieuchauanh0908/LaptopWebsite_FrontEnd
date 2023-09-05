@@ -50,6 +50,7 @@ function Login({ isShown = false, handleCloseForm }) {
                 } else {
                     // Registration failed
                     const data = await response.json()
+                    localStorage.setItem('token', data.token)
                     setError(data.message)
                     console.log(data)
                 }
