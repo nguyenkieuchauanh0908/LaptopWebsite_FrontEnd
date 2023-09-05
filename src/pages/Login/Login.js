@@ -43,14 +43,13 @@ function Login({ isShown = false, handleCloseForm }) {
                         }
                     ),
                 });
-
+                const data = await response.json()
                 if (response.ok) {
                     // Registration was successful
                     setIsLoggedIn(true)
-                } else {
-                    // Registration failed
-                    const data = await response.json()
                     localStorage.setItem('token', data.token)
+                } else {
+                    // Registration failed 
                     setError(data.message)
                     console.log(data)
                 }
