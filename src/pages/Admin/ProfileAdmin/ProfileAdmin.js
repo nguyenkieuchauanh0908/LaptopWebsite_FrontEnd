@@ -2,11 +2,21 @@ import classNames from 'classnames/bind';
 import styles from './ProfileAdmin.module.scss';
 import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
 import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import * as profileAdminService from '../../../services/profileAdminService';
 
 const cx = classNames.bind(styles);
 function ProfileAdmin() {
+    const userId = '64b7eb3570a3229b5506a22f';
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await profileAdminService.getUser(userId);
+            setUser(result);
+        };
+        fetchApi();
+    }, []);
     const [updateProfile, setUpdateProfile] = useState(false);
     const showUpdateModal = () => setUpdateProfile(true);
     const closeUpdateModal = () => setUpdateProfile(false);
@@ -36,7 +46,9 @@ function ProfileAdmin() {
                                                 <div>Tên:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>Trần Thị Trà My</div>
+                                                <div>
+                                                    {user._fname} {user._lname}
+                                                </div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -44,7 +56,7 @@ function ProfileAdmin() {
                                                 <div>Email:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>mytran070202@gmail.com</div>
+                                                <div>{user._email}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -52,7 +64,7 @@ function ProfileAdmin() {
                                                 <div>Số điện thoại:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>0938049556</div>
+                                                <div>{user._phones}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -60,7 +72,7 @@ function ProfileAdmin() {
                                                 <div>Địa chỉ:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM</div>
+                                                <div>{user._addresses}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -68,7 +80,7 @@ function ProfileAdmin() {
                                                 <div>Ngày sinh:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>07/02/2002</div>
+                                                <div>{user._dateOfBirth}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -76,7 +88,7 @@ function ProfileAdmin() {
                                                 <div>Giới tính:</div>
                                             </div>
                                             <div className={cx('col-lg-9 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>Nữ</div>
+                                                <div>{user._gender === 'female' ? <p>Nữ</p> : <p>Nam</p>}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +96,7 @@ function ProfileAdmin() {
                                         <div className={cx('d-flex justify-content-center')}>
                                             <div className={cx('avatar')}>
                                                 <img
-                                                    src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo-full.svg"
+                                                    src="https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp"
                                                     alt="avatar"
                                                 />
                                             </div>
@@ -144,7 +156,9 @@ function ProfileAdmin() {
                                                 <div>Tên:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>Trần Thị Trà My</div>
+                                                <div>
+                                                    {user._fname} {user._lname}
+                                                </div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -152,7 +166,7 @@ function ProfileAdmin() {
                                                 <div>Email:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>mytran070202@gmail.com</div>
+                                                <div>{user._email}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -160,7 +174,7 @@ function ProfileAdmin() {
                                                 <div>Số điện thoại:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>0938049556</div>
+                                                <div>{user._phones}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -168,7 +182,7 @@ function ProfileAdmin() {
                                                 <div>Địa chỉ:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM</div>
+                                                <div>{user._addresses}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -176,7 +190,7 @@ function ProfileAdmin() {
                                                 <div>Ngày sinh:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>07/02/2002</div>
+                                                <div>{user._dateOfBirth}</div>
                                             </div>
                                         </div>
                                         <div className={cx('row')}>
@@ -184,7 +198,7 @@ function ProfileAdmin() {
                                                 <div>Giới tính:</div>
                                             </div>
                                             <div className={cx('col-8 col-md-9 d-flex justify-content-end', 'info')}>
-                                                <div>Nữ</div>
+                                                <div>{user._gender === 'female' ? <p>Nữ</p> : <p>Nam</p>}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -197,6 +211,12 @@ function ProfileAdmin() {
                             <div className={cx('title-modal')}>Cập nhật thông tin cá nhân</div>
                         </Modal.Header>
                         <Modal.Body>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Họ:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                            </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Tên:</div>

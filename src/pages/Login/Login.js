@@ -18,24 +18,53 @@ function Login({ isShown = false, handleCloseForm }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         //Simple login authentication
         if (email !== '' && password !== '') {
-            if (email === 'email@example.com' && password === 'password') {
-                setIsLoggedIn(true);
+            // if (email === 'email@example.com' && password === 'password') {
+            //     setIsLoggedIn(true);
+            // }
+            // else {
+            //     setError('Email hoặc mật khẩu không đúng!')
+            // }
+
+            try {
+                // Call your API to register the user
+                const response = await fetch('/api/accounts/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(
+                        {
+                            "_email": email,
+                            "_pw": password
+                        }
+                    ),
+                });
+                const data = await response.json()
+                if (response.ok) {
+                    // Registration was successful
+                    setIsLoggedIn(true)
+                    localStorage.setItem('token', data.token)
+                } else {
+                    // Registration failed 
+                    setError(data.message)
+                    console.log(data)
+                }
+            } catch (error) {
+                setError('Đăng nhập thất bại, vui lòng thử lại!')
             }
-            else {
-                setError('Email hoặc mật khẩu không đúng')
-            }
+
         }
         else {
             if (email === '')
-                setError('Vui lòng điền email')
+                setError('Vui lòng điền email!')
             if (password === '')
-                setError('Vui lòng điền mật khẩu')
+                setError('Vui lòng điền mật khẩu!')
             if (email === '' && password === '')
-                setError('Vui lòng điền đủ email và mật khẩu')
+                setError('Vui lòng điền đủ email và mật khẩu!')
         }
 
 

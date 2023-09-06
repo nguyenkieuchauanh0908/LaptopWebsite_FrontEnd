@@ -66,7 +66,7 @@ function Signup() {
         return diacriticsRegex.test(name);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError('')
         setMailError('')
@@ -75,12 +75,42 @@ function Signup() {
         setLNameError('')
         if (fName !== '' && lName !== '' && password !== '' && email !== '') {
             if (checkEmailValid(email) && checkPasswordComplexity(password) && !hasDiacritics(fName) && !hasDiacritics(lName)) {
-                setSucessMessage('Đăng ký thành công!')
+                setSucessMessage('')
                 setError('')
                 setMailError('')
                 setPasswordError('')
                 setFNameError('')
                 setLNameError('')
+                try {
+                    // Call your API to register the user
+                    const response = await fetch('/api/accounts/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(
+                            {
+                                "_fname": fName,
+                                "_lname": lName,
+                                "_email": email,
+                                "_pw": password
+                            }
+                        ),
+                    });
+
+                    if (response.ok) {
+                        // Registration was successful
+                        setSucessMessage('Đăng ký thành công!')
+                    } else {
+                        // Registration failed
+                        const data = await response.json()
+                        setError(data.message)
+                        console.log(data)
+                    }
+                } catch (error) {
+                    setError('Đăng ký thất bại, vui lòng thử lại!')
+                }
+
             }
             else {
                 setSucessMessage('')
@@ -94,9 +124,10 @@ function Signup() {
                     setLNameError('Vui lòng dùng chữ không dấu!')
             }
         } else {
-
             setError('Vui lòng điền đầy đủ thông tin!')
         }
+
+
 
     }
 

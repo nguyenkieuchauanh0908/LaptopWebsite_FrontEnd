@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './EmployeeManager.module.scss';
 import ListEmployee from './ListEmployee/ListEmployee';
@@ -9,23 +9,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import * as employeeAdminService from '../../../services/employeeAdminService';
 
 const cx = classNames.bind(styles);
 function EmployeeManager() {
-    const [employeeListItems, setEmployeeListItems] = useState([
-        { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 4, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 5, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    ]);
+    const [employeeListItems, setEmployeeListItems] = useState([]);
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await employeeAdminService.getAllEmployees();
+            setEmployeeListItems(result);
+        };
+
+        fetchApi();
+    }, []);
 
     const deleteItem = (itemId) => {
         const shouldDelete = window.confirm('Bạn có muốn xóa nhân viên này không?');
         if (shouldDelete) {
-            setEmployeeListItems((prevEmployeeListItems) => prevEmployeeListItems.filter((item) => item.id !== itemId));
+            setEmployeeListItems((prevEmployeeListItems) =>
+                prevEmployeeListItems.filter((item) => item._id !== itemId),
+            );
         }
     };
+
     const [currentPage, setCurrentPage] = useState(1); // page mặc định là 1
     const totalPages = Math.ceil(employeeListItems.length / 5); // số page mỗi page 5 item
     const pageItems = [];
@@ -84,11 +90,13 @@ function EmployeeManager() {
                                     <ListEmployee>
                                         {currentItems.map((item) => (
                                             <EmployeeListItem
-                                                key={item.id}
-                                                fullname={item.name}
-                                                phone={item.phone}
-                                                address={item.address}
-                                                deleteItem={() => deleteItem(item.id)}
+                                                key={item._id}
+                                                id={item._id}
+                                                fname={item._fname}
+                                                lname={item._lname}
+                                                phone={item._phones}
+                                                address={item._addresses}
+                                                deleteItem={() => deleteItem(item._id)}
                                             />
                                         ))}
                                     </ListEmployee>

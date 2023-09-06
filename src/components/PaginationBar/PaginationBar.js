@@ -9,15 +9,13 @@ function PaginationBar({ pages = 1 }) {
     let active = 7 //mặc định là ở trang đầu tiên
     let items = [];
     for (let number = 1; number <= pages; number++) {
-        if (number > active - 5 && number < active + 5) {
+        if (number > active - 3 && number < active + 3) {
             items.push(
                 <Pagination.Item key={number} active={number === active}>
                     {number}
                 </Pagination.Item>,
             );
         }
-
-
     }
     return (
         <Pagination size="lg">
@@ -26,9 +24,7 @@ function PaginationBar({ pages = 1 }) {
                     <>
                         <Pagination.First />
                         <Pagination.Prev />
-                        <Pagination.Ellipsis />
                         {items}
-                        <Pagination.Ellipsis />
                         <Pagination.Next />
                         <Pagination.Last />
                     </>
