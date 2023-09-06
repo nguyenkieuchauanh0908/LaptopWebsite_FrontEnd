@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Login.module.scss'
+import styles from './AdminLogin.module.scss'
 import classNames from 'classnames/bind';
-import { GoogleIcon, FacebookIcon, CloseIcon, HomeIcon } from '../../components/Icons';
+import { GoogleIcon, FacebookIcon, CloseIcon, HomeIcon } from '../../../components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,7 +29,7 @@ function Login({ isShown = false, handleCloseForm }) {
 
             try {
                 // Call your API to register the user
-                const response = await fetch('/api/accounts/login', {
+                const response = await fetch('/api/accounts/adminLogin', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function Login({ isShown = false, handleCloseForm }) {
                             <div onClick={handleCloseForm}>
                                 <CloseIcon className={cx('close-icon-wrapper', 'icon', `${!isShown ? 'hidden' : ''}`)} />
                             </div>
-                            <Link to={'/'}><div className={cx('home-icon-wrapper', 'icon', `${isShown ? 'hidden' : ''}`)}><HomeIcon width={24} height={24} /></div></Link>
+                            {/* <Link to={'/'}><div className={cx('home-icon-wrapper', 'icon', `${isShown ? 'hidden' : ''}`)}><HomeIcon width={24} height={24} /></div></Link> */}
                             <p className={cx('form-title')}>Đăng nhập</p>
                         </div>
 
@@ -101,12 +101,9 @@ function Login({ isShown = false, handleCloseForm }) {
                                 {error && <p className={cx('form-error-message')}>{error}</p>}
                             </div>
                         </div>
-                        <div className={cx('redirect-options', 'option-SignUp')}>
-                            <p>Chưa có tài khoản? <Link to={'/signup'} onClick={handleCloseForm}>Đăng ký ngay</Link></p>
-                        </div>
                         <div className={cx('btns-group-control')}>
                             <button className={cx('btn', 'btn-SignIn')} type="submit">Đăng nhập</button>
-                            <p className={cx('options-title')}>-Or-</p>
+                            {/* <p className={cx('options-title')}>-Or-</p>
                             <div className={cx('option-signIn')}>
                                 <button className={cx('btn', 'btn-SignIn-google')}>
                                     <GoogleIcon />
@@ -116,7 +113,7 @@ function Login({ isShown = false, handleCloseForm }) {
                                     <FacebookIcon width='24' height='24' />
                                     <Link to={'/'}> Đăng nhập bằng Facebook</Link>
                                 </button>
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className={cx('redirect-options', 'option-forgetPw')}>
@@ -124,7 +121,7 @@ function Login({ isShown = false, handleCloseForm }) {
                         </div>
                     </form>
                 </div>
-                ) : navigate('/cart')
+                ) : navigate('/admin/product-manager')
             }
 
         </>

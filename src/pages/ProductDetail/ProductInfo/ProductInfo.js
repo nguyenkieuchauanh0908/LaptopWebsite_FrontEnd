@@ -40,8 +40,8 @@ function ProductInfo(props) {
         }
         else {
             try {
-                // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64b6413d850413a49cf46648
-                const response = await fetch('/api/carts/64b6413d850413a49cf46648/add-to-cart', {
+                // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64f84600ef680604b20625cb
+                const response = await fetch('/api/carts/64f84600ef680604b20625cb/add-to-cart', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
