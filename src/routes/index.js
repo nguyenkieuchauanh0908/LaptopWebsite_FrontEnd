@@ -5,6 +5,8 @@ import CheckOut from '../pages/CheckOut';
 import VnPayPayment from '../pages/CheckOut/VnPayPayment';
 import Account from '../pages/Account';
 import Login from '../pages/Login';
+import AdminLogin from '../pages/Admin/AdminLogin/AdminLogin';
+import ShipperLogin from '../pages/Shipper/ShipperLogin/ShipperLogin';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Search from '../pages/Search/Search';
 import Signup from '../pages/Signup/Signup';
@@ -28,11 +30,13 @@ const publicRoutes = [
     { path: '/cart/checkout', component: CheckOut },
     { path: '/cart/vnPayPayment', component: VnPayPayment },
     { path: '/search', component: Search },
+    { path: '/admin/', component: AdminLogin, layout: null },
     { path: '/admin/customer-manager', component: CustomerManager, layout: null },
     { path: '/admin/employee-manager', component: EmployeeManager, layout: null },
     { path: '/admin/product-manager', component: ProductManager, layout: null },
     { path: '/admin/order-manager', component: OrderManager, layout: null },
     { path: '/admin/profile', component: ProfileAdmin, layout: null },
+    { path: '/shipper/', component: ShipperLogin, layout: null },
     { path: '/admin/statistical', component: Statistical, layout: null },
     { path: '/shipper/profile', component: Profile, layout: null },
     { path: '/shipper/changePass', component: ChangePass, layout: null },
