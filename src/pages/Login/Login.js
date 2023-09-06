@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import styles from './Login.module.scss'
 import classNames from 'classnames/bind';
 import { GoogleIcon, FacebookIcon, CloseIcon, HomeIcon } from '../../components/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 import { useNavigate } from 'react-router-dom';
 
 // import { Redirect } from 'react-router-dom';
@@ -15,6 +18,7 @@ function Login({ isShown = false, handleCloseForm }) {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState('');
 
@@ -22,12 +26,6 @@ function Login({ isShown = false, handleCloseForm }) {
         event.preventDefault();
         //Simple login authentication
         if (email !== '' && password !== '') {
-            // if (email === 'email@example.com' && password === 'password') {
-            //     setIsLoggedIn(true);
-            // }
-            // else {
-            //     setError('Email hoặc mật khẩu không đúng!')
-            // }
 
             try {
                 // Call your API to register the user
@@ -70,6 +68,9 @@ function Login({ isShown = false, handleCloseForm }) {
 
     }
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <>
@@ -91,7 +92,12 @@ function Login({ isShown = false, handleCloseForm }) {
                             </div>
                             <div className={cx('input-wrapper-item')}>
                                 <label className={cx('form-label')} for="pw">Mật khẩu</label>
-                                <input className={cx('form-input')} type="password" id="pw" name="pw" autocomplete='on' placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                                <div className={cx('password-input-wrapper')}>
+                                    <input className={cx('form-input', 'password-input')} type={showPassword ? 'text' : 'password'} id="pw" name="pw" autocomplete='on' placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                                    <span className={cx('password-toggle')} onClick={togglePasswordVisibility}>
+                                        <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                    </span>
+                                </div>
                                 {error && <p className={cx('form-error-message')}>{error}</p>}
                             </div>
                         </div>

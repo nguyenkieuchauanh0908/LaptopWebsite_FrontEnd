@@ -67,6 +67,27 @@
     background: #fff;
 }
 
+.password-input-wrapper {
+    position: relative;
+    padding-right: 0;
+}
+
+.password-input {
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    /* Space for the eye icon */
+}
+
+.password-input-wrapper .password-toggle {
+    position: absolute;
+    top: 44%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 .option-SignUp p {
     color: #000;
     font-family: Nunito;
