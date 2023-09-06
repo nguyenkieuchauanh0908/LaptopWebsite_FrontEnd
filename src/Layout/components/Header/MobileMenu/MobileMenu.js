@@ -12,7 +12,7 @@ function MobileMenu({ isOpen, toggleMenu, category }) {
             <div className={cx('side-menu', `${isOpen ? 'open' : ''}`)}>
                 <ul>
                     {category.map((item) => (
-                        <li>
+                        <li key={item._id}>
                             <Link to={`./category/${item._name}`}>{item._name}</Link>
                         </li>
                     ))}

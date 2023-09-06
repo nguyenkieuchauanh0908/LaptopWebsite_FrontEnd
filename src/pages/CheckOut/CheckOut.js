@@ -10,17 +10,18 @@ import Button from '../../components/Button';
 import { useState, useEffect } from 'react';
 import AddressForm from './AddressForm/AddressForm';
 import { useNavigate } from 'react-router-dom';
-import { postOrder } from '../../services/orderService';
+import { postOrder, postOrderVnpay } from '../../services/orderService';
 
 const cx = classNames.bind(styles);
 function CheckOut() {
-    const userId = '64b8b4a1116933190a3d3544';
+    const userId = '64b6413d850413a49cf46648';
     let navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState('');
     const [isOrderPlaced, setIsOrderPlaced] = useState(null);
     const [changeAddress, setChangeAddress] = useState(false);
     const [cartItems, setCartItems] = useState([]);
 
+    console.log(paymentMethod);
     const dataValues = cartItems.map((item) => item[1]);
     useEffect(() => {
         const storedCartItems = sessionStorage.getItem('selectedProducts');
@@ -45,8 +46,8 @@ function CheckOut() {
         setChangeAddress(false);
     };
 
-    const [shippingFee, setShippingFee] = useState(30000);
-    const [shippingFeeDiscount, setshippingFeeDiscount] = useState(0);
+    const shippingFee = 30000;
+    const shippingFeeDiscount = 0;
     const [voucherDiscount, setVoucherDiscount] = useState(0);
 
     // xóa sản phẩm ra khỏi giỏ hàng
@@ -110,11 +111,56 @@ function CheckOut() {
     };
 
     const handlePlaceOrder = () => {
-        if (paymentMethod !== '') {
+        if (paymentMethod === 'shipcod') {
             simulatePlaceOrderAPI()
                 .then(() => {
                     // Tạo dữ liệu đơn hàng
                     const orderData = {
+                        _address:
+                            addressInfo.address +
+                            ', ' +
+                            addressInfo.ward +
+                            ', ' +
+                            addressInfo.district +
+                            ', ' +
+                            addressInfo.province,
+                        _name: addressInfo.fullName,
+                        _phone: addressInfo.phoneNumber,
+                        _status: 0,
+                        _totalPayment: totalPayment,
+                        _uId: userId,
+                        _shippingFee: shippingFee,
+                        _items: dataValues,
+                    };
+                    console.log(orderData);
+                    // Gửi yêu cầu POST đến API endpoint
+                    postOrder(orderData)
+                        .then((response) => {
+                            if (response !== null) {
+                                setIsOrderPlaced(true);
+                            } else {
+                                setIsOrderPlaced(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Lỗi khi đặt hàng:', error);
+                            setIsOrderPlaced(false);
+                        });
+                })
+                .catch((error) => {
+                    alert('Đặt hàng thất bại. Vui lòng thử lại sau.');
+                    setIsOrderPlaced(false);
+                });
+        } else if (paymentMethod === 'vnpay') {
+            simulatePlaceOrderAPI()
+                .then(() => {
+                    // Tạo dữ liệu đơn hàng
+                    const orderData = {
+                        amount: totalPayment,
+                        bankCode: 'NCB',
+                        orderDescription: `Nap tien cho thue bao ${addressInfo.phoneNumber}. So tien ${totalPayment} VND`,
+                        orderType: '100000',
+                        language: 'vn',
                         _address: addressInfo.address,
                         _name: addressInfo.fullName,
                         _phone: addressInfo.phoneNumber,
@@ -126,13 +172,15 @@ function CheckOut() {
                     };
                     // Gửi yêu cầu POST đến API endpoint
 
-                    postOrder(orderData)
+                    postOrderVnpay(orderData)
                         .then((response) => {
-                            if (response !== null) {
-                                setIsOrderPlaced(true);
-                            } else {
-                                setIsOrderPlaced(false);
-                            }
+                            console.log('response');
+                            console.log(response);
+                            // if (response !== null) {
+                            //     setIsOrderPlaced(true);
+                            // } else {
+                            //     setIsOrderPlaced(false);
+                            // }
                         })
                         .catch((error) => {
                             console.error('Lỗi khi đặt hàng:', error);
@@ -203,6 +251,7 @@ function CheckOut() {
                                             <CartItemCheckOut
                                                 key={item[0]._id}
                                                 itemName={item[0]._name}
+                                                itemImage={item[0]._images[1]}
                                                 itemPrice={item[0]._price}
                                                 itemQuantity={item[1].quantity}
                                                 deleteItem={() => {
@@ -231,7 +280,7 @@ function CheckOut() {
                                             </div>
                                             Thanh toán tiền mặt khi nhận hàng (COD)
                                         </label>
-                                        <label className={cx('d-flex')}>
+                                        {/* <label className={cx('d-flex')}>
                                             <input
                                                 type="radio"
                                                 name="paymentMethod"
@@ -244,7 +293,7 @@ function CheckOut() {
                                                 <PayIcon />
                                             </div>
                                             Chuyển khoản
-                                        </label>
+                                        </label> */}
                                         <label className={cx('d-flex')}>
                                             <input
                                                 type="radio"
@@ -387,15 +436,15 @@ function CheckOut() {
                                     <div className={cx('info-client-content')}>
                                         <div className={cx('info-client-name', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Họ và tên</div>
-                                            <div className={cx('col-lg-8', 'text-2')}>Nguyễn Huỳnh Khoa</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>{addressInfo.fullName}</div>
                                         </div>
                                         <div className={cx('info-client-phone', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Số điện thoại</div>
-                                            <div className={cx('col-lg-8', 'text-2')}>0123456789</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>{addressInfo.phoneNumber}</div>
                                         </div>
                                         <div className={cx('info-client-email', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Email</div>
-                                            <div className={cx('col-lg-8', 'text-2')}>huynhkhoa@gmail.com</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>{addressInfo.email}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -416,8 +465,13 @@ function CheckOut() {
                                         >
                                             <div className={cx('col-lg-4', 'text-1')}>Địa chỉ nhận hàng</div>
                                             <div className={cx('col-lg-8', 'text-2')}>
-                                                Chung cư Văn Hoàng, 890 Nguyễn Thị Minh Khai, Phường Nguyễn Cư Trinh,
-                                                Quận 1, TP Hồ Chí Minh
+                                                {addressInfo.address +
+                                                    ', ' +
+                                                    addressInfo.ward +
+                                                    ', ' +
+                                                    addressInfo.district +
+                                                    ', ' +
+                                                    addressInfo.province}
                                             </div>
                                         </div>
                                         <div
@@ -447,7 +501,10 @@ function CheckOut() {
                                         <h3>Sản phẩm đã đặt</h3>
                                     </div>
                                     {cartItems.map((item) => (
-                                        <div className={cx('ordered-product-item', 'd-flex justify-content-between')}>
+                                        <div
+                                            index={item._id}
+                                            className={cx('ordered-product-item', 'd-flex justify-content-between')}
+                                        >
                                             <div className={cx('ordered-product-left', 'd-flex')}>
                                                 <div className={cx('product-img')}>
                                                     <Image

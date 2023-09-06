@@ -6,28 +6,25 @@ import { faGift, faXmark } from '@fortawesome/free-solid-svg-icons';
 import ListGift from '../../pages/CheckOut/ListGift';
 import GiftItem from './GiftItem';
 const cx = classNames.bind(styles);
-function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
+function CartItemCheckOut({ itemName, itemImage, itemPrice, itemQuantity, deleteItem }) {
     return (
         <div className={cx('wrapper', 'd-flex flex-column')}>
             <div className={cx('row')}>
                 <div className={cx('col-lg-6 col-md-6 d-flex')}>
                     <div className={cx('product', 'd-flex')}>
                         <div className={cx('product-img')}>
-                            <Image
-                                src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
-                                alt="img"
-                            />
+                            <Image src={itemImage} alt="img" />
                         </div>
                         <div className={cx('product__info')}>
                             <h3 className={cx('product__info-name')}>{itemName}</h3>
-                            <div className={cx('product__info-memory', 'd-flex')}>
+                            {/* <div className={cx('product__info-memory', 'd-flex')}>
                                 <p>
                                     Bộ nhớ: <span>256GB</span>
                                 </p>
                                 <p className={cx('color')}>
                                     Màu: <span>Xám bạc</span>
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -44,7 +41,7 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                         <div className={cx('quantity')}>{itemQuantity}</div>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-money')}>
-                        <p>
+                        <div>
                             <p
                                 className={cx('d-inline-block d-md-none d-lg-none')}
                                 style={{ color: '#000', marginRight: '4px' }}
@@ -52,7 +49,7 @@ function CartItemCheckOut({ itemName, itemPrice, itemQuantity, deleteItem }) {
                                 Thành tiền:<span> </span>{' '}
                             </p>
                             {(itemQuantity * itemPrice).toLocaleString('vi-VN')}₫
-                        </p>
+                        </div>
                     </div>
                     <div className={cx('col-lg-3 col-md-3', 'cart__item-delete')}>
                         <a onClick={deleteItem} className={cx('delete')}>
