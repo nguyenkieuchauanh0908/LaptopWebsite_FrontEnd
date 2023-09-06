@@ -29,19 +29,21 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Login from '../../../pages/Login/Login';
 import * as categoryService from '../../../services/categoryService';
+import * as cartService from '../../../services/cartService';
+
 const cx = classNames.bind(styles);
 
 function Header() {
+    const userId = '64b6413d850413a49cf46648';
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [category, setCategory] = useState([]);
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
     };
-
     useEffect(() => {
         const fetchCategory = async () => {
             try {
@@ -53,7 +55,6 @@ function Header() {
         };
         fetchCategory();
     }, []);
-
     const handleShowLoginForm = () => {
         setShowModal(true);
     };
@@ -62,6 +63,8 @@ function Header() {
         setShowModal(false);
     };
 
+    const savedLengthCart = localStorage.getItem('lengthCart');
+    console.log(savedLengthCart);
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -278,7 +281,7 @@ function Header() {
                                     className={cx('cart', 'd-flex align-items-center justify-content-center')}
                                 >
                                     <CartIcon />
-                                    <div className={cx('cart-quantity')}>3</div>
+                                    <div className={cx('cart-quantity')}>{savedLengthCart}</div>
                                 </Link>
                             </div>
                         </div>

@@ -11,28 +11,26 @@ import * as cartService from '../../services/cartService';
 
 const cx = classNames.bind(styles);
 function Cart() {
-    const userId = '64b9342a58972d571fafc292';
+    const userId = '64b6413d850413a49cf46648';
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
-    const fetchProductDetails = async (productId) => {
-        try {
-            const response = await fetch(`http://localhost:5000/api/products/${productId}`);
-            if (!response.ok) {
-                throw new Error('Yêu cầu không thành công');
-            }
-            const product = await response.json();
-            return product;
-        } catch (error) {
-            console.error('Lỗi khi gửi yêu cầu thông tin sản phẩm:', error);
-            return null;
-        }
-    };
+
+    // Lưu giá trị lengthCart vào localStorage khi có thay đổi trong giỏ hàng
+    useEffect(() => {
+        localStorage.setItem('lengthCart', cartItems.length);
+    }, [cartItems]);
 
     useEffect(() => {
-        const fetchCartData = async () => {
+        const fetchData = async () => {
             try {
                 const data = await cartService.getCartByUserId(userId);
-                const productDetailsPromises = data.map(async (item) => fetchProductDetails(item.itemId));
+                const productDetailsPromises = data.map(async (item) => {
+                    const response = await fetch(`http://localhost:5000/api/products/${item.itemId}`);
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu không thành công');
+                    }
+                    return response.json();
+                });
                 const productDetails = await Promise.all(productDetailsPromises);
                 const listcart = productDetails.map((value, index) => [value, data[index]]);
                 setCartItems(listcart);
@@ -41,7 +39,7 @@ function Cart() {
             }
         };
 
-        fetchCartData();
+        fetchData();
     }, []);
 
     const [isProductsSelected, setIsProductsSelected] = useState(false);
@@ -125,8 +123,9 @@ function Cart() {
 
         const selectedProducts = cartItems.filter((item) => item[0].checked);
         sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
-        navigate('./vnPayPayment');
+        navigate('./checkOut');
     };
+
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('d-flex justify-content-center', 'title')}>Giỏ Hàng</h2>
@@ -163,7 +162,8 @@ function Cart() {
                                 <CartItem
                                     key={item[0]._id}
                                     checked={item[0].checked}
-                                    itemName={[item[0]._name]}
+                                    itemName={item[0]._name}
+                                    itemImage={item[0]._images[1]}
                                     itemPrice={[item[0]._price]}
                                     itemQuantity={item[1].quantity}
                                     handleCheckboxChange={() => handleCheckboxChange(item[0]._id)}
