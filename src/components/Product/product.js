@@ -66,7 +66,7 @@ function ProductCard(props) {
                 {
                     props.salePercents > 0 && <p className={cx('sale-tag')}>-{props.salePercents}%</p>
                 }
-                <Link to={`/product-detail/${props.pId}`}>
+                <Link to={`/product-detail?id=${props.pId}`}>
                     <Card.Img className={cx('pImg')} variant="top" src={props.url} />
                 </Link>
 
@@ -76,7 +76,7 @@ function ProductCard(props) {
                     <p className={cx('pCate')}>{capitalizeFirstLetter(props.pCate)}</p>
                 </Link>
 
-                <Link to={`/product-detail/${props.pId}`}>
+                <Link to={`/product-detail?id=${props.pId}`}>
                     <Card.Title className={cx('pName')} >{capitalizeFirstLetter(props.pName)}</Card.Title>
                 </Link>
 

@@ -26,7 +26,7 @@ const publicRoutes = [
     { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
     { path: '/signup', component: Signup, layout: null },
-    { path: '/product-detail/:productId', component: ProductDetail },
+    { path: '/product-detail', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },
     { path: '/cart/vnPayPayment', component: VnPayPayment },
     { path: '/search', component: Search },
