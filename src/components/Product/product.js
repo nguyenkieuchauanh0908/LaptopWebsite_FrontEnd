@@ -5,12 +5,15 @@ import Card from 'react-bootstrap/Card';
 import styles from './product.module.scss';
 import { RatingStar } from '../Icons/Icons';
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const cx = classNames.bind(styles);
 const btnText = 'Thêm vào giỏ'
 function ProductCard(props) {
 
+    const token = localStorage.getItem('token');
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 0; i < rating; i++) {
@@ -33,30 +36,37 @@ function ProductCard(props) {
     }
 
     const handleAddToCartClick = async (itemId, itemQuantity = 1) => {
+        if (token) {
+            try {
 
-        try {
-            // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64f592ce606ba857bd35af20
-            const response = await fetch('/api/carts/64f592ce606ba857bd35af20/add-to-cart', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "itemId": itemId,
-                    "quantity": itemQuantity
-                }),
-            });
+                const response = await fetch('/api/carts/add-to-cart', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        "itemId": itemId,
+                        "quantity": itemQuantity
+                    }),
+                });
 
-            if (response.ok) {
-                console.log('Item added to cart successfully');
-            } else {
-                console.error('Failed to add item to cart');
+                if (response.ok) {
+                    console.log('Thêm thành công sản phẩm vô giỏ hàng!');
+                } else {
+                    console.error('Thêm sản phẩm vào giỏ hàng thất bại!');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                console.log('Done!')
             }
-        } catch (error) {
-            console.error('Error:', error);
-        } finally {
-            console.log('Done!')
         }
+        else {
+            alert('Vui lòng đăng nhập để thực hiện chức năng này!')
+        }
+
+
     };
 
 
@@ -66,7 +76,7 @@ function ProductCard(props) {
                 {
                     props.salePercents > 0 && <p className={cx('sale-tag')}>-{props.salePercents}%</p>
                 }
-                <Link to={`/product-detail/${props.pId}`}>
+                <Link to={`/product-detail?id=${props.pId}`}>
                     <Card.Img className={cx('pImg')} variant="top" src={props.url} />
                 </Link>
 
@@ -76,7 +86,7 @@ function ProductCard(props) {
                     <p className={cx('pCate')}>{capitalizeFirstLetter(props.pCate)}</p>
                 </Link>
 
-                <Link to={`/product-detail/${props.pId}`}>
+                <Link to={`/product-detail?id=${props.pId}`}>
                     <Card.Title className={cx('pName')} >{capitalizeFirstLetter(props.pName)}</Card.Title>
                 </Link>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -81,10 +82,15 @@ function ProductDetail({ productId }) {
         }
     ])
 
+    const queryParams = new URLSearchParams(useLocation().search);
+
+    // Access individual query parameters
+    const pId = queryParams.get('id');
+    console.log(pId);
 
 
     let avarageRating = 0
-    const routeParam = useParams();
+
     //Hiển thị icon sao
     const renderStars = (rating) => {
         const stars = [];
@@ -103,7 +109,7 @@ function ProductDetail({ productId }) {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await fetch(`/api/products/${routeParam.productId}`);
+                const response = await fetch(`/api/products/${pId}`);
                 if (!response.ok) {
                     throw new Error('Request failed');
                 }
@@ -115,13 +121,13 @@ function ProductDetail({ productId }) {
             }
         }
         fetchProductDetails()
-    }, [])
+    }, [pId])
 
     //get all comments of a product from productId
     useEffect(() => {
         const fetchProductComments = async () => {
             try {
-                const response = await fetch(`/api/reviews/${routeParam.productId}`)
+                const response = await fetch(`/api/reviews/${pId}`)
                 if (!response.ok) {
                     throw new Error('Request failed')
                 }
@@ -137,7 +143,7 @@ function ProductDetail({ productId }) {
         }
         fetchProductComments()
 
-    }, [])
+    }, [pId])
 
     //get realted products
     useEffect(() => {
@@ -157,7 +163,7 @@ function ProductDetail({ productId }) {
         }
         fetchRelatedProducts()
 
-    }, [productDetails])
+    }, [productDetails._categoryId])
 
     const getAverageRating = (productId) => {
         avarageRating = 5
