@@ -11,6 +11,7 @@ import { Link, Navigate } from "react-router-dom";
 const cx = classNames.bind(styles)
 function ProductInfo(props) {
 
+    const token = localStorage.getItem('token');
     const [quantity, setQuantity] = useState(1)
 
     const handleAddQuantity = () => {
@@ -39,28 +40,34 @@ function ProductInfo(props) {
             alert('Sản phẩm hiện tại hết hàng, vui lòng quay lại sau!')
         }
         else {
-            try {
-                // Tạm gửi mặc định tới giỏ hàng của người dùng có uId là 64f84600ef680604b20625cb
-                const response = await fetch('/api/carts/64f84600ef680604b20625cb/add-to-cart', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        "itemId": itemId,
-                        "quantity": itemQuantity
-                    }),
-                });
+            if (token) {
+                try {
 
-                if (response.ok) {
-                    console.log('Item added to cart successfully');
-                } else {
-                    console.error('Failed to add item to cart');
+                    const response = await fetch('/api/carts/add-to-cart', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            "itemId": itemId,
+                            "quantity": itemQuantity
+                        }),
+                    });
+
+                    if (response.ok) {
+                        console.log('Thêm thành công sản phẩm vô giỏ hàng!');
+                    } else {
+                        console.error('Thêm sản phẩm vào giỏ hàng thất bại!');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                } finally {
+                    console.log('Done!')
                 }
-            } catch (error) {
-                console.error('Error:', error);
-            } finally {
-                console.log('Done!')
+            }
+            else {
+                alert('Vui lòng đăng nhập để thực hiện chức năng này!')
             }
         }
 
