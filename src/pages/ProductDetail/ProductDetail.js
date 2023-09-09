@@ -86,10 +86,11 @@ function ProductDetail({ productId }) {
 
     // Access individual query parameters
     const pId = queryParams.get('id');
-    console.log(pId);
 
 
     let avarageRating = 0
+
+
 
     //Hiển thị icon sao
     const renderStars = (rating) => {
@@ -121,6 +122,29 @@ function ProductDetail({ productId }) {
             }
         }
         fetchProductDetails()
+    }, [pId])
+
+    //update clickCount
+    useEffect(() => {
+        const updateClickCount = async () => {
+            try {
+                const response = await fetch(`/api/products/update-click-count?pId=${pId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                if (!response.ok) {
+                    console.log('Cập nhật Clickcount thất bại!')
+                }
+                else
+                    console.log('Cập nhật clickcount thành công!')
+            }
+            catch (error) {
+                console.log('Cập nhật Clickcount thất bại!')
+            }
+        }
+        updateClickCount()
     }, [pId])
 
     //get all comments of a product from productId

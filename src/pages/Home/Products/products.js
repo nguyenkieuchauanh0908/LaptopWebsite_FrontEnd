@@ -175,6 +175,7 @@ function Products() {
                                 pName={product._name}
                                 oldPrice={product._price}
                                 salePercents={product._salePercent}
+                                count={1}
                             />
 
                         </div>)
@@ -198,6 +199,7 @@ function Products() {
                                     pName={product._name}
                                     oldPrice={product._price}
                                     salePercents={product._salePercent}
+                                    count={1}
                                 />
                             </div>))
                     }
@@ -222,6 +224,7 @@ function Products() {
                                     pName={product._name}
                                     oldPrice={product._price}
                                     salePercents={product._salePercent}
+                                    count={1}
                                 />
                             </div>)
                         ))
