@@ -7,7 +7,7 @@ function OrderListItem({ id, name, address, phone, status, showOrderDetail }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')}>
-                <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center text-truncate')}>
+                <div className={cx('col-lg-1 col-md-1 d-flex ', 'id')}>
                     <p>{id}</p>
                 </div>
                 <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center')}>
@@ -20,11 +20,11 @@ function OrderListItem({ id, name, address, phone, status, showOrderDetail }) {
                     <p>{phone}</p>
                 </div>
                 <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
-                    {status === '0' ? (
+                    {status === 0 ? (
                         <p>Chưa giao</p>
-                    ) : status === '1' ? (
+                    ) : status === 1 ? (
                         <p>Đang giao</p>
-                    ) : status === '2' ? (
+                    ) : status === 2 ? (
                         <p>Đã giao</p>
                     ) : (
                         <p>Đã hủy</p>

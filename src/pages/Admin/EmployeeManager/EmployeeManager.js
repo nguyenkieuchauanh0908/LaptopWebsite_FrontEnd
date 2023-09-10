@@ -14,21 +14,41 @@ import * as employeeAdminService from '../../../services/employeeAdminService';
 const cx = classNames.bind(styles);
 function EmployeeManager() {
     const [employeeListItems, setEmployeeListItems] = useState([]);
+    const [reloadData, setReloadData] = useState(true);
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phones, setPhones] = useState([]);
+    const [addresses, setAddresses] = useState([]);
+    const [dateOfBirth, setDateOfbirth] = useState([]);
+    const [gender, setGender] = useState('');
     useEffect(() => {
         const fetchApi = async () => {
             const result = await employeeAdminService.getAllEmployees();
             setEmployeeListItems(result);
         };
 
-        fetchApi();
-    }, []);
-
+        if (reloadData) {
+            fetchApi();
+            setReloadData(false); // Đặt lại state để ngăn việc gọi lại liên tục
+        }
+    }, [reloadData]);
+    const deleteEmployee = async (userId) => {
+        try {
+            const response = await employeeAdminService.deteleEmployee(userId);
+            if (response === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu xóa nhân viên:', error);
+            return null;
+        }
+    };
     const deleteItem = (itemId) => {
         const shouldDelete = window.confirm('Bạn có muốn xóa nhân viên này không?');
         if (shouldDelete) {
-            setEmployeeListItems((prevEmployeeListItems) =>
-                prevEmployeeListItems.filter((item) => item._id !== itemId),
-            );
+            deleteEmployee(itemId);
+            setReloadData(true);
         }
     };
 
@@ -41,11 +61,37 @@ function EmployeeManager() {
     const startIndex = (currentPage - 1) * 5; // item bắt đầu cho mỗi page
     const endIndex = startIndex + 5; // item kết thúc cho mỗi page
     const currentItems = employeeListItems.slice(startIndex, endIndex); // item cho page hiện tại
-
+    //Form thêm nhân viên
     const [addEmployee, setAddEmpolyee] = useState(false);
     const showAddEmployeeModal = () => setAddEmpolyee(true);
     const closeAddEmployeeModal = () => setAddEmpolyee(false);
-
+    const handleAddEmployee = async () => {
+        const newEmployee = {
+            _fname: fname,
+            _lname: lname,
+            _email: email,
+            _pw: 'Em123@',
+            _role: 'shipper',
+            _phones: phones,
+            _addresses: addresses,
+            _dateOfBirth: dateOfBirth,
+            _gender: gender,
+            _status: true,
+        };
+        const result = await employeeAdminService.addEmployee(newEmployee);
+        if (result !== null) {
+            setFname('');
+            setLname('');
+            setEmail('');
+            setPhones('');
+            setAddresses('');
+            setDateOfbirth('');
+            setGender('');
+            window.alert('Thêm nhân viên thành công');
+            closeAddEmployeeModal();
+            setReloadData(true);
+        }
+    };
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('row')}>
@@ -159,49 +205,84 @@ function EmployeeManager() {
                         <Modal.Body>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Họ:</div>
+                                </div>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setFname(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Tên:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input
+                                    type="text"
+                                    onChange={(e) => setLname(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Email:</div>
                                 </div>
-                                <input type="email" className={cx('col-lg-9 col-md-9')} />
+                                <input
+                                    type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
                             </div>
-                            <div className={cx('row align-items-center')}>
-                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Mật khẩu:</div>
-                                </div>
-                                <input type="password" className={cx('col-lg-9 col-md-9')} />
-                            </div>
-
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Số điện thoại:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input
+                                    type="text"
+                                    onChange={(e) => setPhones(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Địa chỉ:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input
+                                    type="text"
+                                    onChange={(e) => setAddresses(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Ngày sinh:</div>
                                 </div>
-                                <input type="date" className={cx('col-lg-9 col-md-9')} />
+                                <input
+                                    type="date"
+                                    onChange={(e) => setDateOfbirth(e.target.value)}
+                                    className={cx('col-lg-9 col-md-9')}
+                                />
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Giới tính:</div>
                                 </div>
                                 <span className={cx('col-lg-9 col-md-9', 'gender')}>
-                                    <input type="radio" id="male" name="gender" value="male" />
+                                    <input
+                                        type="radio"
+                                        id="male"
+                                        name="gender"
+                                        value="male"
+                                        onChange={(e) => setGender(e.target.value)}
+                                    />
                                     <label for="male">Nam</label>
-                                    <input type="radio" id="female" name="gender" value="female" />
+                                    <input
+                                        type="radio"
+                                        id="female"
+                                        name="gender"
+                                        value="female"
+                                        onChange={(e) => setGender(e.target.value)}
+                                    />
                                     <label for="female">Nữ</label>
                                 </span>
                             </div>
@@ -210,7 +291,7 @@ function EmployeeManager() {
                             <button className={cx('btn btn-secondary btn-lg')} onClick={closeAddEmployeeModal}>
                                 Đóng
                             </button>
-                            <button className={cx('btn btn-primary btn-lg')} onClick={closeAddEmployeeModal}>
+                            <button className={cx('btn btn-primary btn-lg')} onClick={handleAddEmployee}>
                                 Thêm
                             </button>
                         </Modal.Footer>
