@@ -120,7 +120,7 @@ function Login({ isShown = false, handleCloseForm }) {
 
                         </div>
                         <div className={cx('redirect-options', 'option-forgetPw')}>
-                            <p>Quên mật khẩu? <Link to={'/Forget Password'}>Đặt lại mật khẩu ngay</Link></p>
+                            <p>Quên mật khẩu? <Link to={'/forget-password'}>Đặt lại mật khẩu ngay</Link></p>
                         </div>
                     </form>
                 </div>

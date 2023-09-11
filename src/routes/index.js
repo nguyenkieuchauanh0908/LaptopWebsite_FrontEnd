@@ -5,6 +5,8 @@ import CheckOut from '../pages/CheckOut';
 import VnPayPayment from '../pages/CheckOut/VnPayPayment';
 import Account from '../pages/Account';
 import Login from '../pages/Login';
+import ForgetPassword from '../pages/ForgetPassword/forget-password'
+import ResetPassWordByOTPForUsers from '../pages/ForgetPassword/ResetPassWordByOTPForUsers/ResetPassWordByOTPForUsers'
 import AdminLogin from '../pages/Admin/AdminLogin/AdminLogin';
 import ShipperLogin from '../pages/Shipper/ShipperLogin/ShipperLogin';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
@@ -20,11 +22,14 @@ import Profile from '../pages/Shipper/Profile/Profile';
 import ChangePass from '../pages/Shipper/ChangePass/ChangePass';
 import Otp from '../pages/Shipper/Otp/Otp';
 import Order from '../pages/Shipper/Order/Order';
+
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
+    { path: '/forget-password', component: ForgetPassword, layout: null },
+    { path: '/forget-password/reset-password', component: ResetPassWordByOTPForUsers, layout: null },
     { path: '/signup', component: Signup, layout: null },
     { path: '/product-detail', component: ProductDetail },
     { path: '/cart/checkout', component: CheckOut },

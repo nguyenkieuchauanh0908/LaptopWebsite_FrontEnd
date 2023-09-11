@@ -26,13 +26,14 @@ function SearchResult({ foundProducts }) {
                                         (<div className={cx('card-wrapper')}>
                                             <ColProductCard
                                                 key={index}
-                                                url={product.images[0]}
-                                                pCate={product.category}
-                                                pName={product.name}
-                                                oldPrice={product.price}
+                                                pId={product._id}
+                                                url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
+                                                pCate={product._category}
+                                                pName={product._name}
+                                                oldPrice={product._price}
                                                 stars={product.rating}
-                                                ratingNumber={product.ratingNumber}
-                                                salePercents={product.salePercents}
+                                                //ratingNumber={product.ratingNumber}
+                                                salePercents={product._salePercent}
                                             />
 
 
