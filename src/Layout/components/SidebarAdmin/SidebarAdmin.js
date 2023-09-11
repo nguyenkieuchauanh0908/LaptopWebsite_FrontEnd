@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SidebarAdmin.module.scss';
 import Image from '../../../components/Images';
 import { SignOutIcon } from '../../../components/Icons';
 import { SidebarAdminNav } from './SidebarAdminNav';
+import * as profileAdminService from '../../../services/profileAdminService';
 const cx = classNames.bind(styles);
 function SidebarAdmin() {
+    const userId = '64b8b48d116933190a3d3543';
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await profileAdminService.getUser(userId);
+            setUser(result);
+        };
+        fetchApi();
+    }, []);
     return (
         <div className={cx(' d-flex flex-column justify-content-between', 'sidebar-wrapper')}>
             <div>
@@ -29,7 +39,9 @@ function SidebarAdmin() {
                                     <span>
                                         {val.icon !== null ? val.icon : null}
                                         <span> </span>
-                                        <span className={cx('nav-item__link')}>{val.title}</span>
+                                        <span className={cx('nav-item__link')}>
+                                            {val.title === 'NAME' ? user._fname : val.title}
+                                        </span>
                                     </span>
                                 </li>
                             );

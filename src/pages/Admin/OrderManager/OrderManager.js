@@ -11,6 +11,7 @@ import * as orderAdminService from '../../../services/orderAdminService';
 const cx = classNames.bind(styles);
 
 function OrderManager() {
+    const [reloadData, setReloadData] = useState(true);
     const [orderListItems, setOrderListItems] = useState([]);
     const [orderListItemTagCurrent, setOrderListItemTagCurrent] = useState([]);
 
@@ -20,8 +21,11 @@ function OrderManager() {
             setOrderListItems(result);
             setOrderListItemTagCurrent(result);
         };
-        fetchApi();
-    }, []);
+        if (reloadData) {
+            fetchApi();
+            setReloadData(false); // Đặt lại state để ngăn việc gọi lại liên tục
+        }
+    }, [reloadData]);
 
     const [tagCurrent, setTagcurrent] = useState(1);
     const filter = (tag) => {
@@ -32,25 +36,25 @@ function OrderManager() {
         if (tag === 2) {
             setTagcurrent(2);
             setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
-                prevOrderListItemTagCurrent.filter((item) => item._status === '0'),
+                prevOrderListItemTagCurrent.filter((item) => item._status === 0),
             );
         }
         if (tag === 3) {
             setTagcurrent(3);
             setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
-                prevOrderListItemTagCurrent.filter((item) => item._status === '1'),
+                prevOrderListItemTagCurrent.filter((item) => item._status === 1),
             );
         }
         if (tag === 4) {
             setTagcurrent(4);
             setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
-                prevOrderListItemTagCurrent.filter((item) => item._status === '2'),
+                prevOrderListItemTagCurrent.filter((item) => item._status === 2),
             );
         }
         if (tag === 5) {
             setTagcurrent(5);
             setOrderListItemTagCurrent((prevOrderListItemTagCurrent) =>
-                prevOrderListItemTagCurrent.filter((item) => item._status === '3'),
+                prevOrderListItemTagCurrent.filter((item) => item._status === 3),
             );
         }
     };
@@ -73,6 +77,7 @@ function OrderManager() {
 
     const rollbackListOrder = () => {
         setDisplayOrderDetail(false);
+        setReloadData(true);
     };
 
     return (
@@ -105,6 +110,7 @@ function OrderManager() {
                                                     <button
                                                         onClick={() => {
                                                             filter(1);
+                                                            setCurrentPage(1);
                                                         }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
@@ -120,6 +126,7 @@ function OrderManager() {
                                                     <button
                                                         onClick={() => {
                                                             filter(2);
+                                                            setCurrentPage(1);
                                                         }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
@@ -135,6 +142,7 @@ function OrderManager() {
                                                     <button
                                                         onClick={() => {
                                                             filter(3);
+                                                            setCurrentPage(1);
                                                         }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
@@ -150,6 +158,7 @@ function OrderManager() {
                                                     <button
                                                         onClick={() => {
                                                             filter(4);
+                                                            setCurrentPage(1);
                                                         }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
@@ -165,6 +174,7 @@ function OrderManager() {
                                                     <button
                                                         onClick={() => {
                                                             filter(5);
+                                                            setCurrentPage(1);
                                                         }}
                                                         type="button"
                                                         class="btn btn-light btn-outline-dark"
@@ -266,7 +276,12 @@ function OrderManager() {
                             </div>
                         </>
                     ) : (
-                        <OrderDetailAdmin id={orderDetail} rollbackListOrder={() => rollbackListOrder()} />
+                        <OrderDetailAdmin
+                            id={orderDetail}
+                            rollbackListOrder={() => {
+                                rollbackListOrder();
+                            }}
+                        />
                     )}
                 </div>
             </div>
