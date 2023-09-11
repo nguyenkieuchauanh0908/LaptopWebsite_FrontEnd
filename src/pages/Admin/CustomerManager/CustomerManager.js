@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CustomerManager.module.scss';
 import ListCustomer from './ListCustomer/ListCustomer';
@@ -9,21 +9,64 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import * as customerAdminService from '../../../services/customerAdminService';
 
 const cx = classNames.bind(styles);
 function CustomerManager() {
-    const [customerListItems, setCustomerListItems] = useState([
-        { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 4, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-        { id: 5, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    ]);
+    const [customerListItems, setCustomerListItems] = useState([]);
+    const [reloadData, setReloadData] = useState(true);
 
-    const deleteItem = (itemId) => {
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await customerAdminService.getAllCustomers();
+            setCustomerListItems(result);
+        };
+
+        if (reloadData) {
+            fetchApi();
+            setReloadData(false); // Đặt lại state để ngăn việc gọi lại liên tục
+        }
+    }, [reloadData]);
+
+    const hideCustomer = async (userId) => {
+        try {
+            const response = await customerAdminService.hideCustomer(userId);
+            if (response === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu ẩn khách hàng:', error);
+            return null;
+        }
+    };
+
+    const hideItem = (itemId) => {
         const shouldDelete = window.confirm('Bạn có muốn ẩn khách hàng này không?');
         if (shouldDelete) {
-            setCustomerListItems((prevCustomerListItems) => prevCustomerListItems.filter((item) => item.id !== itemId));
+            hideCustomer(itemId);
+            setReloadData(true);
+            //setCustomerListItems((prevCustomerListItems) => prevCustomerListItems.filter((item) => item.id !== itemId));
+        }
+    };
+
+    const activeCustomer = async (userId) => {
+        try {
+            const response = await customerAdminService.activeCustomer(userId);
+            if (response === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu kích hoạt khách hàng:', error);
+            return null;
+        }
+    };
+
+    const activeItem = (itemId) => {
+        const shouldActive = window.confirm('Bạn có muốn kích hoạt khách hàng này không?');
+        if (shouldActive) {
+            activeCustomer(itemId);
+            setReloadData(true);
+            //setCustomerListItems((prevCustomerListItems) => prevCustomerListItems.filter((item) => item.id !== itemId));
         }
     };
     const [currentPage, setCurrentPage] = useState(1); // page mặc định là 1
@@ -77,18 +120,20 @@ function CustomerManager() {
                                         <p>Địa chỉ</p>
                                     </div>
                                     <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
-                                        <p>Thao tác</p>
+                                        <p>Hoạt động</p>
                                     </div>
                                 </div>
                                 <div className={cx('row align-items-center', 'customer-list')}>
                                     <ListCustomer>
                                         {currentItems.map((item) => (
                                             <CustomerListItem
-                                                key={item.id}
-                                                fullname={item.name}
-                                                phone={item.phone}
-                                                address={item.address}
-                                                deleteItem={() => deleteItem(item.id)}
+                                                key={item._id}
+                                                fullname={item._fname+" "+item._lname}
+                                                phone={item._phones[0]}
+                                                address={item._addresses[0]}
+                                                status={item._status}
+                                                hideItem={() => hideItem(item._id)}
+                                                activeItem={() => activeItem(item._id)}
                                             />
                                         ))}
                                     </ListCustomer>

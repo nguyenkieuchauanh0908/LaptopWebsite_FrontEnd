@@ -60,7 +60,7 @@ function ProductManager() {
                     <SidebarAdminMobi />
                 </div>
                 <div className={cx('col-12 col-lg-12 col-xl-10 container-fluid', 'content-section')}>
-                    <div className={cx('d-flex align-items-center ', 'title')}>Quản lý nhân viên</div>
+                    <div className={cx('d-flex align-items-center ', 'title')}>Quản lý sản phẩm</div>
                     <div className={cx('wrapper')}>
                         <div className={cx('content')}>
                             <div className={cx('container-fluid')}>
