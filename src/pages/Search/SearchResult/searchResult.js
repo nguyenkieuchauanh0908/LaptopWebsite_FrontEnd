@@ -26,6 +26,7 @@ function SearchResult({ foundProducts }) {
                                         (<div className={cx('card-wrapper')}>
                                             <ColProductCard
                                                 key={index}
+                                                pId={product._id}
                                                 url='https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp'
                                                 pCate={product._category}
                                                 pName={product._name}
