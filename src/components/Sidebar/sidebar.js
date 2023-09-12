@@ -77,7 +77,7 @@ function Sidebar() {
     return (
         <Col sm={3} md={3} lg={2} className={cx('sidebar-container')}>
             <div className={cx('side-bar-wrapper')}>
-                <nav class="category">
+                {/* <nav class="category">
                     <h3 className={cx('category__heading')}><i className={cx('heading__icon fa-solid fa-list')}></i>Lọc theo giá</h3>
                     <ul className={cx('category-list')}>
                         <li className={cx('category-item')}>
@@ -88,7 +88,7 @@ function Sidebar() {
                         </li>
 
                     </ul>
-                </nav>
+                </nav> */}
             </div>
             <div className={cx('side-bar-wrapper')}>
                 <nav class="category">
@@ -96,7 +96,7 @@ function Sidebar() {
                     <ul className={cx('category-list')}>
                         {
                             categories.map((category) => (<li className={cx('category-item')}>
-                                <Link key={category._id} to={'/search'} className={cx('category-item__link')}>{capitalizeFirstLetter(category._name)}</Link>
+                                <Link key={category._id} to={`/search?keyword=${category._name}`} state={{ keyId: `${category._id}` }} className={cx('category-item__link')}>{capitalizeFirstLetter(category._name)}</Link>
                             </li>))
                         }
                     </ul>
@@ -110,7 +110,7 @@ function Sidebar() {
                         {
                             brands.map((brand) => (
                                 <li key={brand.id} className={cx('category-item')}>
-                                    <Link key={brand._id} to={'/search'} className={cx('category-item__link')}>{capitalizeFirstLetter(brand._name)}</Link>
+                                    <Link key={brand._id} to={`/search?keyword=${brand._name}`} state={{ keyId: `${brand._id}` }} className={cx('category-item__link')}>{capitalizeFirstLetter(brand._name)}</Link>
                                 </li>
                             )
 

@@ -7,11 +7,20 @@
     border-bottom: none;
 }
 
-.item-delete {
+.item-hide {
     color: red;
 }
 
-.item-delete:hover {
-    opacity: 0.5;
+.item-hide:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.item-active{
+    color: green;
+}
+
+.item-active:hover{
+    opacity: 1;
     cursor: pointer;
 }
