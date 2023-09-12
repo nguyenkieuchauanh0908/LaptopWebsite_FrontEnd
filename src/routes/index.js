@@ -20,10 +20,12 @@ import Profile from '../pages/Shipper/Profile/Profile';
 import ChangePass from '../pages/Shipper/ChangePass/ChangePass';
 import Otp from '../pages/Shipper/Otp/Otp';
 import Order from '../pages/Shipper/Order/Order';
+import Category from '../pages/Category';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/cart', component: Cart, layout: HeaderOnly },
+    { path: '/category', component: Category },
     { path: '/login', component: Login, layout: null },
     { path: '/signup', component: Signup, layout: null },
     { path: '/product-detail', component: ProductDetail },
@@ -41,8 +43,7 @@ const publicRoutes = [
     { path: '/shipper/profile', component: Profile, layout: null },
     { path: '/shipper/changePass', component: ChangePass, layout: null },
     { path: '/shipper/otp', component: Otp, layout: null },
-    { path: '/shipper/order', component: Order, layout: null }
-
+    { path: '/shipper/order', component: Order, layout: null },
 ];
 // Private Routes
 const privateRoutes = [{ path: '/account', component: Account }];
