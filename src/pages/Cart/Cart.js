@@ -23,14 +23,24 @@ function Cart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await cartService.getCartByUserId(userId);
+                const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+                if (!token) {
+                    // Xử lý trường hợp token không tồn tại
+                    return;
+                }
+
+                const data = await cartService.getCartByUserId(token);
+
                 const productDetailsPromises = data.map(async (item) => {
                     const response = await fetch(`http://localhost:5000/api/products/${item.itemId}`);
+
                     if (!response.ok) {
                         throw new Error('Yêu cầu không thành công');
                     }
+
                     return response.json();
                 });
+
                 const productDetails = await Promise.all(productDetailsPromises);
                 const listcart = productDetails.map((value, index) => [value, data[index]]);
                 setCartItems(listcart);

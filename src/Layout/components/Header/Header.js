@@ -24,21 +24,17 @@ import {
 import { faBell, faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from '../Search';
-import Menu from '../../Popper/Menu';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Login from '../../../pages/Login/Login';
 import * as categoryService from '../../../services/categoryService';
-import * as cartService from '../../../services/cartService';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const userId = '64b6413d850413a49cf46648';
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [isLogin, setIsLogin] = useState(true);
     const [category, setCategory] = useState([]);
     const capitalizeFirstLetter = (word) => {
         if (!word) {
@@ -47,6 +43,8 @@ function Header() {
         else
             return word.charAt(0).toUpperCase() + word.slice(1);
     }
+    const savedLengthCart = localStorage.getItem('lengthCart');
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
@@ -66,12 +64,41 @@ function Header() {
         setShowModal(true);
     };
 
+    const fetchUserInfo = async () => {
+        const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+        if (token) {
+            try {
+                const response = await axios.get('http://localhost:5000/api/accounts/user', {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Gửi token trong header
+                    },
+                });
+
+                if (response.status === 200) {
+                    const userData = response.data;
+                    localStorage.setItem('userName', userData._fname);
+                }
+            } catch (error) {
+                console.error('Lỗi khi lấy thông tin người dùng', error);
+            }
+        }
+    };
+    // Sử dụng useEffect để gọi hàm fetchUserInfo khi component được tạo
+    useEffect(() => {
+        fetchUserInfo();
+    }, []); // Rỗng [] đảm bảo fetchUserInfo chỉ được gọi một lần khi component được tạo
+
     const handleCloseForm = () => {
         setShowModal(false);
     };
 
-    const savedLengthCart = localStorage.getItem('lengthCart');
-    console.log(savedLengthCart);
+    const userName = localStorage.getItem('userName');
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        window.location.reload();
+    };
+
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -144,7 +171,7 @@ function Header() {
                                                             {item._subCategory.map((subCategory) => (
                                                                 <Link
                                                                     key={subCategory._id}
-                                                                    to={`./category/${item._name}/${subCategory._name}`}
+                                                                    to={`${item._name}/${subCategory._name}`}
                                                                 >
                                                                     {capitalizeFirstLetter(subCategory._name)}
                                                                 </Link>
@@ -246,7 +273,7 @@ function Header() {
                                 <div className={cx('account', 'd-flex align-items-center')}>
                                     <FontAwesomeIcon className={cx('icon-user')} icon={faCircleUser} />
                                     <div className={cx('nav__text', 'd-none d-lg-block')}>
-                                        {!isLogin ? (
+                                        {!userName ? (
                                             <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>
                                                 Đăng nhập
                                             </p>
@@ -266,7 +293,7 @@ function Header() {
                                                             <FontAwesomeIcon icon={faTruckFast} />
                                                             <p>Theo dõi đơn hàng</p>
                                                         </Link>
-                                                        <Link to={'/'}>
+                                                        <Link to={'/'} onClick={handleLogout}>
                                                             <FontAwesomeIcon icon={faArrowRightFromBracket} />
                                                             <p>Đăng Xuất</p>
                                                         </Link>
@@ -276,7 +303,7 @@ function Header() {
                                                 hideOnClick
                                             >
                                                 <div className={cx('d-flex')}>
-                                                    <p>Tài khoản</p>
+                                                    <p>{userName}</p>
                                                     <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
                                                 </div>
                                             </HeadlessTippy>
