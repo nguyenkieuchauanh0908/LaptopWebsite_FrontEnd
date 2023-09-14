@@ -61,7 +61,6 @@ function ForgetPassword() {
                         // failed
                         const data = await response.json()
                         setError(data.message)
-                        console.log(data)
                     }
                 } catch (error) {
                     setError('Gửi OTP thất bại, vui lòng thử lại!')

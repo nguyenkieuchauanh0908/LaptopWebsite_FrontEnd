@@ -94,7 +94,6 @@ function ResetPassWordByOTPForUsers() {
                             // Registration failed
                             const data = await response.json()
                             setError(data.message)
-                            console.log(data)
                         }
                     } catch (error) {
                         setError('Reset mật khẩu thất bại, vui lòng thử lại!')
@@ -107,8 +106,6 @@ function ResetPassWordByOTPForUsers() {
             else {
                 setError('Mật khẩu nhập lại không đúng!')
             }
-
-
 
         }
         else {

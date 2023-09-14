@@ -40,6 +40,13 @@ function Header() {
     const [showModal, setShowModal] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [category, setCategory] = useState([]);
+    const capitalizeFirstLetter = (word) => {
+        if (!word) {
+            return ""; // Return an empty string or handle the case when word is undefined or empty
+        }
+        else
+            return word.charAt(0).toUpperCase() + word.slice(1);
+    }
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
@@ -129,8 +136,8 @@ function Header() {
                                         >
                                             {category.map((item) => (
                                                 <div key={item._id}>
-                                                    <Link to={`./category/${item._name}`} className={cx('menu-body')}>
-                                                        {item._name}
+                                                    <Link to={`/search?keyword=${item._name}`} state={{ keyId: `${item._id}` }} className={cx('menu-body')}>
+                                                        {capitalizeFirstLetter(item._name)}
                                                     </Link>
                                                     {item._subCategory && (
                                                         <div className={cx('abc')}>
@@ -139,7 +146,7 @@ function Header() {
                                                                     key={subCategory._id}
                                                                     to={`./category/${item._name}/${subCategory._name}`}
                                                                 >
-                                                                    {subCategory._name}
+                                                                    {capitalizeFirstLetter(subCategory._name)}
                                                                 </Link>
                                                             ))}
                                                         </div>
