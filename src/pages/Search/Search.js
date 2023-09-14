@@ -5,6 +5,7 @@ import SearchResult from './SearchResult/searchResult'
 import classNames from 'classnames/bind';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/esm/Container';
+import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 const cx = classNames.bind(styles)
 function Search() {
@@ -35,13 +36,14 @@ function Search() {
             try {
                 const response = await fetch(`/api/products/get-by-keyId?categoryId=${data.keyId}&brandId=${data.keyId}`);
                 if (!response.ok) {
-                    throw new Error('Yêu cầu thất bại!')
+                    toast.error('Yêu cầu thất bại!')
+
                 }
                 const foundProducts = await response.json()
                 setFoundProducts(foundProducts)
             }
             catch (error) {
-                console.error('Không lấy được dữ liệu: ', error)
+                toast.error('Không lấy được dữ liệu, vui lòng thử lại sau1')
             }
         }
         fetSearchResult()

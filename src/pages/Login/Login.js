@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import { GoogleIcon, FacebookIcon, CloseIcon, HomeIcon } from '../../components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -46,13 +47,15 @@ function Login({ isShown = false, handleCloseForm }) {
                     // Registration was successful
                     setIsLoggedIn(true)
                     localStorage.setItem('token', data.token)
+                    //toast.success('Đăng nhập thành công!');
                 } else {
                     // Registration failed 
                     setError(data.message)
-                    console.log(data)
+                    //toast.success('Đăng nhập thất bại!');
                 }
             } catch (error) {
                 setError('Đăng nhập thất bại, vui lòng thử lại!')
+                //toast.error('Đăng nhập thất bại, vui lòng thử lại!');
             }
 
         }

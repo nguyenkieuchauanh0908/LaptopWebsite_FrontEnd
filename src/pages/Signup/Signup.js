@@ -6,6 +6,7 @@ import { GoogleIcon, FacebookIcon, HomeIcon } from '../../components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // import Modal from 'react-bootstrap/Modal';
 
@@ -74,6 +75,7 @@ function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSucessMessage('')
         setError('')
         setMailError('')
         setPasswordError('')
@@ -107,14 +109,17 @@ function Signup() {
                     if (response.ok) {
                         // Registration was successful
                         setSucessMessage('Đăng ký thành công!')
+                        toast.success('Đăng ký thành công!')
+
                     } else {
                         // Registration failed
                         const data = await response.json()
                         setError(data.message)
-                        console.log(data)
+                        toast.success('Đăng ký thất bại, vui lòng thử lại!')
                     }
                 } catch (error) {
                     setError('Đăng ký thất bại, vui lòng thử lại!')
+                    toast.success('Đăng ký thất bại, vui lòng thử lại!')
                 }
 
             }

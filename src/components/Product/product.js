@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import styles from './product.module.scss';
 import { RatingStar } from '../Icons/Icons';
 import { Link } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -52,9 +52,9 @@ function ProductCard(props) {
                 });
 
                 if (response.ok) {
-                    console.log('Thêm thành công sản phẩm vô giỏ hàng!');
+                    toast.success('Thêm thành công sản phẩm vào giỏ hàng!')
                 } else {
-                    console.error('Thêm sản phẩm vào giỏ hàng thất bại!');
+                    toast.error('Có lỗi xảy ra trong quá trình thêm giỏ hàng!');
                 }
             } catch (error) {
                 console.error('Error:', error);
