@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import { privateRoutes, publicRoutes } from './routes';
 import { DefaultLayout } from './Layout';
+import { ToastContainer } from 'react-toastify';
 
 // Hãy giả sử có một biến state cho biết trạng thái đăng nhập của người dùng
 const isAuthenticated = true; // true nếu người dùng đã đăng nhập, false nếu chưa
@@ -71,6 +72,19 @@ function App() {
                         );
                     })}
                 </Routes>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    limit={1}
+                />
             </div>
         </Router>
     );
