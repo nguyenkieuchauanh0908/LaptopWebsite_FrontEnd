@@ -8,7 +8,7 @@ import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdm
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
+//import Modal from 'react-bootstrap/Modal';
 import * as customerAdminService from '../../../services/customerAdminService';
 
 const cx = classNames.bind(styles);
@@ -79,9 +79,9 @@ function CustomerManager() {
     const endIndex = startIndex + 5; // item kết thúc cho mỗi page
     const currentItems = customerListItems.slice(startIndex, endIndex); // item cho page hiện tại
 
-    const [addCustomer, setAddCustomer] = useState(false);
-    const showAddCustomerModal = () => setAddCustomer(true);
-    const closeAddCustomerModal = () => setAddCustomer(false);
+    // const [addCustomer, setAddCustomer] = useState(false);
+    // const showAddCustomerModal = () => setAddCustomer(true);
+    // const closeAddCustomerModal = () => setAddCustomer(false);
 
     return (
         <div className={cx('container-fluid')}>
@@ -97,7 +97,7 @@ function CustomerManager() {
                     <div className={cx('wrapper')}>
                         <div className={cx('content')}>
                             <div className={cx('container-fluid')}>
-                                <div className={cx('add-btn')}>
+                                {/* <div className={cx('add-btn')}>
                                     <button
                                         className={cx('btn btn-primary btn-lg font-weight-bold')}
                                         onClick={showAddCustomerModal}
@@ -105,7 +105,7 @@ function CustomerManager() {
                                         <FontAwesomeIcon icon={faPlus} />
                                         Thêm
                                     </button>
-                                </div>
+                                </div> */}
                                 <div className={cx('row align-items-center d-none d-md-flex', 'header')}>
                                     <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center')}>
                                         <p>ID</p>
@@ -189,7 +189,7 @@ function CustomerManager() {
                             </div>
                         </div>
                     </div>
-                    <Modal show={addCustomer} onHide={closeAddCustomerModal} className={cx('add-customer-modal')}>
+                    {/* <Modal show={addCustomer} onHide={closeAddCustomerModal} className={cx('add-customer-modal')}>
                         <Modal.Header closeButton>
                             <div className={cx('title-modal')}>Thêm khách hàng</div>
                         </Modal.Header>
@@ -251,7 +251,7 @@ function CustomerManager() {
                                 Thêm
                             </button>
                         </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
                 </div>
             </div>
         </div>

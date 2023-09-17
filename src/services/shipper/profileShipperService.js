@@ -24,3 +24,4 @@ export const editProfile = async (userId, data) => {
         throw new Error('Lỗi trong quá trình cập nhật thông tin');
     }
 };
+

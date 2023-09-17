@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import moment from 'moment';
-import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
-import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
+import SidebarShipper from '../../../Layout/components/SidebarShipper';
+import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as profileShipperService from '../../../services/shipper/profileShipperService';
 
 const cx = classNames.bind(styles)
@@ -66,10 +66,10 @@ function Profile() {
     return (  
         <div className={cx('d-flex', 'page')}>
             <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
-                    <SidebarAdmin />
+                    <SidebarShipper />
                 </div>
                 <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
-                    <SidebarAdminMobi />
+                    <SidebarShipperMobi />
                 </div>
             <div class={cx('container')}>
                 <div className={cx('d-flex align-items-center', 'section')}>Hồ sơ</div>
