@@ -11,41 +11,45 @@ import * as cartService from '../../services/cartService';
 
 const cx = classNames.bind(styles);
 function Cart() {
-    const userId = '64b8b4a1116933190a3d3544';
+    const userId = '64b6413d850413a49cf46648';
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
-    const fetchProductDetails = async (productId) => {
-        try {
-            const response = await fetch(`http://localhost:5000/api/products/${productId}`);
-            if (!response.ok) {
-                throw new Error('Yêu cầu không thành công');
-            }
-            const product = await response.json();
-            return product;
-        } catch (error) {
-            console.error('Lỗi khi gửi yêu cầu thông tin sản phẩm:', error);
-            return null;
-        }
-    };
+
+    // Lưu giá trị lengthCart vào localStorage khi có thay đổi trong giỏ hàng
+    useEffect(() => {
+        localStorage.setItem('lengthCart', cartItems.length);
+    }, [cartItems]);
 
     useEffect(() => {
-        const fetchCartData = async () => {
+        const fetchData = async () => {
             try {
-                const data = await cartService.getCartByUserId(userId);
-                // Gọi fetchProductDetails cho mỗi sản phẩm trong giỏ hàng
+                const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+                if (!token) {
+                    // Xử lý trường hợp token không tồn tại
+                    return;
+                }
+
+                const data = await cartService.getCartByUserId(token);
+
                 const productDetailsPromises = data.map(async (item) => {
-                    return fetchProductDetails(item.itemId);
+                    const response = await fetch(`http://localhost:5000/api/products/${item.itemId}`);
+
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu không thành công');
+                    }
+
+                    return response.json();
                 });
+
                 const productDetails = await Promise.all(productDetailsPromises);
                 const listcart = productDetails.map((value, index) => [value, data[index]]);
-                console.log(listcart);
                 setCartItems(listcart);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        fetchCartData();
+        fetchData();
     }, []);
 
     const [isProductsSelected, setIsProductsSelected] = useState(false);
@@ -110,9 +114,8 @@ function Cart() {
                 item[0]._id === productId ? [{ ...item[0], checked: !item[0].checked }, item[1]] : item,
             ),
         );
-        setIsProductsSelected(true); // Đã chọn ít nhất một sản phẩm
+        setIsProductsSelected(true);
     };
-
     // chọn tất cả sản phẩm
 
     const handleSelectAll = () => {
@@ -128,13 +131,11 @@ function Cart() {
             return;
         }
 
-        // Lưu thông tin giỏ hàng vào sessionStorage
         const selectedProducts = cartItems.filter((item) => item[0].checked);
         sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
-
-        navigate('./checkout');
-        // Tiến hành đặt hàng và xử lý các thao tác khác
+        navigate('./checkOut');
     };
+
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('d-flex justify-content-center', 'title')}>Giỏ Hàng</h2>
@@ -171,21 +172,14 @@ function Cart() {
                                 <CartItem
                                     key={item[0]._id}
                                     checked={item[0].checked}
-                                    itemName={[item[0]._name]}
+                                    itemName={item[0]._name}
+                                    itemImage={item[0]._images[1]}
                                     itemPrice={[item[0]._price]}
                                     itemQuantity={item[1].quantity}
                                     handleCheckboxChange={() => handleCheckboxChange(item[0]._id)}
-                                    deleteItem={() => deleteItem(item[0]._id)} // Thêm hàm xóa sản phẩm
-                                    increaseQuantity={() => {
-                                        increaseQuantity(item[0]._id);
-                                        calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
-                                        calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
-                                    }}
-                                    decreaseQuantity={() => {
-                                        decreaseQuantity(item[0]._id);
-                                        calculateTotal(); // Gọi lại hàm calculateTotal để tổng giá tiền cập nhật
-                                        calculateTotalQuantity(); // Gọi lại hàm calculateTotalQuantity để tổng số lượng cập nhật
-                                    }}
+                                    deleteItem={() => deleteItem(item[0]._id)}
+                                    increaseQuantity={() => increaseQuantity(item[0]._id)}
+                                    decreaseQuantity={() => decreaseQuantity(item[0]._id)}
                                 />
                             ))}
                         </ListCart>

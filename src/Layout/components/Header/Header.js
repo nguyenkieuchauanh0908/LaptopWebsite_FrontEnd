@@ -1,5 +1,7 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
+import HeadlessTippy from '@tippyjs/react/headless';
+
 import {
     PhoneIcon,
     MailIcon,
@@ -8,68 +10,95 @@ import {
     QuanlityIcon,
     MenuIcon,
     CartIcon,
-    CloseIcon
 } from '../../../components/Icons';
 import Image from '../../../components/Images';
 import MobileMenu from './MobileMenu';
-import { faSortDown, faBars, faCartShopping, faHeadphonesSimple, faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+    faSortDown,
+    faBars,
+    faCartShopping,
+    faArrowRightFromBracket,
+    faUser,
+    faTruckFast,
+} from '@fortawesome/free-solid-svg-icons';
 import { faBell, faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from '../Search';
-import Menu from '../../Popper/Menu';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Login from '../../../pages/Login/Login';
+import * as categoryService from '../../../services/categoryService';
+import axios from 'axios';
+
 const cx = classNames.bind(styles);
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [category, setCategory] = useState([]);
+    const capitalizeFirstLetter = (word) => {
+        if (!word) {
+            return ""; // Return an empty string or handle the case when word is undefined or empty
+        }
+        else
+            return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    const savedLengthCart = localStorage.getItem('lengthCart');
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
     };
-    const handleMenuOnchange = (menuItem) => {
-        switch (menuItem.type) {
-            case 'language':
-                // handle langue
-                break;
-            default:
-        }
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const data = await categoryService.getAllCategories();
+                setCategory(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchCategory();
+    }, []);
+    const handleShowLoginForm = () => {
+        setShowModal(true);
     };
 
-    const userMenut = [
-        {
-            title: 'MacBook',
-            to: '/macbook',
-        },
-        {
-            title: 'Dell',
-            to: '/dell',
-        },
-        {
-            title: 'Lenovo',
-            to: '/lenovo',
-        },
-        {
-            title: 'Asus',
-            to: '/asus',
-        },
-        {
-            title: 'Xem tất cả',
-            to: '/danhmuc',
-            separate: true,
-        },
-    ];
+    const fetchUserInfo = async () => {
+        const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+        if (token) {
+            try {
+                const response = await axios.get('http://localhost:5000/api/accounts/user', {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Gửi token trong header
+                    },
+                });
 
-    const handleShowLoginForm = () => {
-        setShowModal(true)
-    }
+                if (response.status === 200) {
+                    const userData = response.data;
+                    localStorage.setItem('userName', userData._fname);
+                }
+            } catch (error) {
+                console.error('Lỗi khi lấy thông tin người dùng', error);
+            }
+        }
+    };
+    // Sử dụng useEffect để gọi hàm fetchUserInfo khi component được tạo
+    useEffect(() => {
+        fetchUserInfo();
+    }, []); // Rỗng [] đảm bảo fetchUserInfo chỉ được gọi một lần khi component được tạo
 
     const handleCloseForm = () => {
         setShowModal(false);
-    }
+    };
+
+    const userName = localStorage.getItem('userName');
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        window.location.reload();
+    };
+
     return (
         <header>
             <div className={cx('wrapper')}>
@@ -120,14 +149,47 @@ function Header() {
                                         alt="logo"
                                     />
                                 </Link>
-                                <Menu items={userMenut} onChange={handleMenuOnchange}>
+                                <HeadlessTippy
+                                    delay={[0, 200]}
+                                    interactive
+                                    placement="bottom-start"
+                                    // hideOnClick={false} // Không ẩn khi nhấp chuột vào subcategory
+                                    render={(attrs) => (
+                                        <div
+                                            className={cx('menu-list')}
+                                            tabIndex="-1"
+                                            // onMouseLeave={() => handleMouseLeave()} // Xử lý khi di chuột ra khỏi menu-list
+                                            {...attrs}
+                                        >
+                                            {category.map((item) => (
+                                                <div key={item._id}>
+                                                    <Link to={`/search?keyword=${item._name}`} state={{ keyId: `${item._id}` }} className={cx('menu-body')}>
+                                                        {capitalizeFirstLetter(item._name)}
+                                                    </Link>
+                                                    {item._subCategory && (
+                                                        <div className={cx('abc')}>
+                                                            {item._subCategory.map((subCategory) => (
+                                                                <Link
+                                                                    key={subCategory._id}
+                                                                    to={`${item._name}/${subCategory._name}`}
+                                                                >
+                                                                    {capitalizeFirstLetter(subCategory._name)}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                >
                                     <div className={cx('menu', 'd-flex align-items-center')}>
                                         <MenuIcon />
                                         <div className={cx('menu-text')}>
                                             <span style={{ whiteSpace: 'nowrap' }}>Danh Mục</span>
                                         </div>
                                     </div>
-                                </Menu>
+                                </HeadlessTippy>
                             </div>
                             <div className={cx(' d-flex align-items-center justify-content-between', 'search')}>
                                 <Search />
@@ -211,11 +273,41 @@ function Header() {
                                 <div className={cx('account', 'd-flex align-items-center')}>
                                     <FontAwesomeIcon className={cx('icon-user')} icon={faCircleUser} />
                                     <div className={cx('nav__text', 'd-none d-lg-block')}>
-                                        <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>Đăng nhập</p>
-                                        <div className={cx('d-flex')}>
-                                            <p>Tài khoản</p>
-                                            <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
-                                        </div>
+                                        {!userName ? (
+                                            <p className={cx('nav__text-login')} onClick={handleShowLoginForm}>
+                                                Đăng nhập
+                                            </p>
+                                        ) : (
+                                            <HeadlessTippy
+                                                delay={[0, 700]}
+                                                interactive
+                                                placement="bottom-end"
+                                                trigger="click"
+                                                render={(attrs) => (
+                                                    <div className={cx('accout-result')}>
+                                                        <Link to={'/account'}>
+                                                            <FontAwesomeIcon icon={faUser} />
+                                                            <p>Xem hồ sơ</p>
+                                                        </Link>
+                                                        <Link to={'/account'}>
+                                                            <FontAwesomeIcon icon={faTruckFast} />
+                                                            <p>Theo dõi đơn hàng</p>
+                                                        </Link>
+                                                        <Link to={'/'} onClick={handleLogout}>
+                                                            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                                                            <p>Đăng Xuất</p>
+                                                        </Link>
+                                                    </div>
+                                                )}
+                                                // onHide={handleResetMenu}
+                                                hideOnClick
+                                            >
+                                                <div className={cx('d-flex')}>
+                                                    <p>{userName}</p>
+                                                    <FontAwesomeIcon icon={faSortDown} className={cx('icon-down')} />
+                                                </div>
+                                            </HeadlessTippy>
+                                        )}
                                     </div>
                                 </div>
                                 <Link
@@ -223,7 +315,7 @@ function Header() {
                                     className={cx('cart', 'd-flex align-items-center justify-content-center')}
                                 >
                                     <CartIcon />
-                                    <div className={cx('cart-quantity')}>3</div>
+                                    <div className={cx('cart-quantity')}>{savedLengthCart}</div>
                                 </Link>
                             </div>
                         </div>
@@ -266,11 +358,12 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-            {showModal && <div className={cx('form-modal-wrapper')}>
-                <Login isShown={showModal} handleCloseForm={() => handleCloseForm()} />
-            </div>
-            }
+            <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} category={category} />
+            {showModal && (
+                <div className={cx('form-modal-wrapper')}>
+                    <Login isShown={showModal} handleCloseForm={() => handleCloseForm()} />
+                </div>
+            )}
         </header>
     );
 }

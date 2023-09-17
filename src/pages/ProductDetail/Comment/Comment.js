@@ -24,7 +24,7 @@ function Comment(props) {
                     <img className={cx('uImage')} src='https://lh3.googleusercontent.com/ogw/AGvuzYZ97zGHplrj5kwwvMUP3V3XYo97H9v-s-NCvLgLeA=s32-c-mo' alt='user'></img>
                 </div>
                 <div className={cx('name-wrapper')}>
-                    <p className={cx('uName')}>{props.uName}</p>
+                    <p className={cx('uName')}>{props.fName} {props.lName}</p>
                     <div className={cx('stars-display')}>
                         <div className={cx('stars')}>
                             <div className={cx('stars-wrapper')}>
@@ -43,7 +43,7 @@ function Comment(props) {
                     {
                         props.images.map((img, index) => {
                             return <div className={cx('img-wrapper')}>
-                                <img key={index} className={cx('cmtImg')} src={img.url} alt='Hình ảnh sản phẩm'></img>
+                                <img key={index} className={cx('cmtImg')} src={img} alt='Hình ảnh sản phẩm'></img>
                             </div>
                         })
                     }

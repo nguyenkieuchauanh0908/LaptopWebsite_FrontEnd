@@ -7,12 +7,12 @@ function EmployeeListItem({ id, fname, lname, phone, address, deleteItem }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')}>
-                <div className={cx('col-lg-1 col-md-1 d-flex justify-content-center text-truncate')}>
+                <div className={cx('col-lg-1 col-md-1 d-flex', 'id')}>
                     <p>{id}</p>
                 </div>
                 <div className={cx('col-lg-3 col-md-3 d-flex justify-content-center')}>
                     <p>
-                        {fname.toLocaleString('vi-VN')} {lname.toLocaleString('vi-VN')}
+                        {fname} {lname}
                     </p>
                 </div>
                 <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center text-truncate')}>

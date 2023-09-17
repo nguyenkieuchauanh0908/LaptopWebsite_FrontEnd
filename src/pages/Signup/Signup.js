@@ -3,7 +3,11 @@ import { useState } from 'react';
 import styles from './Signup.module.scss'
 import classNames from 'classnames/bind';
 import { GoogleIcon, FacebookIcon, HomeIcon } from '../../components/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 // import Modal from 'react-bootstrap/Modal';
 
 const cx = classNames.bind(styles)
@@ -14,6 +18,7 @@ function Signup() {
     const [lName, setLName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     const [error, setError] = useState('')
     const [sucessMessage, setSucessMessage] = useState('');
@@ -23,7 +28,9 @@ function Signup() {
     const [mailError, setMailError] = useState('')
 
 
-
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const checkEmailValid = (email) => {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -66,8 +73,9 @@ function Signup() {
         return diacriticsRegex.test(name);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        setSucessMessage('')
         setError('')
         setMailError('')
         setPasswordError('')
@@ -75,12 +83,45 @@ function Signup() {
         setLNameError('')
         if (fName !== '' && lName !== '' && password !== '' && email !== '') {
             if (checkEmailValid(email) && checkPasswordComplexity(password) && !hasDiacritics(fName) && !hasDiacritics(lName)) {
-                setSucessMessage('Đăng ký thành công!')
+                setSucessMessage('')
                 setError('')
                 setMailError('')
                 setPasswordError('')
                 setFNameError('')
                 setLNameError('')
+                try {
+                    // Call your API to register the user
+                    const response = await fetch('/api/accounts/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(
+                            {
+                                "_fname": fName,
+                                "_lname": lName,
+                                "_email": email,
+                                "_pw": password
+                            }
+                        ),
+                    });
+
+                    if (response.ok) {
+                        // Registration was successful
+                        setSucessMessage('Đăng ký thành công!')
+                        toast.success('Đăng ký thành công!')
+
+                    } else {
+                        // Registration failed
+                        const data = await response.json()
+                        setError(data.message)
+                        toast.success('Đăng ký thất bại, vui lòng thử lại!')
+                    }
+                } catch (error) {
+                    setError('Đăng ký thất bại, vui lòng thử lại!')
+                    toast.success('Đăng ký thất bại, vui lòng thử lại!')
+                }
+
             }
             else {
                 setSucessMessage('')
@@ -94,9 +135,10 @@ function Signup() {
                     setLNameError('Vui lòng dùng chữ không dấu!')
             }
         } else {
-
             setError('Vui lòng điền đầy đủ thông tin!')
         }
+
+
 
     }
 
@@ -129,7 +171,12 @@ function Signup() {
                     </div>
                     <div className={cx('input-wrapper-item')}>
                         <label className={cx('form-label')} for="pw">Mật khẩu</label>
-                        <input className={cx('form-input')} type="password" id="pw" name="pw" placeholder='Nhập mật khẩu' onChange={(e) => setPassword(e.target.value)}></input>
+                        <div className={cx('password-input-wrapper')}>
+                            <input className={cx('form-input', 'password-input')} type={showPassword ? 'text' : 'password'} id="pw" name="pw" autocomplete='on' placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                            <span className={cx('password-toggle')} onClick={togglePasswordVisibility}>
+                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                            </span>
+                        </div>
                         {passwordError && <p className={cx('form-error-message', 'form-error')}>{passwordError}</p>}
                     </div>
                     {sucessMessage && <p className={cx('form-sucess-message')}>{sucessMessage}</p>}

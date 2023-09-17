@@ -10,7 +10,7 @@ import Image from '../Images';
 const cx = classNames.bind(styles);
 function SearchItem({ data }) {
     return (
-        <Link to={`/@${data._name}`} className={cx('wrapper')}>
+        <Link to={`/product-detail?id=${data._id}`} className={cx('wrapper')}>
             <Image className={cx('avatar')} src={data._images[0]} alt={data.nickname} />
             <div className={cx('info')}>
                 <p className={cx('name')}>

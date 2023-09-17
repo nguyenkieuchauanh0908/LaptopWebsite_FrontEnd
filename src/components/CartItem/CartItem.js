@@ -3,10 +3,10 @@ import classNames from 'classnames/bind';
 import styles from './CartItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 const cx = classNames.bind(styles);
 function CartItem({
     itemName,
+    itemImage,
     checked,
     itemPrice,
     itemQuantity,
@@ -24,21 +24,18 @@ function CartItem({
                     <input type="checkbox" checked={checked} onChange={() => handleCheckboxChange()} name="product" />
                     <div className={cx('product', 'd-flex')}>
                         <div className={cx('product-img', 'text-center')}>
-                            <Image
-                                src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
-                                alt="img"
-                            />
+                            <Image src={itemImage} alt="img" />
                         </div>
                         <div className={cx('product__info')}>
                             <h3 className={cx('product__info-name')}>{itemName}</h3>
-                            <div className={cx('product__info-memory', 'd-flex')}>
+                            {/* <div className={cx('product__info-memory', 'd-flex')}>
                                 <p>
                                     Bộ nhớ: <span>256GB</span>
                                 </p>
                                 <p className={cx('color')}>
                                     Màu: <span>Xám bạc</span>
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

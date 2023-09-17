@@ -30,12 +30,12 @@ function OrderListDetailItem({ id, quantity }) {
                     <div className={cx('name-product')}>
                         <p>{product._name}</p>
                     </div>
-                    <div className={cx('classify-product')}>8GB 256GB </div>
+                    {/* <div className={cx('classify-product')}>8GB 256GB </div> */}
                     <div className={cx('quantity')}>x{quantity}</div>
                 </div>
                 <div className={cx('col-lg-2 col-md-2', 'price-product')}>
                     <div className={cx('d-flex justify-content-end align-items-end')}>
-                        <p>{product._price}đ</p>
+                        <p>{parseInt(product._price).toLocaleString('vi-VN')}đ</p>
                     </div>
                 </div>
             </div>

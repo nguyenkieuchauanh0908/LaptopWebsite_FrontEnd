@@ -1,13 +1,12 @@
 import * as httprequest from '../utils/httprequest';
 
-export const getCartByUserId = async (userId) => {
+export const getCartByUserId = async (token) => {
     try {
         const res = await httprequest.get(`/carts/`, {
-            params: {
-                userId,
+            headers: {
+                Authorization: `Bearer ${token}`, // Gửi token trong header
             },
         });
-        console.log(res);
         return res._cartItems;
     } catch (error) {
         console.error(error);
