@@ -6,18 +6,19 @@ import ListOrder from './ListOrder/ListOrder';
 import OrderItem from '../../../components/OrderItem';
 import SidebarShipper from '../../../Layout/components/SidebarShipper';
 import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
-import * as orderAdminService from '../../../services/orderAdminService';
+import * as orderShipperService from '../../../services/shipper/orderShipperService';
 
 const cx = classNames.bind(styles)
 
 function Order() {
+    const uId = '64bb2a60f881c0eaf1e02a6b';
     const [reloadData, setReloadData] = useState(true);
     const [orderListItems, setOrderListItems] = useState([]);
     const [orderListItemTagCurrent, setOrderListItemTagCurrent] = useState([]);
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await orderAdminService.getAllOrders();
+            const result = await orderShipperService.getShipperOrders(uId);
             setOrderListItems(result);
             setOrderListItemTagCurrent(result);
         };
@@ -68,11 +69,46 @@ function Order() {
     const endIndex = startIndex + 5; // item kết thúc cho mỗi page
     const currentItems = orderListItemTagCurrent.slice(startIndex, endIndex); // item cho page hiện tại
 
-    const [displayOrderDetail, setDisplayOrderDetail] = useState(false); // false ở trang danh sách, true là trang chi tiết
-    const [orderDetail, setOrderDetail] = useState('64b8f72b29869c0f9f0dab70');
-    const showOrderDetail = (orderId) => {
-        setOrderDetail(orderId);
-        setDisplayOrderDetail(true);
+    const comfirmOrder = async (orderId) => {
+        const result = await orderShipperService.comfirmOrder(orderId, { _status: 1, _shipperId: uId });
+        if (result === 1) {
+            setReloadData(true);
+        }
+    };
+
+    const comfirmItem = (orderId) => {
+        const shouldComfirm = window.confirm('Bạn có muốn nhận đơn hàng này không?');
+        if (shouldComfirm) {
+            comfirmOrder(orderId);
+        }
+    };
+
+    const updateOrder = async (orderId) => {
+        const result = await orderShipperService.updateOrder(orderId, { _status: 2});
+        if (result === 1) {
+            setReloadData(true);
+        }
+    };
+
+    const updateItem = (orderId) => {
+        const shouldUpdate = window.confirm('Bạn muốn giao đơn này không?');
+        if (shouldUpdate) {
+            updateOrder(orderId);
+        }
+    };
+
+    const cancelOrder = async (orderId) => {
+        const result = await orderShipperService.updateOrder(orderId, { _status: 3 });
+        if (result === 1) {
+            setReloadData(true);
+        }
+    };
+
+    const cancelItem = (orderId) => {
+        const shouldCancel = window.confirm('Bạn muốn hủy này không?');
+        if (shouldCancel) {
+            cancelOrder(orderId);
+        }
     };
 
 
@@ -172,8 +208,9 @@ function Order() {
                                         <OrderItem
                                             key={item._id}
                                             id={item._id}
-                                            cancelItem={item._id}
-                                            comfirmItem={item._id} // Hàm xóa sản phẩm
+                                            cancelItem={() => cancelItem(item._id)}
+                                            updateItem={() => updateItem(item._id)}
+                                            comfirmItem={() => comfirmItem(item._id)} // Hàm xóa sản phẩm
                                         />
                                         </div>
                                 ))}
