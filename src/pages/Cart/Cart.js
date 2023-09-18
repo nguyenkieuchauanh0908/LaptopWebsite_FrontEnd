@@ -11,7 +11,6 @@ import * as cartService from '../../services/cartService';
 
 const cx = classNames.bind(styles);
 function Cart() {
-    const userId = '64b6413d850413a49cf46648';
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
 
@@ -78,7 +77,11 @@ function Cart() {
     const deleteItem = (itemId) => {
         const shouldDelete = window.confirm('Bạn có muốn xóa sản phẩm này không?');
         if (shouldDelete) {
+            const token = localStorage.getItem('token');
+            const data = cartService.deleteItemCart(token, itemId);
             setCartItems((prevCartItems) => prevCartItems.filter((item) => item[0]._id !== itemId));
+            console.log(itemId);
+            console.log(data);
         }
     };
 
