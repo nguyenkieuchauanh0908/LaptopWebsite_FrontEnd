@@ -1,10 +1,11 @@
 import classNames from 'classnames/bind';
 import styles from './ProductListItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEyeSlash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, faPencil, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Image from '../Images';
+import noImage from '../../assets/images';
 const cx = classNames.bind(styles);
-function ProductListItem({ pId, product, price, quantity, editItem, hideItem }) {
+function ProductListItem({ pId, product, price, quantity, image, editItem, hideItem, activeItem, status }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')}>
@@ -14,14 +15,14 @@ function ProductListItem({ pId, product, price, quantity, editItem, hideItem }) 
                 <div className={cx('col-lg-5 col-md-5 d-flex', 'product')}>
                     <div className={cx('col-lg-2','text-center','product-img')} style={{ marginRight: '10px', maxWidth: '20%' }}>
                         <Image
-                            src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
+                            src={image  ? image : noImage.noImage}
                             alt="img"
                         />
                     </div>
                     <p className={cx('product-name')}>{product}</p>
                 </div>
                 <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center text-truncate')}>
-                    <p>{price}</p>
+                    <p>{price.toLocaleString('vi-VN')}đ</p>
                 </div>
                 <div className={cx('col-lg-2 col-md-2 d-flex justify-content-center')}>
                     <p>{quantity}</p>
@@ -30,9 +31,11 @@ function ProductListItem({ pId, product, price, quantity, editItem, hideItem }) 
                     <a onClick={editItem} className={cx('edit')}>
                         <FontAwesomeIcon icon={faPencil} />
                     </a>
-                    <a onClick={hideItem} className={cx('hide')}>
+                    { status ? (<a onClick={hideItem} className={cx('item-active')}>
+                        <FontAwesomeIcon icon={faCheck} />
+                    </a>) : (<a onClick={activeItem} className={cx('item-hide')} >
                         <FontAwesomeIcon icon={faEyeSlash} />
-                    </a>
+                    </a>) }
                 </div>
             </div>
         </div>

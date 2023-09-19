@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './SidebarAdmin.module.scss';
+import styles from './SidebarShipper.module.scss';
 import Image from '../../../components/Images';
 import { SignOutIcon } from '../../../components/Icons';
-import { SidebarAdminNav } from './SidebarAdminNav';
-import * as profileAdminService from '../../../services/profileAdminService';
+import { SidebarShipperNav } from './SidebarShipperNav';
+import * as profileShipperService from '../../../services/shipper/profileShipperService';
 import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
-function SidebarAdmin() {
-    const userId = '64b8b48d116933190a3d3543';
-    const [user, setUser] = useState([]);
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await profileAdminService.getUser(userId);
-            setUser(result);
-        };
-        fetchApi();
-    }, []);
-
+function SidebarShipper() {
     const navigate = useNavigate();
     const handleSignOut = () => {
+        localStorage.removeItem('token');
         navigate('/login');
     };
     return (
@@ -32,7 +23,7 @@ function SidebarAdmin() {
                 </div>
                 <div className={cx('nav')}>
                     <ul className={cx('nav-list')}>
-                        {SidebarAdminNav.map((val, key) => {
+                        {SidebarShipperNav.map((val, key) => {
                             return (
                                 <li
                                     key={key}
@@ -43,10 +34,8 @@ function SidebarAdmin() {
                                     }}
                                 >
                                     <span>
-                                        {val.icon !== null ? val.icon : null}
-                                        <span> </span>
                                         <span className={cx('nav-item__link')}>
-                                            {val.title === 'NAME' ? user._fname : val.title}
+                                            {val.title}
                                         </span>
                                     </span>
                                 </li>
@@ -62,4 +51,4 @@ function SidebarAdmin() {
     );
 }
 
-export default SidebarAdmin;
+export default SidebarShipper;

@@ -14,13 +14,12 @@ import { postOrder, postOrderVnpay } from '../../services/orderService';
 
 const cx = classNames.bind(styles);
 function CheckOut() {
-    const userId = '64b6413d850413a49cf46648';
     let navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState('');
     const [isOrderPlaced, setIsOrderPlaced] = useState(null);
     const [changeAddress, setChangeAddress] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-
+    const [note, setNote] = useState('');
     console.log(paymentMethod);
     const dataValues = cartItems.map((item) => item[1]);
     useEffect(() => {
@@ -96,99 +95,71 @@ function CheckOut() {
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
     };
-
-    const simulatePlaceOrderAPI = () => {
-        return new Promise((resolve, reject) => {
-            // Simulate API call delay
-            setTimeout(() => {
-                if (Math.random() < 0.8) {
-                    resolve();
-                } else {
-                    reject(new Error('Đặt hàng thất bại'));
-                }
-            }, 1000);
-        });
-    };
-
     const handlePlaceOrder = () => {
+        const token = localStorage.getItem('token');
         if (paymentMethod === 'shipcod') {
-            simulatePlaceOrderAPI()
-                .then(() => {
-                    // Tạo dữ liệu đơn hàng
-                    const orderData = {
-                        _address:
-                            addressInfo.address +
-                            ', ' +
-                            addressInfo.ward +
-                            ', ' +
-                            addressInfo.district +
-                            ', ' +
-                            addressInfo.province,
-                        _name: addressInfo.fullName,
-                        _phone: addressInfo.phoneNumber,
-                        _status: 0,
-                        _totalPayment: totalPayment,
-                        _uId: userId,
-                        _shippingFee: shippingFee,
-                        _items: dataValues,
-                    };
-                    console.log(orderData);
-                    // Gửi yêu cầu POST đến API endpoint
-                    postOrder(orderData)
-                        .then((response) => {
-                            if (response !== null) {
-                                setIsOrderPlaced(true);
-                            } else {
-                                setIsOrderPlaced(false);
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Lỗi khi đặt hàng:', error);
-                            setIsOrderPlaced(false);
-                        });
+            // Tạo dữ liệu đơn hàng
+            const orderData = {
+                _address:
+                    addressInfo.address +
+                    ', ' +
+                    addressInfo.ward +
+                    ', ' +
+                    addressInfo.district +
+                    ', ' +
+                    addressInfo.province,
+                _name: addressInfo.fullName,
+                _phone: addressInfo.phoneNumber,
+                _status: 0,
+                _totalPayment: totalPayment,
+                // _uId: token,
+                _shippingFee: shippingFee,
+                _items: dataValues,
+            };
+            // Gửi yêu cầu POST đến API endpoint
+            postOrder(token, orderData)
+                .then((response) => {
+                    if (response !== null) {
+                        setIsOrderPlaced(true);
+                    } else {
+                        setIsOrderPlaced(false);
+                    }
                 })
                 .catch((error) => {
-                    alert('Đặt hàng thất bại. Vui lòng thử lại sau.');
+                    console.error('Lỗi khi đặt hàng:', error);
                     setIsOrderPlaced(false);
                 });
         } else if (paymentMethod === 'vnpay') {
-            simulatePlaceOrderAPI()
-                .then(() => {
-                    // Tạo dữ liệu đơn hàng
-                    const orderData = {
-                        amount: totalPayment,
-                        bankCode: 'NCB',
-                        orderDescription: `Nap tien cho thue bao ${addressInfo.phoneNumber}. So tien ${totalPayment} VND`,
-                        orderType: '100000',
-                        language: 'vn',
-                        _address: addressInfo.address,
-                        _name: addressInfo.fullName,
-                        _phone: addressInfo.phoneNumber,
-                        _status: 0,
-                        _totalPayment: totalPayment,
-                        _uId: userId,
-                        _shippingFee: shippingFee,
-                        _items: dataValues,
-                    };
-                    // Gửi yêu cầu POST đến API endpoint
+            // Tạo dữ liệu đơn hàng
+            const orderData = {
+                amount: totalPayment,
+                bankCode: 'NCB',
+                orderDescription: `Nap tien cho thue bao ${addressInfo.phoneNumber}. So tien ${totalPayment} VND`,
+                orderType: '100000',
+                language: 'vn',
+                _address: addressInfo.address,
+                _name: addressInfo.fullName,
+                _phone: addressInfo.phoneNumber,
+                _status: 0,
+                _totalPayment: totalPayment,
+                // _uId: userId,
+                _shippingFee: shippingFee,
+                _items: dataValues,
+            };
+            // Gửi yêu cầu POST đến API endpoint
 
-                    postOrderVnpay(orderData)
-                        .then((response) => {
-                            console.log('response');
-                            console.log(response);
-                            // if (response !== null) {
-                            //     setIsOrderPlaced(true);
-                            // } else {
-                            //     setIsOrderPlaced(false);
-                            // }
-                        })
-                        .catch((error) => {
-                            console.error('Lỗi khi đặt hàng:', error);
-                            setIsOrderPlaced(false);
-                        });
+            postOrderVnpay(orderData)
+                .then((response) => {
+                    console.log('response');
+                    console.log(response);
+                    // if (response !== null) {
+                    //     setIsOrderPlaced(true);
+                    // } else {
+                    //     setIsOrderPlaced(false);
+                    // }
                 })
                 .catch((error) => {
-                    alert('Đặt hàng thất bại. Vui lòng thử lại sau.');
+                    console.error('Lỗi khi đặt hàng:', error);
                     setIsOrderPlaced(false);
                 });
         } else {
@@ -324,6 +295,8 @@ function CheckOut() {
                                             className={cx('form-control', 'font-size-16')}
                                             id="exampleFormControlTextarea1"
                                             rows="5"
+                                            value={note} // Hiển thị giá trị từ trạng thái note
+                                            onChange={(e) => setNote(e.target.value)}
                                         ></textarea>
                                     </div>
                                     <label className={cx('d-flex')}>
@@ -455,7 +428,7 @@ function CheckOut() {
                                     <div className={cx('info-order-content', 'd-flex flex-column')}>
                                         <div className={cx('info-order-code', 'd-flex justify-content-between')}>
                                             <div className={cx('col-lg-4', 'text-1')}>Mã đơn hàng</div>
-                                            <div className={cx('col-lg-8', 'text-2')}>KHOA123</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>ASC124osm</div>
                                         </div>
                                         <div
                                             className={cx(
@@ -492,7 +465,7 @@ function CheckOut() {
                                             )}
                                         >
                                             <div className={cx('col-lg-4', 'text-1')}>Ghi chú</div>
-                                            <div className={cx('col-lg-8', 'text-2')}>Giao cẩn thận, hàng dễ vỡ</div>
+                                            <div className={cx('col-lg-8', 'text-2')}>{note}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -502,7 +475,7 @@ function CheckOut() {
                                     </div>
                                     {cartItems.map((item) => (
                                         <div
-                                            index={item._id}
+                                            key={item._id}
                                             className={cx('ordered-product-item', 'd-flex justify-content-between')}
                                         >
                                             <div className={cx('ordered-product-left', 'd-flex')}>

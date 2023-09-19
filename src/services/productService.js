@@ -1,20 +1,13 @@
 import * as httprequest from '../utils/httprequest';
 
-const getProductDetails = async (productId) => {
+export const getProductDetails = async (productId) => {
     try {
-        const res = await httprequest.get(`/products/`, {
-            params: {
-                productId,
-            },
-        });
-        if (res.status === 200) {
-            return res.data; // Trả về dữ liệu khi yêu cầu thành công
-        } else {
-            throw new Error('Yêu cầu không thành công');
-        }
+        const res = await httprequest.get(`/products/${productId}`);
+        console.log(res);
+        return res;
     } catch (error) {
         console.error(error);
-        throw new Error('Lỗi trong quá trình lấy thông tin giỏ hàng'); // Xử lý lỗi và thông báo lỗi cho phía front-end
+        throw new Error('Lỗi trong quá trình lấy thông tin');
     }
 };
 
@@ -40,5 +33,68 @@ export const getAllProductsByCategory = async (categoryId) => {
     } catch (error) {
         console.log(error);
         throw new Error('Lỗi trong quá trình lấy danh mục sản phẩm');
+    }
+};
+
+export const addProduct = async (data) => {
+    try {
+        const res = await httprequest.post(`/products/add`, data);
+        console.log(res);
+        return res;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Lỗi trong quá trình thêm sản phẩm'); // Xử lý lỗi và thông báo lỗi cho phía front-end
+    }
+};
+
+export const editProduct = async (pId, data) => {
+    try {
+        const res = await httprequest.put(`/products/edit`, data, {
+            params: {
+                pId,
+            },
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Lỗi trong quá trình cập nhật thông tin');
+    }
+};
+
+export const hideProduct = async (pId) => {
+    try {
+        const res = await httprequest.put(
+            '/products/hide/',
+            {},
+            {
+                params: {
+                    pId,
+                },
+            },
+        );
+        console.log(res);
+        return res;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Lỗi trong quá trình ẩn sản phẩm'); // Xử lý lỗi và thông báo lỗi cho phía front-end
+    }
+};
+
+export const activeProduct = async (pId) => {
+    try {
+        const res = await httprequest.put(
+            '/products/active/',
+            {},
+            {
+                params: {
+                    pId,
+                },
+            },
+        );
+        console.log(res);
+        return res;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Lỗi trong quá trình kích hoạt sản phẩm'); // Xử lý lỗi và thông báo lỗi cho phía front-end
     }
 };

@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './SidebarAdminMobi.module.scss';
-import { SidebarAdminNavMobi } from './SidebarAdminNavMobi';
+import styles from './SidebarShipperMobi.module.scss';
+import { SidebarShipperNavMobi } from './SidebarShipperNavMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function SidebarAdminMobi() {
+function SidebarShipperMobi() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -17,11 +17,10 @@ function SidebarAdminMobi() {
     };
 
     const navigate = useNavigate();
-
     const handleSignOut = () => {
+        localStorage.removeItem('token');
         navigate('/login');
     };
-
     return (
         <>
             <div className={cx('col-2 d-flex align-items-center', 'sidebar-wrapper')}>
@@ -38,7 +37,7 @@ function SidebarAdminMobi() {
                         </a>
                     </div>
                     <ul>
-                        {SidebarAdminNavMobi.map((val, key) => {
+                        {SidebarShipperNavMobi.map((val, key) => {
                             return (
                                 <li
                                     key={key}
@@ -63,4 +62,4 @@ function SidebarAdminMobi() {
     );
 }
 
-export default SidebarAdminMobi;
+export default SidebarShipperMobi;

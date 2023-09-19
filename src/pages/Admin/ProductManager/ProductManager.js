@@ -10,32 +10,120 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-bootstrap/Modal';
 import Image from '../../../components/Images';
 import * as productService from '../../../services/productService';
+import * as categoryService from '../../../services/categoryService';
 
 const cx = classNames.bind(styles);
 function ProductManager() {
+
+    const [reloadData, setReloadData] = useState(true);
+    const [pId, setpId] = useState('');
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState('');
+    const [salePercent, setSalePercent] = useState('');
+    const [detail, setDetail] = useState('');
+    const [images, setImages] = useState([]);
+    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState('');
+
+    const [brands, setBrands] = useState([
+        {
+            _id: '',
+            _name: ''
+        }
+    ])
+
+    const [categories, setCategories] = useState([
+        {
+            _id: '',
+            _name: '',
+            status: true
+        }
+    ])
+
+    //get all brands
+    useEffect(() => {
+        const fetchAllBrands = async () => {
+            try {
+                const response = await fetch('/api/brands')
+                if (!response.ok) {
+                    throw new Error('Request failed')
+                }
+                const data = await response.json()
+                //console.log(data)
+                setBrands(data)
+
+
+            }
+            catch (error) {
+                console.error('Không lấy được dữ liệu: ', error)
+            }
+        }
+        fetchAllBrands()
+    }, [])
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await categoryService.getAllCategories();
+            setCategories(result);
+        };
+        fetchApi();
+    }, []);
+
     const [productListItems, setProductListItems] = useState([]);
     useEffect(() => {
         const fetchApi = async () => {
             const result = await productService.getAllProducts();
             setProductListItems(result);
         };
-        fetchApi();
-    }, []);
+        if (reloadData) {
+            fetchApi();
+            setReloadData(false); // Đặt lại state để ngăn việc gọi lại liên tục
+        }
+    }, [reloadData]);
 
-    // const [productListItems, setProductListItems] = useState([
-    //     { id: 1, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    //     { id: 2, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    //     { id: 3, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    //     { id: 4, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    //     { id: 5, name: 'Trần Thị Trà My', phone: '0938049556', address: '566 Nguyễn Thái Sơn, F5, Q.GV, TP.HCM' },
-    // ]);
+
+    const hideProduct = async (pId) => {
+        try {
+            const response = await productService.hideProduct(pId);
+            if (response === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu ẩn sản phẩm:', error);
+            return null;
+        }
+    };
 
     const hideItem = (itemId) => {
         const shouldHide = window.confirm('Bạn có muốn ẩn sản phẩm này không?');
         if (shouldHide) {
-            setProductListItems((prevProductListItems) => prevProductListItems.filter((item) => item.id !== itemId));
+            hideProduct(itemId);
+            setReloadData(true);
         }
     };
+
+    const activeProduct = async (pId) => {
+        try {
+            const response = await productService.activeProduct(pId);
+            if (response === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu kích hoạt sản phẩm:', error);
+            return null;
+        }
+    };
+
+    const activeItem = (itemId) => {
+        const shouldActive = window.confirm('Bạn có muốn kích hoạt sản phẩm này không?');
+        if (shouldActive) {
+            activeProduct(itemId);
+            setReloadData(true);
+            
+        }
+    };
+
     const [currentPage, setCurrentPage] = useState(1); // page mặc định là 1
     const totalPages = Math.ceil(productListItems.length / 5); // số page mỗi page 5 item
     const pageItems = [];
@@ -47,8 +135,124 @@ function ProductManager() {
     const currentItems = productListItems.slice(startIndex, endIndex); // item cho page hiện tại
 
     const [addProduct, setAddProduct] = useState(false);
+    const [editProduct, setEditProduct] = useState(false);
     const showAddProductModal = () => setAddProduct(true);
     const closeAddProductModal = () => setAddProduct(false);
+    const closeEditProductModal = () => setEditProduct(false);
+
+    const getProduct =  async (pId) => {
+        try {
+            const result = await productService.getProductDetails(pId);
+            setpId(pId)
+            setName(result._name);
+            setQuantity(result._quantity);
+            setPrice(result._price);
+            setSalePercent(result._salePercent);
+            setDetail(result._detail);
+            setImages(result._images);
+            setCategory(result._categoryId);
+            setBrand(result._brandId._id);
+            if (result === 0) {
+                throw new Error('Yêu cầu không thành công');
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy thông tin sản phẩm:', error);
+            return null;
+        }
+    };
+
+    const showEditProductModal = (pId) => {
+        setEditProduct(true)
+        getProduct(pId)
+    };
+
+    const editItem = (itemId) => {
+        showEditProductModal(itemId);
+    };
+
+    const handleFileChange = (e) => {
+        const selectedFiles = e.target.files; // Lấy danh sách tệp đã chọn
+        
+        if (selectedFiles.length > 0) {
+          const filePromises = Array.from(selectedFiles).map((file) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                resolve(event.target.result);
+              };
+              reader.onerror = (error) => {
+                reject(error);
+              };
+              reader.readAsDataURL(file);
+            });
+          });
+      
+          Promise.all(filePromises)
+            .then((results) => {
+              // results là một mảng các URL hình ảnh đã mã hóa
+              setImages(results);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+    };
+
+    const handleAddProduct = async () => {
+        const newProduct = {
+            _name: name,
+            _quantity: quantity,
+            _price: price,
+            _salePercent: salePercent,
+            _detail: detail,
+            _images: images,
+            _categoryId: category,
+            _brandId: brand,
+        };
+        const result = await productService.addProduct(newProduct);
+        if (result !== null) {
+            setName('');
+            setQuantity('');
+            setPrice('');
+            setSalePercent('');
+            setDetail('');
+            setImages([]);
+            setCategory('');
+            setBrand('');
+            window.alert('Thêm sản phẩm thành công');
+            closeAddProductModal();
+            setReloadData(true);
+        }
+    };
+
+    const handleEditProduct = async (pId) => {
+        const editData = {
+            _name: name,
+            _quantity: quantity,
+            _price: price,
+            _salePercent: salePercent,
+            _detail: detail,
+            _images: images,
+            _categoryId: category,
+            _brandId: brand,
+        };
+        const result = await productService.editProduct(pId, editData);
+        if (result !== null) {
+            setName('');
+            setQuantity('');
+            setPrice('');
+            setSalePercent('');
+            setDetail('');
+            setImages([]);
+            setCategory('');
+            setBrand('');
+            window.alert('cập nhật sản phẩm thành công');
+            closeEditProductModal();
+            setReloadData(true);
+        }
+    };
+
+
 
     return (
         <div className={cx('container-fluid')}>
@@ -98,8 +302,11 @@ function ProductManager() {
                                                 product={item._name}
                                                 price={item._price}
                                                 quantity={item._quantity}
-                                                editItem={"0"}
-                                                hideItem={() => hideItem(item.id)}
+                                                image = {item._images[0]}
+                                                editItem={() => editItem(item._id)}
+                                                hideItem={() => hideItem(item._id)}
+                                                activeItem={() => activeItem(item._id)}
+                                                status={item._status}
                                             />
                                         ))}
                                     </ListProduct>
@@ -164,50 +371,71 @@ function ProductManager() {
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Tên sản phẩm:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input type="text" className={cx('col-lg-9 col-md-9')} onChange={(e) => setName(e.target.value)}/>
                             </div>
                             <div className={cx('row align-items-center')}>
-                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')} >
                                     <div>Số lượng:</div>
                                 </div>
-                                <input type="email" className={cx('col-lg-9 col-md-9')} />
+                                <input type="text" className={cx('col-lg-9 col-md-9')} onChange={(e) => setQuantity(e.target.value)}/>
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Giá:</div>
                                 </div>
-                                <input type="text" className={cx('col-lg-9 col-md-9')} />
+                                <input type="text" className={cx('col-lg-9 col-md-9')} onChange={(e) => setPrice(e.target.value)}/>
+                            </div>
+
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Giảm giá:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} onChange={(e) => setSalePercent(e.target.value)}/>
                             </div>
 
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Thông tin:</div>
                                 </div>
-                                <textarea type="text" className={cx('col-lg-9 col-md-9')} ></textarea>
+                                <textarea type="text" className={cx('col-lg-9 col-md-9')} onChange={(e) => setDetail(e.target.value)}></textarea>
                             </div>
                             <div className={cx('row align-items-center')}>
                                 <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
                                     <div>Hình ảnh:</div>
                                 </div>
-                                <div class={cx('col-lg-9 col-md-9','d-flex')}>
-                                    <div class={cx('col-lg-6 col-md-6')}>
-                                        <Image
-                                            src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
-                                            alt="img"
-                                        />
-                                    </div>
+                                <div class={cx('col-lg-9 col-md-9')}>
                                     <div class={cx('center')}>
-                                        <input type="file" class={cx('form-control')}/>
+                                        <input type="file" class={cx('form-control')} onChange={handleFileChange} accept="image/*" multiple/>
                                     </div>
+                                    <div className={cx('col-lg-12 ','d-flex')}>
+                                        {images.map((image) =>
+                                            (
+                                                <div class={cx('col-lg-2 col-md-2')}>
+                                                <Image
+                                                    src={image}
+                                                    alt="img"
+                                                />
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div className={cx('row align-items-center')}>
-                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
-                                    <div>Danh mục</div>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')} >
+                                    <div>Category</div>
                                 </div>
-                                <select className={cx('col-lg-9 col-md-9')} >
-                                    <option value="${o.id}">111</option>
-                                    <option value="${o.id}">12</option>
+                                <select className={cx('col-lg-9 col-md-9')} onChange={(e) => setCategory(e.target.value)}>
+                                    {categories.map((category) => (<option value={category._id}>{category._name}</option>))}
+								</select>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Brand</div>
+                                </div>
+                                <select className={cx('col-lg-9 col-md-9')} onChange={(e) => setBrand(e.target.value)}>
+                                    {brands.map((brand) => (<option value={brand._id}>{brand._name}</option>))}
 								</select>
                             </div>
                         </Modal.Body>
@@ -215,8 +443,95 @@ function ProductManager() {
                             <button className={cx('btn btn-secondary btn-lg')} onClick={closeAddProductModal}>
                                 Đóng
                             </button>
-                            <button className={cx('btn btn-primary btn-lg')} onClick={closeAddProductModal}>
+                            <button className={cx('btn btn-primary btn-lg')} onClick={handleAddProduct}>
                                 Thêm
+                            </button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Modal show={editProduct} onHide={closeEditProductModal} className={cx('add-product-modal')}>
+                        <Modal.Header closeButton>
+                            <div className={cx('title-modal')}>Thêm sản phẩm</div>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Tên sản phẩm:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} value={name} onChange={(e) => setName(e.target.value)}/>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')} >
+                                    <div>Số lượng:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Giá:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} value={price} onChange={(e) => setPrice(e.target.value)}/>
+                            </div>
+
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Giảm giá:</div>
+                                </div>
+                                <input type="text" className={cx('col-lg-9 col-md-9')} value={salePercent} onChange={(e) => setSalePercent(e.target.value)}/>
+                            </div>
+
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Thông tin:</div>
+                                </div>
+                                <textarea type="text" className={cx('col-lg-9 col-md-9')} value={detail} onChange={(e) => setDetail(e.target.value)}></textarea>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Hình ảnh:</div>
+                                </div>
+                                <div class={cx('col-lg-9 col-md-9')}>
+                                    <div class={cx('center')}>
+                                        <input type="file" class={cx('form-control')} onChange={handleFileChange} accept="image/*" multiple/>
+                                    </div>
+                                    <div className={cx('col-lg-12 ','d-flex')}>
+                                        {images.map((image) =>
+                                            (
+                                                <div class={cx('col-lg-2 col-md-2')}>
+                                                <Image
+                                                    src={image}
+                                                    alt="img"
+                                                />
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')} >
+                                    <div>Category</div>
+                                </div>
+                                <select className={cx('col-lg-9 col-md-9')} onChange={(e) => setCategory(e.target.value)}>
+                                    {categories.map((categoryy) => (<option value={categoryy._id} selected={categoryy._id === category ? true : false}>{categoryy._name}</option>))}
+								</select>
+                            </div>
+                            <div className={cx('row align-items-center')}>
+                                <div className={cx('col-lg-3 col-md-3', 'heading-modal')}>
+                                    <div>Brand</div>
+                                </div>
+                                <select className={cx('col-lg-9 col-md-9')} onChange={(e) => setBrand(e.target.value)}>
+                                    {brands.map((brandd) => (<option value={brandd._id} selected={brandd._id === brand ? true : false}>{brandd._name}</option>))}
+								</select>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button className={cx('btn btn-secondary btn-lg')} onClick={closeEditProductModal}>
+                                Đóng
+                            </button>
+                            <button className={cx('btn btn-primary btn-lg')} onClick={(e) => handleEditProduct(pId)}>
+                                Cập nhật
                             </button>
                         </Modal.Footer>
                     </Modal>

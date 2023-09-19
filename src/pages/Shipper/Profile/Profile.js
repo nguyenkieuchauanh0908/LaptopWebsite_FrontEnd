@@ -4,13 +4,16 @@ import classNames from 'classnames/bind';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import moment from 'moment';
-import SidebarAdmin from '../../../Layout/components/SidebarAdmin';
-import SidebarAdminMobi from '../../../Layout/components/SidebarAdmin/SidebarAdminMobi';
+import SidebarShipper from '../../../Layout/components/SidebarShipper';
+import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as profileShipperService from '../../../services/shipper/profileShipperService';
+import noImage from '../../../assets/images';
+import { Navigate  } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
 function Profile() {
+    const [shouldNavigate, setShouldNavigate] = useState(false);
     const datePickerRef = useRef(null);
     useEffect(() => {
         flatpickr(datePickerRef.current, {
@@ -22,17 +25,26 @@ function Profile() {
         });
       }, []);
 
-    const userId = '64b8b48d116933190a3d3543';
+    const [uid, setUid] = useState([]);
     const [reloadData, setReloadData] = useState(true);
+    const [avatar, setAvatar] = useState([]);
     const [user, setUser] = useState([]);
     const [name, setName] = useState([]);
     const [gender, setGender] = useState([]);
     const [dateOfBirth, setDateOfBirth] = useState([]);
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await profileShipperService.getUser(userId);
+            const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+            if (!token) {
+                // Xử lý trường hợp token không tồn tại
+                setShouldNavigate(true);
+                return;
+            }
+            const result = await profileShipperService.getUser(token);
             setUser(result);
+            setUid(result._id)
             setName(result._fname+" "+result._lname)
+            setAvatar(result._avatar)
             setGender(result._gender)
             setDateOfBirth((result._dateOfBirth))
         };
@@ -49,27 +61,41 @@ function Profile() {
         setGender(event.target.value);
     };
 
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0]; // Lấy tệp đã chọn
+        if (selectedFile) {
+            // Đọc tệp và cập nhật state avatar với URL hình ảnh mới
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setAvatar(event.target.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    };
+
     const submitHandler = async () => {
         const editData = {
             _fname: name.split(' ').slice(0, -1).join(' '),
             _lname: name.split(' ').slice(-1).join(' '),
+            _avatar: avatar,
             _gender: gender,
             _dateOfBirth: dateOfBirth,    
         };
-        const result = await profileShipperService.editProfile(userId, editData);
+        const result = await profileShipperService.editProfile(uid, editData);
         if (result === 1) {
             setReloadData(true);
             window.alert('Cập nhật thông tin thành công');
         }
     };
 
-    return (  
+    return ( 
         <div className={cx('d-flex', 'page')}>
+            {shouldNavigate ? <Navigate to="/login" /> : null}
             <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
-                    <SidebarAdmin />
+                    <SidebarShipper />
                 </div>
                 <div className={cx('d-block d-xl-none', 'sidebar-mobi-wrapper')}>
-                    <SidebarAdminMobi />
+                    <SidebarShipperMobi />
                 </div>
             <div class={cx('container')}>
                 <div className={cx('d-flex align-items-center', 'section')}>Hồ sơ</div>
@@ -79,14 +105,14 @@ function Profile() {
                             <p class={cx('title')}>Hồ sơ của tôi</p>
                         </div>
                         <div class="row justify-content-center">
-                            <form>
+                            <form enctype="multipart/form-data">
                                 <div class={cx('d-inline', 'col-md-12', 'centerP')}>
                                     <div class={cx('left')}>
                                         <div class={cx('avatar', 'justify-content-center')}>
-                                            <img src={user._avatar} class="rounded-circle avatar" alt="Ảnh"/>
+                                            <img src={avatar  ? avatar : noImage.noImage} class="rounded-circle avatar" alt="Ảnh"/>
                                         </div>
                                         <div class={cx('file')}>
-                                            <input type="file" class={cx('form-control')}/>
+                                            <input type="file" class={cx('form-control')} onChange={handleFileChange} accept="image/*"/>
                                         </div>
                                     </div>
                                 </div>

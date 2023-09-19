@@ -1,8 +1,11 @@
 import * as shipperhttprequest from '../../utils/httprequest';
 
-export const getUser = async (userId) => {
+export const getUser = async (token) => {
     try {
-        const res = await shipperhttprequest.get(`/shipper/profile/${userId}`);
+        const res = await shipperhttprequest.get(`/shipper/profile/`,{
+            headers: {
+                Authorization: `Bearer ${token}`, // Gửi token trong header
+            }});
         console.log(res);
         return res;
     } catch (error) {
@@ -24,3 +27,4 @@ export const editProfile = async (userId, data) => {
         throw new Error('Lỗi trong quá trình cập nhật thông tin');
     }
 };
+

@@ -31,8 +31,13 @@ const getOrderByStatus = async (status) => {
 
 const postOrder = async (orderData) => {
     try {
-        const response = await httprequest.post('/orders/create', orderData);
-        return response;
+        // Sử dụng axios.post thay vì httprequest.post
+        const response = await httprequest.post('/orders/create', orderData, {
+            headers: {
+                Authorization: `Bearer ${token}`, // Gửi token trong header
+            },
+        });
+        return response.data; // Trả về dữ liệu phản hồi từ API
     } catch (error) {
         console.log('Lỗi khi đặt hàng:', error);
         throw new Error('Đã xảy ra lỗi khi đặt hàng');

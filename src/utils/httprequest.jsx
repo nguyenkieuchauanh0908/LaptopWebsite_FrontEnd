@@ -18,4 +18,10 @@ export const put = async (path, data = {}, options = {}) => {
     const response = await httpRequest.put(path, data, options);
     return response.data;
 };
+
+export const deleteRequest = async (path, options = {}) => {
+    const response = await httpRequest.delete(path, options);
+    return response.data;
+};
+
 export default httpRequest;
