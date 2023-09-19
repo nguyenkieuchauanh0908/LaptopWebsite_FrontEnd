@@ -3,17 +3,12 @@ import { DarkUserIcon } from '../../../components/Icons';
 export const SidebarCustomerNav = [
     {
         title: 'Tài khoản',
-        icon: <DarkUserIcon />,
+        icon: null,
         to: '/profile',
     },
     {
         title: 'Đơn hàng',
         icon: null,
-        to: '/admin/product-manager',
-    },
-    {
-        title: 'Thông báo',
-        icon: null,
-        to: '/admin/customer-manager',
+        to: '/check-order',
     },
 ];

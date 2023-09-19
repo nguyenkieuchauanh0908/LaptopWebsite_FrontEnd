@@ -25,6 +25,7 @@ import Order from '../pages/Shipper/Order/Order';
 import Category from '../pages/Category';
 
 import ProfileCustomer from '../pages/Profile/ProfileCustomer';
+import CheckOrder from '../pages/CheckOrder/CheckOrder';
 // public Routes
 const publicRoutes = [
     { path: '/', component: Home },
@@ -40,6 +41,7 @@ const publicRoutes = [
     { path: '/search', component: Search },
     { path: '/admin/', component: AdminLogin, layout: null },
     { path: '/profile', component: ProfileCustomer, layout: HeaderOnly },
+    { path: '/check-order', component: CheckOrder, layout: HeaderOnly },
     { path: '/admin/customer-manager', component: CustomerManager, layout: null },
     { path: '/admin/employee-manager', component: EmployeeManager, layout: null },
     { path: '/admin/product-manager', component: ProductManager, layout: null },

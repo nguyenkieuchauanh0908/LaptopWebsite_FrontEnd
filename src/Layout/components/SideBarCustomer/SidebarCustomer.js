@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './SidebarCustomer.module.scss';
-import Image from '../../../components/Images';
 import { SignOutIcon } from '../../../components/Icons';
 import { SidebarCustomerNav } from './SidebarCustomerNav';
 const cx = classNames.bind(styles);
