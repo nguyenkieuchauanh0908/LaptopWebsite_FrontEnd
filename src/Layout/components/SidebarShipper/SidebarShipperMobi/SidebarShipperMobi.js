@@ -5,6 +5,7 @@ import { SidebarShipperNavMobi } from './SidebarShipperNavMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function SidebarShipperMobi() {
@@ -13,6 +14,12 @@ function SidebarShipperMobi() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
+    };
+
+    const navigate = useNavigate();
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
     };
     return (
         <>
@@ -46,7 +53,7 @@ function SidebarShipperMobi() {
                             );
                         })}
                     </ul>
-                    <div className={cx('sign-out')}>
+                    <div className={cx('sign-out')} onClick={handleSignOut}>
                         <span>Đăng xuất</span>
                     </div>
                 </div>

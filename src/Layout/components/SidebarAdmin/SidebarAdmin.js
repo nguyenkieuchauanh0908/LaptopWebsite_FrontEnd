@@ -5,6 +5,7 @@ import Image from '../../../components/Images';
 import { SignOutIcon } from '../../../components/Icons';
 import { SidebarAdminNav } from './SidebarAdminNav';
 import * as profileAdminService from '../../../services/profileAdminService';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 function SidebarAdmin() {
     const userId = '64b8b48d116933190a3d3543';
@@ -16,6 +17,11 @@ function SidebarAdmin() {
         };
         fetchApi();
     }, []);
+
+    const navigate = useNavigate();
+    const handleSignOut = () => {
+        navigate('/login');
+    };
     return (
         <div className={cx(' d-flex flex-column justify-content-between', 'sidebar-wrapper')}>
             <div>
@@ -49,7 +55,7 @@ function SidebarAdmin() {
                     </ul>
                 </div>
             </div>
-            <div className={cx('d-flex align-items-center justify-content-center text-bg-primary', 'sign-out')}>
+            <div className={cx('d-flex align-items-center justify-content-center text-bg-primary', 'sign-out')} onClick={handleSignOut}>
                 <SignOutIcon />
             </div>
         </div>

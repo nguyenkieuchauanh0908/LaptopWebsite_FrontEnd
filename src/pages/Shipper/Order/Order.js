@@ -7,17 +7,25 @@ import OrderItem from '../../../components/OrderItem';
 import SidebarShipper from '../../../Layout/components/SidebarShipper';
 import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as orderShipperService from '../../../services/shipper/orderShipperService';
+import { Navigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
 function Order() {
     const uId = '64bb2a60f881c0eaf1e02a6b';
+    const [shouldNavigate, setShouldNavigate] = useState(false);
     const [reloadData, setReloadData] = useState(true);
     const [orderListItems, setOrderListItems] = useState([]);
     const [orderListItemTagCurrent, setOrderListItemTagCurrent] = useState([]);
 
     useEffect(() => {
         const fetchApi = async () => {
+            const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+            if (!token) {
+                // Xử lý trường hợp token không tồn tại
+                setShouldNavigate(true);
+                return;
+            }
             const result = await orderShipperService.getShipperOrders(uId);
             setOrderListItems(result);
             setOrderListItemTagCurrent(result);
@@ -114,6 +122,7 @@ function Order() {
 
     return (  
         <div className={cx('d-flex', 'page')}>
+            {shouldNavigate ? <Navigate to="/login" /> : null}
             <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
                 <SidebarShipper />
             </div>

@@ -5,6 +5,7 @@ import { SidebarAdminNavMobi } from './SidebarAdminNavMobi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function SidebarAdminMobi() {
@@ -14,6 +15,13 @@ function SidebarAdminMobi() {
         setIsMenuOpen(!isMenuOpen);
         document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
     };
+
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        navigate('/login');
+    };
+
     return (
         <>
             <div className={cx('col-2 d-flex align-items-center', 'sidebar-wrapper')}>
@@ -46,7 +54,7 @@ function SidebarAdminMobi() {
                             );
                         })}
                     </ul>
-                    <div className={cx('sign-out')}>
+                    <div className={cx('sign-out')} onClick={handleSignOut}>
                         <span>Đăng xuất</span>
                     </div>
                 </div>

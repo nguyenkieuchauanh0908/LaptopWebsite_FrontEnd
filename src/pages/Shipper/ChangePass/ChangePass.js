@@ -5,17 +5,24 @@ import classNames from 'classnames/bind';
 import SidebarShipper from '../../../Layout/components/SidebarShipper';
 import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as profileShipperService from '../../../services/shipper/profileShipperService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
 function ChangePass() {
     const userId = '64bb2a60f881c0eaf1e02a6b';
+    const [shouldNavigate, setShouldNavigate] = useState(false);
     const [user, setUser] = useState([]);
     const [reloadData, setReloadData] = useState(true);
     const navigate = useNavigate ();
     useEffect(() => {
         const fetchApi = async () => {
+            const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+            if (!token) {
+                // Xử lý trường hợp token không tồn tại
+                setShouldNavigate(true);
+                return;
+            }
             const result = await profileShipperService.getUser(userId);
             setUser(result);
         };
@@ -136,6 +143,7 @@ function ChangePass() {
     };
     return (  
         <div className={cx('d-flex', 'page')}>
+            {shouldNavigate ? <Navigate to="/login" /> : null}
             <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
                 <SidebarShipper />
             </div>

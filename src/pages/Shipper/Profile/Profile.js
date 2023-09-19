@@ -8,10 +8,12 @@ import SidebarShipper from '../../../Layout/components/SidebarShipper';
 import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as profileShipperService from '../../../services/shipper/profileShipperService';
 import noImage from '../../../assets/images';
+import { Navigate  } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
 function Profile() {
+    const [shouldNavigate, setShouldNavigate] = useState(false);
     const datePickerRef = useRef(null);
     useEffect(() => {
         flatpickr(datePickerRef.current, {
@@ -23,7 +25,7 @@ function Profile() {
         });
       }, []);
 
-    const userId = '64b8b48d116933190a3d3543';
+    const userId = '64bb2a60f881c0eaf1e02a6b';
     const [reloadData, setReloadData] = useState(true);
     const [avatar, setAvatar] = useState([]);
     const [user, setUser] = useState([]);
@@ -32,6 +34,12 @@ function Profile() {
     const [dateOfBirth, setDateOfBirth] = useState([]);
     useEffect(() => {
         const fetchApi = async () => {
+            const token = localStorage.getItem('token'); // Lấy token từ Local Storage
+            if (!token) {
+                // Xử lý trường hợp token không tồn tại
+                setShouldNavigate(true);
+                return;
+            }
             const result = await profileShipperService.getUser(userId);
             setUser(result);
             setName(result._fname+" "+result._lname)
@@ -79,8 +87,9 @@ function Profile() {
         }
     };
 
-    return (  
+    return ( 
         <div className={cx('d-flex', 'page')}>
+            {shouldNavigate ? <Navigate to="/login" /> : null}
             <div className={cx('col-lg-3 col-xl-2 d-none d-xl-block', 'sidebar-wrapper')}>
                     <SidebarShipper />
                 </div>
