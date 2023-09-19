@@ -162,7 +162,7 @@ function ProfileAdmin() {
                                         <div className={cx('d-flex justify-content-center')}>
                                             <div className={cx('avatar')}>
                                                 <img
-                                                    src="https://res.cloudinary.com/dawwzvnhe/image/upload/v1692778654/src/images/products/Monitor/Dell/LCD_S2421H/front1_zcl5i8.webp"
+                                                    src="https://haycafe.vn/wp-content/uploads/2022/02/Avatar-trang-den.png"
                                                     alt="avatar"
                                                 />
                                             </div>
