@@ -7,12 +7,13 @@ import OrderItem from '../../../components/OrderItem';
 import SidebarShipper from '../../../Layout/components/SidebarShipper';
 import SidebarShipperMobi from '../../../Layout/components/SidebarShipper/SidebarShipperMobi';
 import * as orderShipperService from '../../../services/shipper/orderShipperService';
+import * as profileShipperService from '../../../services/shipper/profileShipperService';
 import { Navigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
 function Order() {
-    const uId = '64bb2a60f881c0eaf1e02a6b';
+    const [uid, setUid] = useState(null);
     const [shouldNavigate, setShouldNavigate] = useState(false);
     const [reloadData, setReloadData] = useState(true);
     const [orderListItems, setOrderListItems] = useState([]);
@@ -26,7 +27,20 @@ function Order() {
                 setShouldNavigate(true);
                 return;
             }
-            const result = await orderShipperService.getShipperOrders(uId);
+            const user = await profileShipperService.getUser(token);
+            setUid(user._id);
+        };
+        fetchApi();
+            
+    },[])
+
+    useEffect(() => {
+        if (!uid) {
+            setReloadData(true);
+            return;
+        }
+        const fetchApi = async () => {
+            const result = await orderShipperService.getShipperOrders(uid);
             setOrderListItems(result);
             setOrderListItemTagCurrent(result);
         };
@@ -34,7 +48,7 @@ function Order() {
             fetchApi();
             setReloadData(false); // Đặt lại state để ngăn việc gọi lại liên tục
         }
-    }, [reloadData]);
+    }, [reloadData, uid]);
 
     const [tagCurrent, setTagcurrent] = useState(1);
     const filter = (tag) => {
@@ -78,7 +92,7 @@ function Order() {
     const currentItems = orderListItemTagCurrent.slice(startIndex, endIndex); // item cho page hiện tại
 
     const comfirmOrder = async (orderId) => {
-        const result = await orderShipperService.comfirmOrder(orderId, { _status: 1, _shipperId: uId });
+        const result = await orderShipperService.comfirmOrder(orderId, { _status: 1, _shipperId: uid });
         if (result === 1) {
             setReloadData(true);
         }

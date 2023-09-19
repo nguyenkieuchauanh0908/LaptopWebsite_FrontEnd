@@ -10,7 +10,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 const cx = classNames.bind(styles)
 
 function ChangePass() {
-    const userId = '64bb2a60f881c0eaf1e02a6b';
+    const [uid, setUid] = useState([]);
     const [shouldNavigate, setShouldNavigate] = useState(false);
     const [user, setUser] = useState([]);
     const [reloadData, setReloadData] = useState(true);
@@ -23,8 +23,9 @@ function ChangePass() {
                 setShouldNavigate(true);
                 return;
             }
-            const result = await profileShipperService.getUser(userId);
+            const result = await profileShipperService.getUser(token);
             setUser(result);
+            setUid(result._id);
         };
         
         if (reloadData) {
@@ -77,7 +78,7 @@ function ChangePass() {
                             body: JSON.stringify(
                                 {
                                     "oldPassword": oldPassword,
-                                    "id": userId,
+                                    "id": uid,
                                 }
                             ),
                         });

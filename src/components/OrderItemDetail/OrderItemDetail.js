@@ -7,6 +7,7 @@ const cx = classNames.bind(styles);
 function OrderItemDetail({ id, quantity }) {
     const [product, setProduct] = useState([]);
     const [price, setPrice] = useState('');
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -15,6 +16,7 @@ function OrderItemDetail({ id, quantity }) {
             console.log(product);
             setProduct(product);
             setPrice((product._price * quantity).toLocaleString('vi-VN'));
+            setImages(product._images);
         };
         fetchApi();
     }, []);
@@ -22,7 +24,7 @@ function OrderItemDetail({ id, quantity }) {
         <div className={cx('col-lg-12','d-flex','product')}>
             <div className={cx('col-lg-3','product-img', 'text-center')}>
                 <Image
-                    src="https://lh3.googleusercontent.com/Jsg6-adZeI1TZnmeIT8Tpal63lIr4tLji5QjZaOWJjjXPY1blN5K9cG1MWkI7LesQj-8Xw80MVRBQwXWd9fs-kC03cyFCxo=w230-rw"
+                    src={images[0]}
                     alt="img"
                 />
             </div>

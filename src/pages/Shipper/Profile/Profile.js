@@ -25,7 +25,7 @@ function Profile() {
         });
       }, []);
 
-    const userId = '64bb2a60f881c0eaf1e02a6b';
+    const [uid, setUid] = useState([]);
     const [reloadData, setReloadData] = useState(true);
     const [avatar, setAvatar] = useState([]);
     const [user, setUser] = useState([]);
@@ -40,8 +40,9 @@ function Profile() {
                 setShouldNavigate(true);
                 return;
             }
-            const result = await profileShipperService.getUser(userId);
+            const result = await profileShipperService.getUser(token);
             setUser(result);
+            setUid(result._id)
             setName(result._fname+" "+result._lname)
             setAvatar(result._avatar)
             setGender(result._gender)
@@ -80,7 +81,7 @@ function Profile() {
             _gender: gender,
             _dateOfBirth: dateOfBirth,    
         };
-        const result = await profileShipperService.editProfile(userId, editData);
+        const result = await profileShipperService.editProfile(uid, editData);
         if (result === 1) {
             setReloadData(true);
             window.alert('Cập nhật thông tin thành công');
