@@ -121,7 +121,7 @@ function Login({ isShown = false, handleCloseForm }) {
                         </div>
                     </form>
                 </div>
-                ) : navigate('/shipper/order')
+                ) : navigate('/shipper/profile')
             }
 
         </>

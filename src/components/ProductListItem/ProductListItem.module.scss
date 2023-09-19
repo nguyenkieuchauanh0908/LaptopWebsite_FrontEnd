@@ -7,11 +7,20 @@
     border-bottom: none;
 }
 
-.hide {
-    color: red;
+.item-hide {
+    color: rgba(255, 0, 0, 0.886);
 }
 
-.hide:hover {
+.item-hide:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.item-active{
+    color: green;
+}
+
+.item-active:hover{
     opacity: 0.5;
     cursor: pointer;
 }
