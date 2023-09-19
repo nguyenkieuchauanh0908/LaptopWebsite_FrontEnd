@@ -30,6 +30,7 @@ const getOrderByStatus = async (status) => {
 };
 
 const postOrder = async (orderData) => {
+    const token = localStorage.getItem('token');
     try {
         // Sử dụng axios.post thay vì httprequest.post
         const response = await httprequest.post('/orders/create', orderData, {
