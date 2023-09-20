@@ -285,11 +285,11 @@ function Header() {
                                                 trigger="click"
                                                 render={(attrs) => (
                                                     <div className={cx('accout-result')}>
-                                                        <Link to={'/account'}>
+                                                        <Link to={'/profile'}>
                                                             <FontAwesomeIcon icon={faUser} />
                                                             <p>Xem hồ sơ</p>
                                                         </Link>
-                                                        <Link to={'/account'}>
+                                                        <Link to={'/check-order'}>
                                                             <FontAwesomeIcon icon={faTruckFast} />
                                                             <p>Theo dõi đơn hàng</p>
                                                         </Link>
