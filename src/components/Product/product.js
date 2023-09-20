@@ -57,6 +57,7 @@ function ProductCard(props) {
                     toast.error('Có lỗi xảy ra trong quá trình thêm giỏ hàng!');
                 }
             } catch (error) {
+                toast.error('Có lỗi xảy ra trong quá trình thêm giỏ hàng!');
                 console.error('Error:', error);
             } finally {
                 console.log('Done!')

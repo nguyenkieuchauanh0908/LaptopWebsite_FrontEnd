@@ -47,15 +47,15 @@ function Login({ isShown = false, handleCloseForm }) {
                     // Registration was successful
                     setIsLoggedIn(true)
                     localStorage.setItem('token', data.token)
-                    //toast.success('Đăng nhập thành công!');
+                    toast.success('Đăng nhập thành công!');
                 } else {
                     // Registration failed 
                     setError(data.message)
-                    //toast.success('Đăng nhập thất bại!');
+                    toast.success('Đăng nhập thất bại!');
                 }
             } catch (error) {
                 setError('Đăng nhập thất bại, vui lòng thử lại!')
-                //toast.error('Đăng nhập thất bại, vui lòng thử lại!');
+                toast.error('Đăng nhập thất bại, vui lòng thử lại!');
             }
 
         }

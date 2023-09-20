@@ -7,6 +7,8 @@ import {
     MinusIcon
 } from '../../../components/Icons'
 import { Link, Navigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles)
 function ProductInfo(props) {
@@ -36,45 +38,39 @@ function ProductInfo(props) {
     }
 
     const handleAddToCartClick = async (itemId, itemQuantity = 1) => {
-        if (props.quantity === 0) {
-            alert('Sản phẩm hiện tại hết hàng, vui lòng quay lại sau!')
+        if (token) {
+            try {
+
+                const response = await fetch('/api/carts/add-to-cart', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        "itemId": itemId,
+                        "quantity": itemQuantity
+                    }),
+                });
+
+                if (response.ok) {
+                    toast.success('Thêm thành công sản phẩm vào giỏ hàng!')
+                } else {
+                    toast.error('Có lỗi xảy ra trong quá trình thêm giỏ hàng!');
+                }
+            } catch (error) {
+                toast.error('Có lỗi xảy ra trong quá trình thêm giỏ hàng!');
+                console.error('Error:', error);
+            } finally {
+                console.log('Done!')
+            }
         }
         else {
-            if (token) {
-                try {
-
-                    const response = await fetch('/api/carts/add-to-cart', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            "itemId": itemId,
-                            "quantity": itemQuantity
-                        }),
-                    });
-
-                    if (response.ok) {
-                        console.log('Thêm thành công sản phẩm vô giỏ hàng!');
-                    } else {
-                        console.error('Thêm sản phẩm vào giỏ hàng thất bại!');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                } finally {
-                    console.log('Done!')
-                }
-            }
-            else {
-                alert('Vui lòng đăng nhập để thực hiện chức năng này!')
-            }
+            alert('Vui lòng đăng nhập để thực hiện chức năng này!')
         }
 
 
-
-
-    }
+    };
 
     const handleCheckOutClick = () => {
         if (props.quantity === 0) {
