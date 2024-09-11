@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Introduction
+- An internship project that I joined in my third year (Jul 2023 - Sep 2023). 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Technology
+- ReactJS
+- NodeJS
+- ExpressJS
+- MongoDB
+- Authentication with JSON Web Token
+  
+# Main Feature
+- Website seling laptop with basic features (rendering products by categories, search, see detail, add to cart, payment, tracking orders, etc...)
 
-## Available Scripts
+# What did I do?
+- Working at both the front-end and back-end, I was mainly responsible for authentication, home page, detail page, search, and  add-to-cart logic on both sides. Besides, I was also in charge of managing the database side.
 
-In the project directory, you can run:
+# What did I learn?
+- Working in teams
+- Designing UI with Figma
+- Buiding UI with ReactJS
+- Writing restful API with ExpressJS framework
+- Using MongoDB for database management
+  
+# Installation
+- Make sure you clone the <a href='https://github.com/nguyenkieuchauanh0908/Backend-Uptech'>Backend</a>
+- Installing nodejs v18 (at least)
+- Follow these steps
+  1. Run <code>npm i </code> to install all necessary libraries and packages
+  2. Run <code>npm start </code> to start the server. The server will run with the default local port 3000
 
-### `npm start`
+# Previews
+1. Login
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   <img src='previews/login.png'>
+   
+3. Sign up
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   <img src='previews/signup.png'>
+   
+5. Home Page
 
-### `npm test`
+   <img src='previews/home.png'>
+   
+7. Detail Page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   <img src='previews/cart_detail.png'>
+   
+9. Filter by categories
 
-### `npm run build`
+   <img src='previews/search.png'>
+   
+11. Cart
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    <img src='previews/cart.png'>
+    
+13. Payment
+    <img src='previews/payment.png'>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# What can do next?
+- Improve the authentication route (it's quite simple now and can be easily attacked by hackers)
+- Improve performance of the website (lazy loading, cache memory, etc...)
+- Add advanced filter features (filter by price, distance, etc)
